@@ -5,21 +5,22 @@ Unlike other takes on posing systems, this system uses _too many to count_ param
 Contents:
 - [Quick Start](https://github.com/IlexisTheMadcat/LexisPosingSystem/tree/main?tab=readme-ov-file#quick-start)
 - [Usage](https://github.com/IlexisTheMadcat/LexisPosingSystem/tree/main?tab=readme-ov-file#usage)
-- - [Menus](https://github.com/IlexisTheMadcat/LexisPosingSystem/tree/main?tab=readme-ov-file#menus)
-  - - [Lexi's Posing System](https://github.com/IlexisTheMadcat/LexisPosingSystem/tree/main?tab=readme-ov-file#lexis-posing-system)
+  - [Menus](https://github.com/IlexisTheMadcat/LexisPosingSystem/tree/main?tab=readme-ov-file#menus)
+    - [Lexi's Posing System](https://github.com/IlexisTheMadcat/LexisPosingSystem/tree/main?tab=readme-ov-file#lexis-posing-system)
     - [Settings](https://github.com/IlexisTheMadcat/LexisPosingSystem/tree/main?tab=readme-ov-file#settings)
     - [Saving](https://github.com/IlexisTheMadcat/LexisPosingSystem/tree/main?tab=readme-ov-file#saving)
     - [Rotation](https://github.com/IlexisTheMadcat/LexisPosingSystem/tree/main?tab=readme-ov-file#rotation)
     - [Hands & Eyes](https://github.com/IlexisTheMadcat/LexisPosingSystem/tree/main?tab=readme-ov-file#hands--eyes)
     - [Eyes](https://github.com/IlexisTheMadcat/LexisPosingSystem/tree/main?tab=readme-ov-file#eyes)
-  - Rotation Gadgets - still writing
-  - Physbone Gadgets - still writing
+  - [Rotation Gadgets](https://github.com/IlexisTheMadcat/LexisPosingSystem/tree/main?tab=readme-ov-file#rotation-gadgets)
+  - [Physbone Gadgets](https://github.com/IlexisTheMadcat/LexisPosingSystem/tree/main?tab=readme-ov-file#physbone-gadgets)
+  - Move Gadget - coming soon
 - Important: Puppets with Modular Avatar stuff - still writing
 - Important: Puppets with unsupported VRCFury - still writing
   
 # Quick Start
 LPS has a fairly simple setup process thanks to the required package [Modular Avatar](https://modular-avatar.nadena.dev/docs/intro). You can follow the instructions on that page to install Modular Avatar via the VRChat Creator Companion app. \
-Please install this onto a copy of your avatar so that you can attend public worlds without lagging everyone in the instance.
+Please install this onto a separate copy of your avatar so that you can attend public worlds without lagging everyone in the instance.
 1) Drag the prefab from the installation's Prefab folder into your avatar.
    ![Image 1](https://raw.githubusercontent.com/IlexisTheMadcat/LexisPosingSystem/refs/heads/main/readme%20images/LPS-Readme1.png)
 2) Duplicate the whole avatar and remove LPS from it. \
@@ -73,12 +74,14 @@ When you load into a world, you will experience a large lag spike as everything 
 2) Begin loading a pose. Click one of the three slots to load. **WILL NOT ASK FOR CONFIRMATION.**
 3) Slot 1.
 4) Slot 2.
-5) Slot 3. \
-Must click either save or load for slots to do anything.
+5) Slot 3. 
+- Must click either save or load for slots to do anything.
 ### Rotation
 ![Menu 4](https://raw.githubusercontent.com/IlexisTheMadcat/LexisPosingSystem/refs/heads/main/readme%20images/action%20menu/LPS-Menu6.png)
 1) Joint children.
 2) XYZ joint rotation. The root rotation menu is the Hips and will rotate the entire puppet.
+- Some joints do not have all of XYZ because they don't move in those directions. \
+This posing system is designed to be anatomically accurate while also being forgiving and letting creativity go wild.
 ### Hands & Eyes
 ![Menu 5](https://raw.githubusercontent.com/IlexisTheMadcat/LexisPosingSystem/refs/heads/main/readme%20images/action%20menu/LPS-Menu7.png)
 1) Left/Right hands. Includes submenus for each finger. Each finger has a joint control for the three joints and a sideways movement called "spread".
@@ -87,5 +90,19 @@ Must click either save or load for slots to do anything.
 ### Eyes
 ![Menu 6](https://raw.githubusercontent.com/IlexisTheMadcat/LexisPosingSystem/refs/heads/main/readme%20images/action%20menu/LPS-Menu8.png)
 1) Right eye XY rotation.
-2) Left eye XY rotation. \
-Z is not included because eyes don't normally rotate.
+2) Left eye XY rotation. 
+- Z is not included because eyes don't normally rotate.
+## Rotation Gadgets
+The rotation gadgets appear either when you select Show All Gadgets in the settings menu, or when you select a joint to rotate in the menu. \
+![Gadgets 1](https://raw.githubusercontent.com/IlexisTheMadcat/LexisPosingSystem/refs/heads/main/readme%20images/gadgets/LPS-Gadgets2rev3.png) \
+The Y axis is labeled, but the others are the same way, just in different colors.
+1) Rotation cursor
+2) Rotation bounds
+3) Rotation guide ring
+- In LPS, rotation is achieved by putting X, Y, and Z axes in hierarchical order. X moves XYZ, Y moves YZ, and Z only moves Z. This can be a bit quirky to manage for certain poses, but if you're in VR, you can use the physbone handles shown below.
+## Physbone Gadgets
+These blue bars represent the bones you can grab to pose the avatar. These can be hidden in the settings menu.
+![Gadget 2](https://raw.githubusercontent.com/IlexisTheMadcat/LexisPosingSystem/refs/heads/main/readme%20images/gadgets/LPS-Gadgets1rev1.png)
+1) Polar handle. This pitches the joint along two axes.
+2) Twist handle. This twists the joint along one axis.
+- You can use both polar and twist handles to automatically rotate the hand to the orientation you wish. These let you move two or even all three axes at once, making it much more practical to use in VR. The joints lag behind because the animator increments the parameters, which limits its ability to track the physbone handles perfectly.
