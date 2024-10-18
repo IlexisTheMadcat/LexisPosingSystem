@@ -44,7 +44,7 @@ Please install this onto a separate copy of your avatar so that you can attend p
     ![Image 8](https://raw.githubusercontent.com/IlexisTheMadcat/LexisPosingSystem/refs/heads/main/readme%20images/LPS-Readme8rev1.png)
 11) To finalize the setup, link the posing system to your player avatar. \
     There are 4 mini-steps shown here.
-    ![Image 9](https://raw.githubusercontent.com/IlexisTheMadcat/LexisPosingSystem/refs/heads/main/readme%20images/LPS-Readme9.png)
+    ![Image 9](https://raw.githubusercontent.com/IlexisTheMadcat/LexisPosingSystem/refs/heads/main/readme%20images/LPS-Readme9rev1.png)
 You can now press play to test the posing system. If your avatar has special components like Modular Avatar or VRCFury anywhere in its hierarchy, continue reading to resolve potential issues.
 
 # Usage
