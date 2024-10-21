@@ -101,7 +101,7 @@ The Y axis is labeled, but the others are the same way, just in different colors
 3) Rotation guide ring
 - In LPS, rotation is achieved by putting X, Y, and Z axes in hierarchical order. X moves XYZ, Y moves YZ, and Z only moves Z. This can be a bit quirky to manage for certain poses, but if you're in VR, you can use the physbone handles shown below.
 ## Physbone Gadgets
-These blue bars represent the bones you can grab to pose the avatar. These can be hidden in the settings menu.
+These blue bars represent the bones you can grab to pose the avatar. These can be hidden in the settings menu. \
 ![Gadget 2](https://raw.githubusercontent.com/IlexisTheMadcat/LexisPosingSystem/refs/heads/main/readme%20images/gadgets/LPS-Gadgets1rev1.png)
 1) Polar handle. This pitches the joint along two axes.
 2) Twist handle. This twists the joint along one axis.
