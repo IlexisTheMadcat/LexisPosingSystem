@@ -103,9 +103,10 @@ The Y axis is labeled, but the others are the same way, just in different colors
 ## Physbone Gadgets
 These blue bars represent the bones you can grab to pose the avatar. These can be hidden in the settings menu. \
 ![Gadget 2](https://raw.githubusercontent.com/IlexisTheMadcat/LexisPosingSystem/refs/heads/main/readme%20images/gadgets/LPS-Gadgets1rev1.png)
-1) Polar handle. This pitches the joint along two leverage axes.
-2) Twist handle. This twists the joint along the twisting axis.
+1) Polar handle, longer of the two. This pitches the joint along two leverage axes.
+2) Twist handle, shorter of the two. This twists the joint along the twisting axis.
 - You can grab polar and twist handles to automatically rotate the hand to your desired orientation. These let you move two or even all three axes at once, making it much more practical to use in VR. The joints lag because the animator increments the parameters, limiting its ability to track the physbone handles instantly.
+- Some joints, namely shoulders and toes, don't have twist handles because those bones can't twist.
 ## Move Gadget
 This gadget lets you translate the puppet in its local space. \
 ![Gadget 3](https://raw.githubusercontent.com/IlexisTheMadcat/LexisPosingSystem/refs/heads/main/readme%20images/gadgets/LPS-Gadgets3.png)
