@@ -14,7 +14,7 @@ Contents:
     - [Eyes](https://github.com/IlexisTheMadcat/LexisPosingSystem/tree/main?tab=readme-ov-file#eyes)
   - [Rotation Gadgets](https://github.com/IlexisTheMadcat/LexisPosingSystem/tree/main?tab=readme-ov-file#rotation-gadgets)
   - [Physbone Gadgets](https://github.com/IlexisTheMadcat/LexisPosingSystem/tree/main?tab=readme-ov-file#physbone-gadgets)
-  - Move Gadget - coming soon
+  - [Move Gadget](https://github.com/IlexisTheMadcat/LexisPosingSystem/tree/main?tab=readme-ov-file#move-gadget)
 - Important: Puppets with Modular Avatar stuff - still writing
 - Important: Puppets with unsupported VRCFury - still writing
   
@@ -80,8 +80,7 @@ When you load into a world, you will experience a large lag spike as everything 
 ![Menu 4](https://raw.githubusercontent.com/IlexisTheMadcat/LexisPosingSystem/refs/heads/main/readme%20images/action%20menu/LPS-Menu6.png)
 1) Joint children.
 2) XYZ joint rotation. The root rotation menu is the Hips and will rotate the entire puppet.
-- Some joints do not have all of XYZ because they don't move in those directions. \
-This posing system is designed to be anatomically accurate while also being forgiving and letting creativity go wild.
+- Some joints do not have all of XYZ because they don't move in those directions. 
 ### Hands & Eyes
 ![Menu 5](https://raw.githubusercontent.com/IlexisTheMadcat/LexisPosingSystem/refs/heads/main/readme%20images/action%20menu/LPS-Menu7.png)
 1) Left/Right hands. Includes submenus for each finger. Each finger has a joint control for the three joints and a sideways movement called "spread".
@@ -93,16 +92,27 @@ This posing system is designed to be anatomically accurate while also being forg
 2) Left eye XY rotation. 
 - Z is not included because eyes don't normally rotate.
 ## Rotation Gadgets
-The rotation gadgets appear either when you select Show All Gadgets in the settings menu, or when you select a joint to rotate in the menu. \
+The rotation gadgets appear when you select Show All Gadgets in the settings menu or when you select a joint to rotate in the menu. \
 ![Gadgets 1](https://raw.githubusercontent.com/IlexisTheMadcat/LexisPosingSystem/refs/heads/main/readme%20images/gadgets/LPS-Gadgets2rev3.png) \
 The Y axis is labeled, but the others are the same way, just in different colors.
 1) Rotation cursor
 2) Rotation bounds
 3) Rotation guide ring
-- In LPS, rotation is achieved by putting X, Y, and Z axes in hierarchical order. X moves XYZ, Y moves YZ, and Z only moves Z. This can be a bit quirky to manage for certain poses, but if you're in VR, you can use the physbone handles shown below.
+- In LPS, rotation is achieved by putting X, Y, and Z axes in hierarchical order. X moves XYZ, Y moves YZ, and Z only moves Z. This can be a bit quirky to manage for certain poses, but if you're in VR, you can use the physbone handles below.
+- The rotation bounds show the bounds within which the bones can rotate. This posing system is designed to be anatomically accurate while also being forgiving and letting creativity go wild. 
 ## Physbone Gadgets
 These blue bars represent the bones you can grab to pose the avatar. These can be hidden in the settings menu. \
 ![Gadget 2](https://raw.githubusercontent.com/IlexisTheMadcat/LexisPosingSystem/refs/heads/main/readme%20images/gadgets/LPS-Gadgets1rev1.png)
-1) Polar handle. This pitches the joint along two axes.
-2) Twist handle. This twists the joint along one axis.
-- You can use both polar and twist handles to automatically rotate the hand to the orientation you wish. These let you move two or even all three axes at once, making it much more practical to use in VR. The joints lag behind because the animator increments the parameters, which limits its ability to track the physbone handles perfectly.
+1) Polar handle. This pitches the joint along two leverage axes.
+2) Twist handle. This twists the joint along the twisting axis.
+- You can grab polar and twist handles to automatically rotate the hand to your desired orientation. These let you move two or even all three axes at once, making it much more practical to use in VR. The joints lag because the animator increments the parameters, limiting its ability to track the physbone handles instantly.
+## Move Gadget
+This gadget lets you translate the puppet in its local space. \
+![Gadget 3](https://raw.githubusercontent.com/IlexisTheMadcat/LexisPosingSystem/refs/heads/main/readme%20images/gadgets/LPS-Gadgets3.png)
+1) Grabbable ball
+2) Pick-up contacts
+3) Y axis
+4) Z axis
+5) X axis
+- To translate the puppet, grab the middle ball and pull it towards an axis. If you have Axis Lock on, the ball will lock itself to the first axis you touch, granting easier control over its movement. This behavior is toggleable. When toggled off, it can move on all axes simultaneously.
+- The gadget follows your head by default. You can drop it in the world to get it out of your way. If you want to move it in local or world space, make a fist at one of the endpoints. Unfist to drop the gadget.
