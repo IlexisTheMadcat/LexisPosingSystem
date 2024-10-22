@@ -15,9 +15,12 @@ Contents:
   - [Rotation Gadgets](https://github.com/IlexisTheMadcat/LexisPosingSystem/tree/main?tab=readme-ov-file#rotation-gadgets)
   - [Physbone Gadgets](https://github.com/IlexisTheMadcat/LexisPosingSystem/tree/main?tab=readme-ov-file#physbone-gadgets)
   - [Move Gadget](https://github.com/IlexisTheMadcat/LexisPosingSystem/tree/main?tab=readme-ov-file#move-gadget)
-- Important: Puppets with Modular Avatar stuff - still writing
-- Important: Puppets with unsupported VRCFury - still writing
-  
+- [Advanced Setup](https://github.com/IlexisTheMadcat/LexisPosingSystem/tree/main?tab=readme-ov-file#advanced-setup) - all still writing
+  - ⚠️ [Important: Puppets with Modular Avatar stuff](https://github.com/IlexisTheMadcat/LexisPosingSystem/tree/main?tab=readme-ov-file#important-puppets-with-modular-avatar)
+  - 🚫 [Important: Puppets with unsupported VRCFury](https://github.com/IlexisTheMadcat/LexisPosingSystem/tree/main?tab=readme-ov-file#important-puppets-with-unsupported-vrcfury)
+  - [Manual Calibration](https://github.com/IlexisTheMadcat/LexisPosingSystem/tree/main?tab=readme-ov-file#manual-calibration)
+  - [FX Layer Cloning](https://github.com/IlexisTheMadcat/LexisPosingSystem/tree/main?tab=readme-ov-file#fx-layer-cloning)
+
 # Quick Start
 LPS has a fairly simple setup process thanks to the required package [Modular Avatar](https://modular-avatar.nadena.dev/docs/intro). You can follow the instructions on that page to install Modular Avatar via the VRChat Creator Companion app. \
 Please install this onto a separate copy of your avatar so that you can attend public worlds without lagging everyone in the instance.
@@ -34,7 +37,7 @@ Please install this onto a separate copy of your avatar so that you can attend p
 6) For the respective puppet slot, match the bone names for the calibration armature and the puppet merge target armature. **Do NOT use the merge function here!** \
    You may have to expand these armatures and check for bones that didn't get renamed properly. These can include some or all finger bones and sometimes eye bones. 
    ![Image 4](https://raw.githubusercontent.com/IlexisTheMadcat/LexisPosingSystem/refs/heads/main/readme%20images/LPS-Readme4.png)
-7) Ensure the puppet is in T-Pose, then calibrate the posing system. If the puppet is _not_ in T-Pose, move the upper arms and shoulders if needed until they are parallel with the x-axis. The posing system assumes the puppet is in T-Pose.
+7) Ensure the puppet is in T-Pose, then calibrate the posing system. If the puppet is _not_ in T-Pose, move the upper arms and shoulders if needed until they are parallel with the x-axis. The posing system assumes the puppet is in T-Pose upon build.
    ![Image 5](https://raw.githubusercontent.com/IlexisTheMadcat/LexisPosingSystem/refs/heads/main/readme%20images/LPS-Readme5.png)
 8) Revert the armature components. If you miss this, the posing system may not build properly even if the merge is not locked or is turned off.
    ![Image 6](https://raw.githubusercontent.com/IlexisTheMadcat/LexisPosingSystem/refs/heads/main/readme%20images/LPS-Readme6.png)
