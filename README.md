@@ -16,8 +16,8 @@ Contents:
   - [Physbone Gadgets](https://github.com/IlexisTheMadcat/LexisPosingSystem/tree/main?tab=readme-ov-file#physbone-gadgets)
   - [Move Gadget](https://github.com/IlexisTheMadcat/LexisPosingSystem/tree/main?tab=readme-ov-file#move-gadget)
 - [Advanced Setup](https://github.com/IlexisTheMadcat/LexisPosingSystem/tree/main?tab=readme-ov-file#advanced-setup) - all still writing
-  - ⚠️ [Important: Puppets with Modular Avatar stuff](https://github.com/IlexisTheMadcat/LexisPosingSystem/tree/main?tab=readme-ov-file#important-puppets-with-modular-avatar)
-  - 🚫 [Important: Puppets with unsupported VRCFury](https://github.com/IlexisTheMadcat/LexisPosingSystem/tree/main?tab=readme-ov-file#important-puppets-with-unsupported-vrcfury)
+  - ⚠️ Important: [Puppets with Modular Avatar](https://github.com/IlexisTheMadcat/LexisPosingSystem/tree/main?tab=readme-ov-file#puppets-with-modular-avatar)
+  - 🚫 Important: [Puppets with unsupported VRCFury](https://github.com/IlexisTheMadcat/LexisPosingSystem/tree/main?tab=readme-ov-file#puppets-with-unsupported-vrcfury)
   - [Manual Calibration](https://github.com/IlexisTheMadcat/LexisPosingSystem/tree/main?tab=readme-ov-file#manual-calibration)
   - [FX Layer Cloning](https://github.com/IlexisTheMadcat/LexisPosingSystem/tree/main?tab=readme-ov-file#fx-layer-cloning)
 
@@ -108,7 +108,7 @@ These blue bars represent the bones you can grab to pose the avatar. These can b
 ![Gadget 2](https://raw.githubusercontent.com/IlexisTheMadcat/LexisPosingSystem/refs/heads/main/readme%20images/gadgets/LPS-Gadgets1rev1.png)
 1) Polar handle, longer of the two. This pitches the joint along two leverage axes.
 2) Twist handle, shorter of the two. This twists the joint along the twisting axis.
-- You can grab polar and twist handles to automatically rotate the hand to your desired orientation. These let you move two or even all three axes at once, making it much more practical to use in VR. The joints lag because the animator increments the parameters, limiting its ability to track the physbone handles instantly.
+- You can grab polar and twist handles to automatically rotate the joint to your desired orientation. These let you move two or even all three axes simultaneously, making it much more practical to use in VR. The joints lag because the animator increments the parameters, limiting its ability to track the physbone handles instantly.
 - Some joints, namely shoulders and toes, don't have twist handles because those bones can't twist.
 ## Move Gadget
 This gadget lets you translate the puppet in its local space. \
@@ -120,3 +120,9 @@ This gadget lets you translate the puppet in its local space. \
 5) X axis
 - To translate the puppet, grab the middle ball and pull it towards an axis. If you have Axis Lock on, the ball will lock itself to the first axis you touch, granting easier control over its movement. This behavior is toggleable. When toggled off, it can move on all axes simultaneously. Due to the nature of VRChat's contacts, moving on the Z axis along with any other will be tricky. It's best to do \[XY] and \[Z] in separate motions.
 - The gadget follows your head by default. You can drop it in the world to get it out of your way. If you want to move it in local or world space, make a fist at one of the endpoints. Unfist to drop the gadget.
+# Advanced Setup (wip)
+This section goes over some things you can or should do during or after the Quick Start setup process.
+## Puppets with Modular Avatar
+If your puppet has any components that belong to Modular Avatar, please read this section. \
+### MA Merge Armature
+MA Merge Armature components may need to be updated to fit the puppet's armature instead of the player model. If you neglect this step, the puppet's clothes will do ghostly things!
