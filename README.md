@@ -30,7 +30,7 @@ Contents:
 LPS has a fairly simple setup process thanks to the required package [Modular Avatar](https://modular-avatar.nadena.dev/docs/intro). You can follow the instructions on that page to install Modular Avatar via the VRChat Creator Companion app. \
 Please install this onto a separate copy of your avatar so that you can attend public worlds without lagging everyone in the instance.
 1) Drag the prefab from the installation's Prefab folder into your avatar.
-   ![image](https://github.com/user-attachments/assets/10acb8ae-2305-4a9c-939c-1230928d1b4b)
+   ![image](https://github.com/user-attachments/assets/4d46eb41-2956-406c-b49c-9176c6ab0735)
 2) Duplicate the whole avatar and remove LPS from it. \
    Rename the copy to "Puppet Avatar" and the face to "Body" if you'd like to use the MMD facials feature. \
    Remove all components from the Puppet Avatar object as they won't be needed.
@@ -54,7 +54,7 @@ Please install this onto a separate copy of your avatar so that you can attend p
 10) To finalize the setup, link the posing system to your player avatar. \
     There are 4 mini-steps shown here.
     ![image](https://github.com/user-attachments/assets/c394a864-1153-4919-983a-1dbf448402f5)
-If you have Gesture Manager installed via VCC, you can press play to test the posing system. If your avatar has special components like Modular Avatar or VRCFury anywhere in its hierarchy, check important notes in the [contents](https://github.com/IlexisTheMadcat/LexisPosingSystem/tree/main?tab=readme-ov-file#lexisposingsystem-documentation) to resolve potential issues.
+11) Cleanup time! Search "Cylinder 1 (approx)" in the hierarchy search bar and turn all those off to hide the approximation preview handles on the player model as they aren't used. To hide (or unhide) the system, toggle the "Puppet Avatar Container" object. The system will not automatically toggle on things that aren't supposed to be toggled off. If you have Gesture Manager installed via VCC, you can press play to test the posing system. If your avatar has special components like Modular Avatar or VRCFury anywhere in its hierarchy, check important notes in the [contents](https://github.com/IlexisTheMadcat/LexisPosingSystem/tree/main?tab=readme-ov-file#lexisposingsystem-documentation) to resolve potential issues.
 
 # Usage
 When you load into a world, you will experience a large lag spike as everything loads in. This is normal.
