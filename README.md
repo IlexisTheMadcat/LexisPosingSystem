@@ -6,6 +6,8 @@ This posing system can be purchased here: https://ilexisthemadcat.booth.pm/items
 Community Server: https://discord.gg/ilexissloft \
 Please stop by if you have any questions about setup or want to suggest something. Select Lexi's Assets in onboarding and scroll down the channels for #💬lexis-posing-system!
 
+LPS version updates will be announced in the Discord server. Known bugs or planned features will be represented as open issues in this repository.
+
 Contents:
 - [Quick Start](https://github.com/IlexisTheMadcat/LexisPosingSystem/tree/main?tab=readme-ov-file#quick-start)
 - [Usage](https://github.com/IlexisTheMadcat/LexisPosingSystem/tree/main?tab=readme-ov-file#usage)
