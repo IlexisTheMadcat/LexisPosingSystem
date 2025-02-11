@@ -6,7 +6,8 @@ This posing system can be purchased here: https://ilexisthemadcat.booth.pm/items
 Community Server: https://discord.gg/ilexissloft \
 Please stop by if you have any questions about setup or want to suggest something. Select Lexi's Assets in onboarding and scroll down the channels for #💬lexis-posing-system!
 
-LPS version updates will be announced in the Discord server. Known bugs or planned features will be represented as open issues in this repository.
+LPS version updates are announced on [Twitter/X](https://x.com/IlexisTheMadcat) and [BlueSky](https://bsky.app/profile/ilexisthemadcat.bsky.social). \
+See [Statistics](https://github.com/IlexisTheMadcat/LexisPosingSystem/tree/main?tab=readme-ov-file#statistics) at the bottom of this page for performance drop notices.
 
 Contents:
 - [Quick Start](https://github.com/IlexisTheMadcat/LexisPosingSystem/tree/main?tab=readme-ov-file#quick-start)
@@ -57,7 +58,7 @@ LPS has a fairly simple setup process thanks to the required package [Modular Av
 10) To finalize the setup, link the posing system to your player avatar. \
     There are 4 mini-steps shown here.
     ![image](https://github.com/user-attachments/assets/c394a864-1153-4919-983a-1dbf448402f5)
-11) ![image](https://github.com/user-attachments/assets/fbfe872b-efb2-4e01-bfa7-9e7727b43f8f) As of v1.1.0, the Menu Pointer object was added. Position this exactly where you placed your VRC viewpoint, then activate the constraint. This pointer allows you to look at a joint and edit it on demand using just one page in the Rotation menu. Adjust the length of the contact under this object to suit your needs. \
+11) [v1.1.0] The Menu Pointer object was added in v1.1.0. Position this exactly where you placed your VRC viewpoint, then activate the constraint. This pointer allows you to look at a joint and edit it on demand using just one page in the Rotation menu. Adjust the length of the contact under this object to suit your needs. \
     ![image](https://github.com/user-attachments/assets/09b04bc6-1b91-4363-aa43-03c3b35c9603)
 
 13) Cleanup time! Search "Cylinder 1 (approx)" in the hierarchy search bar and turn all those off to hide the approximation preview handles on the player model as they aren't used. To hide (or unhide) the system, toggle the "Puppet Avatar Container" object. The system will not automatically toggle on things that aren't supposed to be toggled off. If you have Gesture Manager installed via VCC, you can press play to test the posing system. If your avatar has special components like Modular Avatar or VRCFury anywhere in its hierarchy, check important notes in the [contents](https://github.com/IlexisTheMadcat/LexisPosingSystem/tree/main?tab=readme-ov-file#lexisposingsystem-documentation) to resolve potential issues.
@@ -77,8 +78,8 @@ When you load into a world, you will experience a large lag spike as everything 
 8) Settings including puppet selection.
 ### Settings
 ![image](https://github.com/user-attachments/assets/4580f738-5c4e-48b7-8b5b-4807ffa43092)
-1) Reset the puppet to T-Pose. Applies to rotation, scale, and translation.
-2) ![image](https://github.com/user-attachments/assets/fbfe872b-efb2-4e01-bfa7-9e7727b43f8f) Show and enable a rig of ball joints that you can look at to control them via the Rotation menu. Initializes enabled when on desktop.
+1) Reset the puppet to T-Pose. Applies to rotation, scale, and translation, but not facials. Reset the face in the MMD Facials menu.
+2) [v1.1.0] Show and enable a rig of ball joints that you can look at to control them via the Rotation menu. Initializes enabled when on desktop.
    - Video showcase: [Ilexis Nakamori @ Twitter/X](https://x.com/IlexisTheMadcat/status/1889223329443410112)
 3) Show a rig of blue bones that you can grab to move the bones. Initializes enabled when loaded in VR.
    - Image showcase: [Ilexis Nakamori @ Twitter/X](https://x.com/IlexisTheMadcat/status/1826079313751330868)
@@ -91,7 +92,8 @@ When you load into a world, you will experience a large lag spike as everything 
    - Video showcase: [Ilexis Nakamori @ Twitter/X](https://x.com/IlexisTheMadcat/status/1844836318800384248)
 ### Saving
 ![image](https://github.com/user-attachments/assets/78630688-ae48-49bf-b839-224588e8fcbe) \
-This feature lets you save poses to your avatar's saved settings. These aren't transferrable between avatars or to/from test builds.
+This feature lets you save poses to your avatar's saved settings. These aren't transferrable between avatars or to/from test builds. \
+Applies to joint rotations. Applies to facials as of v1.1.0.
 1) Begin saving a pose. Click one of the three slots to save. **WILL NOT ASK FOR CONFIRMATION.**
 2) Begin loading a pose. Click one of the three slots to load. **WILL NOT ASK FOR CONFIRMATION.**
 3) Slot 1.
@@ -104,8 +106,8 @@ This feature lets you save poses to your avatar's saved settings. These aren't t
 1) Joint children.
 2) Selected joint name, appears in the center via Rich Text in-game. Has no menu function.
 - The first submenu of the Rotation menu controls the joint you are looking directly at, if you have Aim Joint Gadgets enabled.
-3) ![image](https://github.com/user-attachments/assets/fbfe872b-efb2-4e01-bfa7-9e7727b43f8f) Twist the joint, if applicable.
-4) ![image](https://github.com/user-attachments/assets/fbfe872b-efb2-4e01-bfa7-9e7727b43f8f) Pivot the joint.
+3) [v1.1.0] Twist the joint, if applicable.
+4) [v1.1.0] Pivot the joint.
 5) Manual XYZ joint rotation. The Hips rotation menu will rotate the entire puppet.
 - Some joints do not have all of XYZ or have both controllers because they don't move in those directions. 
 ### Hands & Eyes
@@ -189,7 +191,7 @@ Recommended Hardware:
 - GPU: NVidia GTX 3060 / AMD 6600-XT
 
 World: [Minesweeper](https://vrchat.com/home/world/wrld_48f47d66-8686-4fe9-92d5-ab4a00068b68/info) \
-FPS drop on recommended hardware: ~130 -> ~40
+FPS drop on recommended hardware: ~130 -> ~45
 
 Needless to say, LPS is not optimized. But for what it can do, and its intended purpose in photography, I'd say it's still worth it. \
 Also, LPS is meant to be installed on a copy of your avatar and not on your primary upload, so you'll be able to choose when LPS is present.
