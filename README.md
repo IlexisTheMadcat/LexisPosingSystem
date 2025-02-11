@@ -89,7 +89,8 @@ When you load into a world, you will experience a large lag spike as everything 
 8) Select a puppet and toggle it on or off individually. Repeat Quick Start with puppets 2 and 3 to utilize this.
    - Video showcase: [Ilexis Nakamori @ Twitter/X](https://x.com/IlexisTheMadcat/status/1844836318800384248)
 ### Saving
-![image](https://github.com/user-attachments/assets/78630688-ae48-49bf-b839-224588e8fcbe)
+![image](https://github.com/user-attachments/assets/78630688-ae48-49bf-b839-224588e8fcbe) \
+This feature lets you save poses to your avatar's saved settings. These aren't transferrable between avatars or to/from test builds.
 1) Begin saving a pose. Click one of the three slots to save. **WILL NOT ASK FOR CONFIRMATION.**
 2) Begin loading a pose. Click one of the three slots to load. **WILL NOT ASK FOR CONFIRMATION.**
 3) Slot 1.
