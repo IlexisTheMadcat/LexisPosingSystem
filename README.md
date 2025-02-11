@@ -56,7 +56,10 @@ Please install this onto a separate copy of your avatar so that you can attend p
 10) To finalize the setup, link the posing system to your player avatar. \
     There are 4 mini-steps shown here.
     ![image](https://github.com/user-attachments/assets/c394a864-1153-4919-983a-1dbf448402f5)
-11) Cleanup time! Search "Cylinder 1 (approx)" in the hierarchy search bar and turn all those off to hide the approximation preview handles on the player model as they aren't used. To hide (or unhide) the system, toggle the "Puppet Avatar Container" object. The system will not automatically toggle on things that aren't supposed to be toggled off. If you have Gesture Manager installed via VCC, you can press play to test the posing system. If your avatar has special components like Modular Avatar or VRCFury anywhere in its hierarchy, check important notes in the [contents](https://github.com/IlexisTheMadcat/LexisPosingSystem/tree/main?tab=readme-ov-file#lexisposingsystem-documentation) to resolve potential issues.
+11) ![image](https://github.com/user-attachments/assets/fbfe872b-efb2-4e01-bfa7-9e7727b43f8f) As of v1.1.0, the Menu Pointer object was added. Position this exactly where you placed your VRC viewpoint, then activate the constraint. This pointer allows you to look at a joint and edit it on demand using just one page in the Rotation menu. Adjust the length of the contact under this object to suit your needs. \
+    ![image](https://github.com/user-attachments/assets/09b04bc6-1b91-4363-aa43-03c3b35c9603)
+
+13) Cleanup time! Search "Cylinder 1 (approx)" in the hierarchy search bar and turn all those off to hide the approximation preview handles on the player model as they aren't used. To hide (or unhide) the system, toggle the "Puppet Avatar Container" object. The system will not automatically toggle on things that aren't supposed to be toggled off. If you have Gesture Manager installed via VCC, you can press play to test the posing system. If your avatar has special components like Modular Avatar or VRCFury anywhere in its hierarchy, check important notes in the [contents](https://github.com/IlexisTheMadcat/LexisPosingSystem/tree/main?tab=readme-ov-file#lexisposingsystem-documentation) to resolve potential issues.
 
 # Usage
 When you load into a world, you will experience a large lag spike as everything loads in. This is normal.
@@ -72,15 +75,18 @@ When you load into a world, you will experience a large lag spike as everything 
 7) Operate the fingers and eyes of the puppet.
 8) Settings including puppet selection.
 ### Settings
-![image](https://github.com/user-attachments/assets/d1abd9f6-3a35-4091-a547-76dad28e057e)
+![image](https://github.com/user-attachments/assets/4580f738-5c4e-48b7-8b5b-4807ffa43092)
 1) Reset the puppet to T-Pose. Applies to rotation, scale, and translation.
-2) Show a rig of blue bones that you grab to move the bones.
+2) ![image](https://github.com/user-attachments/assets/fbfe872b-efb2-4e01-bfa7-9e7727b43f8f) Show and enable a rig of ball joints that you can look at to control them via the Rotation menu.
+   - Video showcase: [Ilexis Nakamori @ Twitter/X](https://x.com/IlexisTheMadcat/status/1889223329443410112)
+3) Show a rig of blue bones that you can grab to move the bones.
    - Image showcase: [Ilexis Nakamori @ Twitter/X](https://x.com/IlexisTheMadcat/status/1826079313751330868)
 4) Show a rig of gadgets that show which directions a joint will move and their bounds.
-5) Save the puppet's pose for future use.
-6) Gradually increase this radial to make the puppet follow the player avatar's pose.
+   - ⚠️ Warning: This option induces a heavy drop in graphics performance. It is not meant to be on all the time.
+6) Save the puppet's pose for future use.
+7) Gradually increase this radial to make the puppet follow the player avatar's pose.
    - Video showcase: [Ilexis Nakamori @ Twitter/X](https://x.com/IlexisTheMadcat/status/1830530510415646992)
-7) Select a puppet and toggle it on or off individually. Repeat Quick Start with puppets 2 and 3 to utilize this.
+8) Select a puppet and toggle it on or off individually. Repeat Quick Start with puppets 2 and 3 to utilize this.
    - Video showcase: [Ilexis Nakamori @ Twitter/X](https://x.com/IlexisTheMadcat/status/1844836318800384248)
 ### Saving
 ![image](https://github.com/user-attachments/assets/78630688-ae48-49bf-b839-224588e8fcbe)
@@ -92,10 +98,14 @@ When you load into a world, you will experience a large lag spike as everything 
 - Must click either save or load for slots to do anything.
 - Video showcase: [Ilexis Nakamori @ Twitter/X](https://x.com/IlexisTheMadcat/status/1830112245851779523)
 ### Rotation
-![image](https://github.com/user-attachments/assets/3466b278-8c5b-4a31-a56f-3ddbcfe896df)
+![image](https://github.com/user-attachments/assets/84316260-098c-4008-bb19-3e2e8f5a385f)
 1) Joint children.
-2) XYZ joint rotation. The root rotation menu is the Hips and will rotate the entire puppet.
-- Some joints do not have all of XYZ because they don't move in those directions. 
+2) Selected joint name, appears in the center via Rich Text in-game. Has no menu function.
+- The first submenu of the Rotation menu controls the joint you are looking directly at, if you have Aim Joint Gadgets enabled.
+3) ![image](https://github.com/user-attachments/assets/fbfe872b-efb2-4e01-bfa7-9e7727b43f8f) Twist the joint, if applicable.
+4) ![image](https://github.com/user-attachments/assets/fbfe872b-efb2-4e01-bfa7-9e7727b43f8f) Pivot the joint.
+5) Manual XYZ joint rotation. The Hips rotation menu will rotate the entire puppet.
+- Some joints do not have all of XYZ or have both controllers because they don't move in those directions. 
 ### Hands & Eyes
 ![image](https://github.com/user-attachments/assets/70652e51-02c9-4fdc-a31e-1a65d50dbac7)
 1) Left/Right hands. Includes submenus for each finger. Each finger has a joint control for the three joints and a sideways movement called "spread".
@@ -105,7 +115,7 @@ When you load into a world, you will experience a large lag spike as everything 
 ![image](https://github.com/user-attachments/assets/dae6f163-648f-46dd-ba29-e3231594a84c)
 1) Right eye XY rotation.
 2) Left eye XY rotation. 
-- Z is not included because eyes don't normally rotate.
+- Z is not included because eyes don't normally twist.
 ## Rotation Gadgets
 The rotation gadgets appear when you select Show All Gadgets in the settings menu or when you select a joint to rotate in the menu. \
 ![image](https://github.com/user-attachments/assets/f7f6789e-ec58-49f4-8418-800e061216ea) \
