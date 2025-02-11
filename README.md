@@ -27,10 +27,11 @@ Contents:
   - [Manual Calibration](https://github.com/IlexisTheMadcat/LexisPosingSystem/tree/main?tab=readme-ov-file#manual-calibration)
   - [Gadget Scaling](https://github.com/IlexisTheMadcat/LexisPosingSystem/tree/main?tab=readme-ov-file#gadget-scaling) (Important if the puppet is big or small)
   - [FX Layer Cloning](https://github.com/IlexisTheMadcat/LexisPosingSystem/tree/main?tab=readme-ov-file#fx-layer-cloning)
+- [Statistics](https://github.com/IlexisTheMadcat/LexisPosingSystem/tree/main?tab=readme-ov-file#statistics)
 
 # Quick Start
-LPS has a fairly simple setup process thanks to the required package [Modular Avatar](https://modular-avatar.nadena.dev/docs/intro). You can follow the instructions on that page to install Modular Avatar via the VRChat Creator Companion app. \
-Please install this onto a separate copy of your avatar so that you can attend public worlds without lagging everyone in the instance.
+Start by duplicating your scene. You don't want to upload this to your main avatar. Once you do that, open it, and remove the Pipeline Manager component from your avatar. It is located where you'll find the VRC Avatar Descriptor. This will make the SDK forget the avatar for that scene so you'll upload a new avatar. \
+LPS has a fairly simple setup process thanks to the required package [Modular Avatar](https://modular-avatar.nadena.dev/docs/intro). You can follow the instructions on that page to install Modular Avatar via the VRChat Creator Companion app. 
 1) Drag the prefab from the installation's Prefab folder into your avatar.
    ![image](https://github.com/user-attachments/assets/4d46eb41-2956-406c-b49c-9176c6ab0735)
 2) Duplicate the whole avatar and remove LPS from it. \
@@ -82,7 +83,7 @@ When you load into a world, you will experience a large lag spike as everything 
 3) Show a rig of blue bones that you can grab to move the bones. Initializes enabled when loaded in VR.
    - Image showcase: [Ilexis Nakamori @ Twitter/X](https://x.com/IlexisTheMadcat/status/1826079313751330868)
 4) Show a rig of gadgets that show which directions a joint will move and their bounds.
-   - ⚠️ Warning: This option induces a heavy drop in graphics performance. It is not meant to be on all the time.
+   - ⚠️ Warning: This option induces a mild drop in graphics performance. It is not meant to be on all the time.
 6) Save the puppet's pose for future use.
 7) Gradually increase this radial to make the puppet follow the player avatar's pose.
    - Video showcase: [Ilexis Nakamori @ Twitter/X](https://x.com/IlexisTheMadcat/status/1830530510415646992)
@@ -172,6 +173,26 @@ If your avatar is relatively larger or smaller than LPS's default configuration,
 ## FX Layer Cloning
 You can make your puppet an exact copy of your avatar at runtime. To do this, add the MA Merge Animator component to the Puppet Avatar object, then input your avatar's FX layer into the "Animator to merge" slot. The puppet should then react to all the toggles in your FX layer. \
 ![image](https://github.com/user-attachments/assets/acaaad33-e568-495c-adac-bc18de80396b)
+# Statistics
+LPS takes up a lot of an avatar's maximum allowed number of VRC Physbones and Contacts, so it's better to clone, or build your clone on, a simpler avatar. \
+Physbones: 37/256 \
+Contacts: 168/256
+
+Constraints take a good bit of CPU to run. VRChat released optimized constraints so the effect is not as bad, but all of these constraints are required for LPS to function and aren't there just to be lazy. \
+VRC Constraints: 305 total 
+- Parent constraints: 242
+- Rotation constraints: 62
+- Scale constraints: 1
+
+Recommended Hardware:
+- CPU: AMD Ryzen 7 5800X/X3D / Intel Core i7-11700K
+- GPU: NVidia GTX 3060 / AMD 6600-XT
+
+World: [Minesweeper](https://vrchat.com/home/world/wrld_48f47d66-8686-4fe9-92d5-ab4a00068b68/info) \
+FPS drop on recommended hardware: ~130 -> ~40
+
+Needless to say, LPS is not optimized. But for what it can do, and its intended purpose in photography, I'd say it's still worth it. \
+Also, LPS is meant to be installed on a copy of your avatar and not on your primary upload, so you'll be able to choose when LPS is present.
 
 # End
 [Return to top](https://github.com/IlexisTheMadcat/LexisPosingSystem/tree/main?tab=readme-ov-file#lexisposingsystem-documentation)
