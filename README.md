@@ -77,9 +77,9 @@ When you load into a world, you will experience a large lag spike as everything 
 ### Settings
 ![image](https://github.com/user-attachments/assets/4580f738-5c4e-48b7-8b5b-4807ffa43092)
 1) Reset the puppet to T-Pose. Applies to rotation, scale, and translation.
-2) ![image](https://github.com/user-attachments/assets/fbfe872b-efb2-4e01-bfa7-9e7727b43f8f) Show and enable a rig of ball joints that you can look at to control them via the Rotation menu.
+2) ![image](https://github.com/user-attachments/assets/fbfe872b-efb2-4e01-bfa7-9e7727b43f8f) Show and enable a rig of ball joints that you can look at to control them via the Rotation menu. Initializes enabled when on desktop.
    - Video showcase: [Ilexis Nakamori @ Twitter/X](https://x.com/IlexisTheMadcat/status/1889223329443410112)
-3) Show a rig of blue bones that you can grab to move the bones.
+3) Show a rig of blue bones that you can grab to move the bones. Initializes enabled when loaded in VR.
    - Image showcase: [Ilexis Nakamori @ Twitter/X](https://x.com/IlexisTheMadcat/status/1826079313751330868)
 4) Show a rig of gadgets that show which directions a joint will move and their bounds.
    - ⚠️ Warning: This option induces a heavy drop in graphics performance. It is not meant to be on all the time.
