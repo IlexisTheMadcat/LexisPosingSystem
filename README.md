@@ -155,6 +155,21 @@ Modular Avatar comes with a feature that lets you bake all of its components int
 To start, right-click your avatar with Modular Avatar components, expand Modular Avatar, and click "Manual bake avatar". This will perform the actions described above. \
 ![image](https://github.com/user-attachments/assets/cd39d053-30e4-4ca3-8fae-54d9b4abeb38) \
 You can use the FX layer and parameters created by baking in the [FX Layer Cloning](https://github.com/IlexisTheMadcat/LexisPosingSystem/tree/main?tab=readme-ov-file#fx-layer-cloning) section.
+### No baking
+If you don't want to bother with baking, you can look through these and make sure they're set up right. If the puppet isn't working right on build, try baking.
+1) **MA Merge Armature** \
+   These components may need to be updated to fit the puppet's armature instead of the player model. If you neglect this step, the puppet's clothes will do ghostly things! \
+   ![image](https://github.com/user-attachments/assets/67a73144-7a04-4d50-8052-43819c480c00)
+2) **MA Blendshape Sync** \
+   These components are still referencing your player model's objects. These generally don't need to be edited, but if you're making a static puppet that hasn't cloned your FX layer, or you've animated them independently from your own avatar, you can just delete these or fix their references. \
+   ![image](https://github.com/user-attachments/assets/f849c0db-74d3-48b1-876c-1463d0a7ec5a)
+3) **MA Bone Proxy**
+   These components are still referencing the player model's objects. You'll need to dig through the puppet to find the bone it was targeting before. \
+   ![image](https://github.com/user-attachments/assets/96a74c04-708e-4e3a-8a1b-b4a8bc8d80ad)
+4) **Unwanted MA components**
+   These components should be removed from the puppet avatar as they could interfere negatively with the upload process. \
+   ![image](https://github.com/user-attachments/assets/0c062369-c0ed-432b-a1e9-701bb0f4d8eb) \
+   All other Modular Avatar components should be fine as they are.
 ## Puppets with VRCFury
 VRCFury is not supported. It doesn't allow armatures to be linked to those apart from the player avatar, and it doesn't allow calibration in edit mode, making setup much more complicated and cumbersome. Attempting to include VRCFury components may lead to build issues as Modular Avatar and VRCFury fight over armatures and animations. \
 ![image](https://github.com/user-attachments/assets/9888d5e4-856b-40f8-86c6-5c639944c075)
