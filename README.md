@@ -7,28 +7,28 @@ Community Server: https://discord.gg/ilexissloft \
 Please stop by if you have any questions about setup or want to suggest something. Select Lexi's Assets in onboarding and scroll down the channels for #💬lexis-posing-system!
 
 LPS version updates are announced on [Twitter/X](https://x.com/IlexisTheMadcat) and [BlueSky](https://bsky.app/profile/ilexisthemadcat.bsky.social). \
-See [Statistics](https://github.com/IlexisTheMadcat/LexisPosingSystem/tree/main?tab=readme-ov-file#statistics) at the bottom of this page for performance drop notices.
+See [Statistics](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#statistics) at the bottom of this page for performance drop notices.
 
 Contents:
-- [Quick Start](https://github.com/IlexisTheMadcat/LexisPosingSystem/tree/main?tab=readme-ov-file#quick-start)
-- [Usage](https://github.com/IlexisTheMadcat/LexisPosingSystem/tree/main?tab=readme-ov-file#usage)
-  - [Menus](https://github.com/IlexisTheMadcat/LexisPosingSystem/tree/main?tab=readme-ov-file#menus)
-    - [Lexi's Posing System](https://github.com/IlexisTheMadcat/LexisPosingSystem/tree/main?tab=readme-ov-file#lexis-posing-system)
-    - [Settings](https://github.com/IlexisTheMadcat/LexisPosingSystem/tree/main?tab=readme-ov-file#settings)
-    - [Saving](https://github.com/IlexisTheMadcat/LexisPosingSystem/tree/main?tab=readme-ov-file#saving)
-    - [Rotation](https://github.com/IlexisTheMadcat/LexisPosingSystem/tree/main?tab=readme-ov-file#rotation)
-    - [Hands & Eyes](https://github.com/IlexisTheMadcat/LexisPosingSystem/tree/main?tab=readme-ov-file#hands--eyes)
-    - [Eyes](https://github.com/IlexisTheMadcat/LexisPosingSystem/tree/main?tab=readme-ov-file#eyes)
-  - [Rotation Gadgets](https://github.com/IlexisTheMadcat/LexisPosingSystem/tree/main?tab=readme-ov-file#rotation-gadgets)
-  - [Physbone Gadgets](https://github.com/IlexisTheMadcat/LexisPosingSystem/tree/main?tab=readme-ov-file#physbone-gadgets)
-  - [Move Gadget](https://github.com/IlexisTheMadcat/LexisPosingSystem/tree/main?tab=readme-ov-file#move-gadget)
-- [Advanced Setup](https://github.com/IlexisTheMadcat/LexisPosingSystem/tree/main?tab=readme-ov-file#advanced-setup)
-  - [Puppets with Modular Avatar](https://github.com/IlexisTheMadcat/LexisPosingSystem/tree/main?tab=readme-ov-file#puppets-with-modular-avatar) (Important)
-  - [Puppets with unsupported VRCFury](https://github.com/IlexisTheMadcat/LexisPosingSystem/tree/main?tab=readme-ov-file#puppets-with-unsupported-vrcfury) (Important)
-  - [Manual Calibration](https://github.com/IlexisTheMadcat/LexisPosingSystem/tree/main?tab=readme-ov-file#manual-calibration)
-  - [Gadget Scaling](https://github.com/IlexisTheMadcat/LexisPosingSystem/tree/main?tab=readme-ov-file#gadget-scaling) (Important if the puppet is big or small)
-  - [FX Layer Cloning](https://github.com/IlexisTheMadcat/LexisPosingSystem/tree/main?tab=readme-ov-file#fx-layer-cloning)
-- [Statistics](https://github.com/IlexisTheMadcat/LexisPosingSystem/tree/main?tab=readme-ov-file#statistics)
+- [Quick Start](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#quick-start)
+- [Usage](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#usage)
+  - [Menus](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#menus)
+    - [Lexi's Posing System](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#lexis-posing-system)
+    - [Settings](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#settings)
+    - [Saving](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#saving)
+    - [Rotation](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#rotation)
+    - [Hands & Eyes](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#hands--eyes)
+    - [Eyes](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#eyes)
+  - [Rotation Gadgets](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#rotation-gadgets)
+  - [Physbone Gadgets](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#physbone-gadgets)
+  - [Move Gadget](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#move-gadget)
+- [Advanced Setup](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#advanced-setup)
+  - [Puppets with Modular Avatar](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#puppets-with-modular-avatar) (Important)
+  - [Puppets with unsupported VRCFury](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#puppets-with-unsupported-vrcfury) (Important)
+  - [Manual Calibration](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#manual-calibration)
+  - [Gadget Scaling](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#gadget-scaling) (Important if the puppet is big or small)
+  - [FX Layer Cloning](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#fx-layer-cloning)
+- [Statistics](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#statistics)
 
 # Quick Start
 Start by duplicating your scene. You don't want to upload this to your main avatar. Once you do that, open it, and detach the blueprint ID in the Pipeline Manager component. It is located where you'll find the VRC Avatar Descriptor. This will make the SDK forget the avatar for that scene so you'll upload a new avatar. \
@@ -48,7 +48,7 @@ LPS has a fairly simple setup process thanks to the required package [Modular Av
    ![image](https://github.com/user-attachments/assets/4957fb73-fcef-4c9b-a323-4ffbde47ed23)
 6) Ensure the puppet is in T-Pose, then calibrate the posing system. If the puppet is _not_ in T-Pose, move the upper arms and shoulders if needed until they are parallel with the x-axis. The posing system assumes the puppet is in T-Pose upon build.
    ![image](https://github.com/user-attachments/assets/eed7c274-1a09-4269-a175-78f0b8908895)
-   - Review [Manual Calibration](https://github.com/IlexisTheMadcat/LexisPosingSystem/tree/main?tab=readme-ov-file#manual-calibration) and [Gadget Scaling](https://github.com/IlexisTheMadcat/LexisPosingSystem/tree/main?tab=readme-ov-file#gadget-scaling) for some customization.
+   - Review [Manual Calibration](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#manual-calibration) and [Gadget Scaling](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#gadget-scaling) for some customization.
 7) Revert the armature components. If you miss this, the posing system may not build properly even if the merge isn't locked or is turned off.
    ![image](https://github.com/user-attachments/assets/e776ecb1-3b0c-4f10-aabb-e74db1a5d16c)
 8) After confirming that the components above are reverted, attach an MA Merge Armature component to your new puppet's armature.
@@ -61,7 +61,7 @@ LPS has a fairly simple setup process thanks to the required package [Modular Av
 11) [v1.1.0] The Menu Pointer object was added in v1.1.0. Position this exactly where you placed your VRC viewpoint, then activate the constraint. This pointer allows you to look at a joint and edit it on demand using just one page in the Rotation menu. Adjust the length of the contact under this object to suit your needs. \
     ![image](https://github.com/user-attachments/assets/09b04bc6-1b91-4363-aa43-03c3b35c9603)
 
-13) Cleanup time! Search "Cylinder 1 (approx)" in the hierarchy search bar and turn all those off to hide the approximation preview handles on the player model as they aren't used. To hide (or unhide) the system, toggle the "Puppet Avatar Container" object. The system will not automatically toggle on things that aren't supposed to be toggled off. If you have Gesture Manager installed via VCC, you can press play to test the posing system. If your avatar has special components like Modular Avatar or VRCFury anywhere in its hierarchy, check important notes in the [contents](https://github.com/IlexisTheMadcat/LexisPosingSystem/tree/main?tab=readme-ov-file#lexisposingsystem-documentation) to resolve potential issues.
+13) Cleanup time! Search "Cylinder 1 (approx)" in the hierarchy search bar and turn all those off to hide the approximation preview handles on the player model as they aren't used. To hide (or unhide) the system, toggle the "Puppet Avatar Container" object. The system will not automatically toggle on things that aren't supposed to be toggled off. If you have Gesture Manager installed via VCC, you can press play to test the posing system. If your avatar has special components like Modular Avatar or VRCFury anywhere in its hierarchy, check important notes in the [contents](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#lexisposingsystem-documentation) to resolve potential issues.
 
 # Usage
 When you load into a world, you will experience a large lag spike as everything loads in. This is normal.
@@ -154,7 +154,7 @@ If your puppet has any components that belong to Modular Avatar, please read thi
 Modular Avatar comes with a feature that lets you bake all of its components into a _copy_ of your avatar. Everything this feature does to your avatar is done on a duplicate of your avatar, and all merged files are in their own folder that you can find by looking for its playable layers/parameters asset/etc in the created avatar descriptor. \
 To start, right-click your avatar with Modular Avatar components, expand Modular Avatar, and click "Manual bake avatar". This will perform the actions described above. \
 ![image](https://github.com/user-attachments/assets/cd39d053-30e4-4ca3-8fae-54d9b4abeb38) \
-You can use the FX layer and parameters created by baking in the [FX Layer Cloning](https://github.com/IlexisTheMadcat/LexisPosingSystem/tree/main?tab=readme-ov-file#fx-layer-cloning) section.
+You can use the FX layer and parameters created by baking in the [FX Layer Cloning](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#fx-layer-cloning) section.
 ### No baking
 If you don't want to bother with baking, you can look through these and make sure they're set up right. If the puppet isn't working right on build, try baking.
 1) **MA Merge Armature** \
@@ -206,4 +206,4 @@ Needless to say, LPS is not optimized. But for what it can do, and its intended 
 Also, LPS is meant to be installed on a copy of your avatar and not on your primary upload, so you'll be able to choose when LPS is present.
 
 # End
-[Return to top](https://github.com/IlexisTheMadcat/LexisPosingSystem/tree/main?tab=readme-ov-file#lexisposingsystem-documentation)
+[Return to top](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#lexisposingsystem-documentation)
