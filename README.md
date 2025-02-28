@@ -60,7 +60,7 @@ LPS has a fairly simple setup process thanks to the required package [Modular Av
 10) To finalize the setup, link the posing system to your player avatar. \
     There are 4 mini-steps shown here.
     ![image](https://github.com/user-attachments/assets/c394a864-1153-4919-983a-1dbf448402f5)
-11) [v1.1.0] The Menu Pointer object was added in v1.1.0. Position this exactly where you placed your VRC viewpoint, then activate the constraint. This pointer allows you to look at a joint and edit it on demand using just one page in the Rotation menu. Adjust the length of the contact under this object to suit your needs. \
+11) The Menu Pointer object was added in v1.1.0. Position this exactly where you placed your VRC viewpoint, then activate the constraint. This pointer allows you to look at a joint and edit it on demand using just one page in the Rotation menu. Adjust the length of the contact under this object to suit your needs. \
     ![image](https://github.com/user-attachments/assets/09b04bc6-1b91-4363-aa43-03c3b35c9603)
 
 13) Cleanup time! Search "Cylinder 1 (approx)" in the hierarchy search bar and turn all those off to hide the approximation preview handles on the player model as they aren't used. To hide (or unhide) the system, toggle the "Puppet Avatar Container" object. The system will not automatically toggle on things that aren't supposed to be toggled off. If you have Gesture Manager installed via VCC, you can press play to test the posing system. If your avatar has special components like Modular Avatar or VRCFury anywhere in its hierarchy, check important notes in the [contents](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#lexisposingsystem-documentation) to resolve potential issues.
@@ -69,7 +69,7 @@ LPS has a fairly simple setup process thanks to the required package [Modular Av
 When you load into a world, you will experience a large lag spike as everything loads in. This is normal. \
 Please do not load an LPS avatar in a public or group instance. It is recommended to load in a private instance. No one can see your LPS progress unless you use VRChat's VRC+ print out camera or share your screen/stream camera.
 ## Menus
-In [v1.1.0], some new icons were introduced after documentation was edited. Some menu icons shown here may not match exactly with the final product.
+In v1.1.0, some new icons were introduced after documentation was edited. Some menu icons shown here may not match exactly with the final product.
 ### Lexi's Posing System
 ![image](https://github.com/user-attachments/assets/48665cc2-5331-465c-9c8f-fef6486b5307)
 1) Enable the system. When turned off, all puppets are hidden. It doesn't offer a great performance boost though.
@@ -83,12 +83,14 @@ In [v1.1.0], some new icons were introduced after documentation was edited. Some
 ### Settings
 ![image](https://github.com/user-attachments/assets/4580f738-5c4e-48b7-8b5b-4807ffa43092)
 1) Reset the puppet to T-Pose. Applies to rotation, scale, and translation, but not facials. Reset the face in the MMD Facials menu.
-   - [v1.1.0] This button must be held for at least 2 seconds.
-2) [v1.1.0] Show and enable a rig of ball joints that you can look at to control them via the Rotation menu. Initializes enabled when on desktop.
-   - Video showcase: [Ilexis Nakamori @ Twitter/X](https://x.com/IlexisTheMadcat/status/1889223329443410112)
-3) Show a rig of blue bones that you can grab to move the bones. Initializes enabled when loaded in VR.
+   - This button must be held for at least 2 seconds.
+2) Show and enable a rig of ball joints that you can look at to control them via the Rotation menu. Initializes enabled when on desktop.
+   - See [Aim Joint Gadgets](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#aim-joint-gadgets)
+3) Show a rig of blue bones that you can grab to move the bones. Initializes enabled when in VR.
+   - See [Physbone Gadgets](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#physbone-gadgets)
    - Image showcase: [Ilexis Nakamori @ Twitter/X](https://x.com/IlexisTheMadcat/status/1826079313751330868)
 4) Show a rig of gadgets that show which directions a joint will move and their bounds.
+   - See [Rotation Gadgets](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#rotation-gadgets)
    - ⚠️ Warning: This option induces a mild drop in graphics performance. It is not meant to be on all the time.
 6) Save the puppet's pose for future use.
 7) Gradually increase this radial to make the puppet follow the player avatar's pose.
@@ -98,23 +100,22 @@ In [v1.1.0], some new icons were introduced after documentation was edited. Some
 ### Saving
 This feature lets you save poses to your avatar's saved settings. These aren't transferrable between avatars or to/from test builds. \
 Applies to joint rotations. Applies to facials as of v1.1.0. \
-Video showcase: [Ilexis Nakamori @ Twitter/X](https://x.com/IlexisTheMadcat/status/1830112245851779523) \ 
+Video showcase: [Ilexis Nakamori @ Twitter/X](https://x.com/IlexisTheMadcat/status/1830112245851779523) \
 ![image](https://github.com/user-attachments/assets/78630688-ae48-49bf-b839-224588e8fcbe)
 1) Begin saving a pose. Click one of the three slots to save. **WILL NOT ASK FOR CONFIRMATION.**
 2) Begin loading a pose. Click one of the three slots to load. **WILL NOT ASK FOR CONFIRMATION.**
 3) Slot 1.
 4) Slot 2.
 5) Slot 3.
-   - Must click either save or load for slots to do anything.
-   - [v1.1.0] When save or load are not selected, when held, these buttons preview their respective save slot. The working pose will be restored when released.
-   - [v1.1.0] The save slot buttons must be held for at least 2 seconds to save to or load from.
+   - When save or load are not selected, when held, these buttons preview their respective save slot. The working pose will be restored when released.
+   - The save slot buttons must be held for at least 2 seconds to save to or load from.
 ### Rotation
 ![image](https://github.com/user-attachments/assets/84316260-098c-4008-bb19-3e2e8f5a385f)
 1) Joint children.
 2) Selected joint name, appears in the center via Rich Text in-game. Has no menu function.
 - The first submenu of the Rotation menu controls the joint you are looking directly at, if you have Aim Joint Gadgets enabled.
-3) [v1.1.0] Twist the joint, if applicable.
-4) [v1.1.0] Pivot the joint.
+3) Twist the joint, if applicable.
+4) Pivot the joint.
 5) Manual XYZ joint rotation. The Hips rotation menu will rotate the entire puppet.
 - Some joints do not have all of XYZ or have both controllers because they don't move in those directions. 
 ### Hands & Eyes
@@ -139,9 +140,9 @@ The Y axis is labeled, but the others are the same way, just in different colors
 - In LPS, rotation is achieved by putting X, Y, and Z axes in hierarchical order. X moves XYZ, Y moves YZ, and Z only moves Z. This can be a bit quirky to manage for certain poses, but if you're in VR, you can use the physbone handles below.
 - The rotation bounds show the bounds within which the bones can rotate. This posing system is designed to be anatomically accurate while also being forgiving and letting creativity go wild. 
 ### Aim Joint Gadgets
-Added in v1.1.0 \
 The aim joint gadgets are blue balls that glow when you look at them. \
 When the ball is glowing, you can edit the joint it's attached to with the rotation menu. You can also lock it to look away without deselecting it. \
+Video showcase: [Ilexis Nakamori @ Twitter/X](https://x.com/IlexisTheMadcat/status/1889223329443410112) \
 ![image](https://github.com/user-attachments/assets/1c33209b-578e-4815-b0fc-c8f7ab526cc8)
 ### Physbone Gadgets
 These blue bars represent the bones you can grab to pose the avatar. These can be hidden in the settings menu. \
