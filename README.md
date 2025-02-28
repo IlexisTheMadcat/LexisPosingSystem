@@ -107,17 +107,17 @@ Video showcase: [Ilexis Nakamori @ Twitter/X](https://x.com/IlexisTheMadcat/stat
 3) Slot 1.
 4) Slot 2.
 5) Slot 3.
-   - When save or load are not selected, when held, these buttons preview their respective save slot. The working pose will be restored when released.
-   - The save slot buttons must be held for at least 2 seconds to save to or load from.
+- When save or load are not selected, when held, these buttons preview their respective save slot. The working pose will be restored when released.
+- The save slot buttons must be held for at least 2 seconds to save to or load from.
 ### Rotation
 ![image](https://github.com/user-attachments/assets/84316260-098c-4008-bb19-3e2e8f5a385f)
 1) Joint children.
 2) Selected joint name, appears in the center via Rich Text in-game. Has no menu function.
-- The first submenu of the Rotation menu controls the joint you are looking directly at, if you have Aim Joint Gadgets enabled.
 3) Twist the joint, if applicable.
 4) Pivot the joint.
 5) Manual XYZ joint rotation. The Hips rotation menu will rotate the entire puppet.
-- Some joints do not have all of XYZ or have both controllers because they don't move in those directions. 
+   - Some joints do not have all of XYZ or have both controllers because they don't move in those directions.
+- The first submenu of the Rotation menu controls the joint you are looking directly at, if you have Aim Joint Gadgets enabled.
 ### Hands & Eyes
 ![image](https://github.com/user-attachments/assets/70652e51-02c9-4fdc-a31e-1a65d50dbac7)
 1) Left/Right hands. Includes submenus for each finger. Each finger has a joint control for the three joints and a sideways movement called "spread".
@@ -137,7 +137,7 @@ The Y axis is labeled, but the others are the same way, just in different colors
 1) Rotation cursor
 2) Rotation bounds
 3) Rotation guide ring
-- In LPS, rotation is achieved by putting X, Y, and Z axes in hierarchical order. X moves XYZ, Y moves YZ, and Z only moves Z. This can be a bit quirky to manage for certain poses, but if you're in VR, you can use the physbone handles below.
+- In LPS, rotation is achieved by putting the X, Y, and Z axes in hierarchical order. X moves XYZ, Y moves YZ, and Z only moves Z. This can be a bit quirky to manage for certain poses, but if you're in VR, you can use the physbone handles below.
 - The rotation bounds show the bounds within which the bones can rotate. This posing system is designed to be anatomically accurate while also being forgiving and letting creativity go wild. 
 ### Aim Joint Gadgets
 The aim joint gadgets are blue balls that glow when you look at them. \
@@ -149,8 +149,8 @@ These blue bars represent the bones you can grab to pose the avatar. These can b
 ![image](https://github.com/user-attachments/assets/b3f1c13d-78ba-43d7-a837-f949dd56c12b)
 1) Polar handle, longer of the two. This pitches the joint along two leverage axes.
 2) Twist handle, shorter of the two. This twists the joint along the twisting axis.
-- You can grab polar and twist handles to automatically rotate the joint to your desired orientation. These let you move two or even all three axes simultaneously, making it much more practical to use in VR. The joints lag because the animator increments the parameters, limiting its ability to track the physbone handles instantly.
-- Some joints, namely shoulders and toes, don't have twist handles because those bones can't twist.
+   - Some joints, namely shoulders and toes, don't have twist handles because those bones can't twist.
+- You can grab polar and twist handles to automatically rotate the joint to your desired orientation. These let you move two or even all three axes simultaneously, making it much more practical to use in VR. The joints lag because the animator increments the parameters, limiting its ability to track the physbone handles instantly. 
 ### Move Gadget
 This gadget lets you translate the puppet in its local space. \
 Video showcase: [Ilexis Nakamori @ Twitter/X](https://x.com/IlexisTheMadcat/status/1847747604659999004) \
