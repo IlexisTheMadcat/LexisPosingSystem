@@ -178,10 +178,10 @@ If you don't want to bother with baking, you can look through these and make sur
 2) **MA Blendshape Sync** \
    These components are still referencing your player model's objects. These generally don't need to be edited, but if you're making a static puppet that hasn't cloned your FX layer, or you've animated them independently from your own avatar, you can just delete these or fix their references. \
    ![image](https://github.com/user-attachments/assets/f849c0db-74d3-48b1-876c-1463d0a7ec5a)
-3) **MA Bone Proxy**
+3) **MA Bone Proxy** \
    These components are still referencing the player model's objects. You'll need to dig through the puppet to find the bone it was targeting before. \
    ![image](https://github.com/user-attachments/assets/96a74c04-708e-4e3a-8a1b-b4a8bc8d80ad)
-4) **Unwanted MA components**
+4) **Unwanted MA components** \
    These components should be removed from the puppet avatar as they could interfere negatively with the upload process. \
    ![image](https://github.com/user-attachments/assets/0c062369-c0ed-432b-a1e9-701bb0f4d8eb) \
    All other Modular Avatar components should be fine as they are.
