@@ -30,6 +30,7 @@ Contents:
   - [Manual Calibration](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#manual-calibration)
   - [Gadget Scaling](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#gadget-scaling) (Important if the puppet is big or small)
   - [FX Layer Cloning](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#fx-layer-cloning)
+    - [MMD Facials Note](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#mmd-facials-note)
 - [Statistics](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#statistics)
 
 # Quick Start
@@ -38,7 +39,7 @@ LPS has a fairly simple setup process thanks to the required package [Modular Av
 1) Drag the prefab from the installation's Prefab folder into your avatar.
    ![image](https://github.com/user-attachments/assets/4d46eb41-2956-406c-b49c-9176c6ab0735)
 2) Duplicate the whole avatar and remove LPS from it. \
-   Rename the copy to "Puppet Avatar" and the face to "Body" if you'd like to use the MMD facials feature. \
+   Rename the copy to "Puppet Avatar" and the face to "Body" if you'd like to use the MMD facials feature. See [MMD Facials Note](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#mmd-facials-note) \
    Remove all components from the Puppet Avatar object as they won't be needed.
    ![image](https://github.com/user-attachments/assets/645fa450-ac6b-4565-bb7b-60c26cb063fc)
 3) Remove anything that doesn't contribute to the appearance of the avatar. \
@@ -62,8 +63,7 @@ LPS has a fairly simple setup process thanks to the required package [Modular Av
     ![image](https://github.com/user-attachments/assets/c394a864-1153-4919-983a-1dbf448402f5)
 11) The Menu Pointer object was added in v1.1.0. Position this exactly where you placed your VRC viewpoint, then activate the constraint. This pointer allows you to look at a joint and edit it on demand using just one page in the Rotation menu. Adjust the length of the contact under this object to suit your needs. \
     ![image](https://github.com/user-attachments/assets/09b04bc6-1b91-4363-aa43-03c3b35c9603)
-
-13) Cleanup time! Search "Cylinder 1 (approx)" in the hierarchy search bar and turn all those off to hide the approximation preview handles on the player model as they aren't used. To hide (or unhide) the system, toggle the "Puppet Avatar Container" object. The system will not automatically toggle on things that aren't supposed to be toggled off. If you have Gesture Manager installed via VCC, you can press play to test the posing system. If your avatar has special components like Modular Avatar or VRCFury anywhere in its hierarchy, check important notes in the [contents](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#lexisposingsystem-documentation) to resolve potential issues.
+12) Cleanup time! Search "Cylinder 1 (approx)" in the hierarchy search bar and turn all those off to hide the approximation preview handles on the player model as they aren't used. To hide (or unhide) the system, toggle the "Puppet Avatar Container" object. The system will not automatically toggle on things that aren't supposed to be toggled off. If you have Gesture Manager installed via VCC, you can press play to test the posing system. If your avatar has special components like Modular Avatar or VRCFury anywhere in its hierarchy, check important notes in the [contents](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#lexisposingsystem-documentation) to resolve potential issues.
 
 # Usage
 When you load into a world, you will experience a large lag spike as everything loads in. This is normal. \
@@ -199,6 +199,10 @@ You can make your puppet an exact copy of your avatar at runtime. To do this, ad
 ![image](https://github.com/user-attachments/assets/acaaad33-e568-495c-adac-bc18de80396b) \
 If you are choosing to set up a different avatar as your puppet, also add the MA Parameters component and insert the avatar's parameters asset into the "Parameters to merge" slot. This will import all of those parameters into the component. To save parameter space which you may need to do to upload, uncheck "Synced" for all of the parameters. No one can see the puppet anyway. \
 ![image](https://github.com/user-attachments/assets/e4f4f386-000e-4332-8037-9498efd4f663)
+### MMD Facials Note
+If your puppet does NOT have _MMD dedicated_ facial blendshapes, LPS will overwrite your FX layer gesture values with the MMD values, which will reset whatever custom idle face you've made in-game. To disable this behavior and the MMD controls for this puppet, simply rename your Puppet Avatar object to anything else. The more advanced solution is to use Blender to duplicate (create new from mix) blendshapes and rename the blendshapes you intend to use for gestures, as LPS only animates Japanese MMD blendshapes. \
+If this note applies to you, you will need to make this change to the LPS prefab for it to operate correctly: \
+![image](https://github.com/user-attachments/assets/de6cb878-1a45-4f3f-82c1-bbe359ffc8cc)
 # Statistics
 LPS takes up a lot of an avatar's maximum allowed number of VRC Physbones and Contacts, so it's better to clone, or build your clone on, a simpler avatar. \
 Physbones: 37/256 \
