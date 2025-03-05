@@ -47,19 +47,20 @@ LPS has a fairly simple setup process thanks to the required package [Modular Av
 4) Move this new puppet to the puppet slot as shown below and set its position to 0,0,0.
    ![image](https://github.com/user-attachments/assets/55179e4c-48f6-46fc-a659-ddeacff93949)
 5) For the respective puppet slot, match the bone names for the calibration armature and the puppet merge target armature. **Do NOT use the merge function here!** \
-   You may have to expand these armatures and check for bones that didn't get renamed properly. These can include some or all finger bones and sometimes eye bones. 
+   You may have to expand these armatures and check for bones that didn't get renamed properly. These can include some or all finger bones and sometimes eye bones. \
    ![image](https://github.com/user-attachments/assets/4957fb73-fcef-4c9b-a323-4ffbde47ed23)
-6) Ensure the puppet is in T-Pose, then calibrate the posing system. If the puppet is _not_ in T-Pose, move the upper arms and shoulders if needed until they are parallel with the x-axis. The posing system assumes the puppet is in T-Pose upon build.
+6) Ensure the puppet is in T-Pose, then calibrate the posing system. If the puppet is _not_ in T-Pose, move the upper arms and shoulders if needed until they are parallel with the x-axis. The posing system assumes the puppet is in T-Pose upon build. \
    ![image](https://github.com/user-attachments/assets/eed7c274-1a09-4269-a175-78f0b8908895)
    - Review [Manual Calibration](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#manual-calibration) and [Gadget Scaling](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#gadget-scaling) for some customization.
-7) Revert the armature components. If you miss this, the posing system may not build properly even if the merge isn't locked or is turned off.
+7) Revert the armature components. If you miss this, the posing system may not build properly even if the merge isn't locked or is turned off. \
    ![image](https://github.com/user-attachments/assets/e776ecb1-3b0c-4f10-aabb-e74db1a5d16c)
-8) After confirming that the components above are reverted, attach an MA Merge Armature component to your new puppet's armature.
+8) After confirming that the components above are reverted, attach an MA Merge Armature component to your new puppet's armature. \
    ![image](https://github.com/user-attachments/assets/e7f1efdd-19b0-465c-a32b-d54137f08a85)
-9) Now link it to LPS. It is important that you set this to NOT LOCKED if you need to calibrate anything again, otherwise the puppet will mess itself up.
-    ![image](https://github.com/user-attachments/assets/5d302225-46d1-47f7-ac00-fd5f0ec83515)
+9) Now link it to LPS. It is important that you set this to NOT LOCKED if you need to calibrate anything again, otherwise the puppet will mess itself up. \
+   Also you should unlock it before you preview calibrations. If it's still locked and you preview, your puppet's joints may misplace themselves. \
+   ![image](https://github.com/user-attachments/assets/5d302225-46d1-47f7-ac00-fd5f0ec83515)
 10) To finalize the setup, link the posing system to your player avatar. \
-    There are 4 mini-steps shown here.
+    There are 4 mini-steps shown here. \
     ![image](https://github.com/user-attachments/assets/c394a864-1153-4919-983a-1dbf448402f5)
 11) The Menu Pointer object was added in v1.1.0. Position this exactly where you placed your VRC viewpoint, then activate the constraint. This pointer allows you to look at a joint and edit it on demand using just one page in the Rotation menu. Adjust the length of the contact under this object to suit your needs. \
     ![image](https://github.com/user-attachments/assets/09b04bc6-1b91-4363-aa43-03c3b35c9603)
