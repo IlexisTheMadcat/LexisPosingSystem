@@ -71,7 +71,7 @@ Ensure the puppet is in T-Pose, then calibrate the posing system. If the puppet 
 ![image](https://github.com/user-attachments/assets/eed7c274-1a09-4269-a175-78f0b8908895)
 - Review [Manual Calibration](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#manual-calibration) and [Gadget Scaling](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#gadget-scaling) for some customization.
 ### 7) Reset calibrators
-Revert the armature components. If you miss this, the posing system may not build properly even if the merge isn't locked or is turned off. \
+Revert the armature components. This is important!! If you miss this, the posing system may not build properly or the puppets' offsets could get recalculated every time it's updated (which is very bad). \
 ![image](https://github.com/user-attachments/assets/e776ecb1-3b0c-4f10-aabb-e74db1a5d16c)
 ### 8) Attach MA Merge Armature
 After confirming that the components above are reverted, attach an MA Merge Armature component to your new puppet's armature. \
