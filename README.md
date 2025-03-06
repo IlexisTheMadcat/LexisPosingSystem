@@ -225,9 +225,7 @@ You can make your puppet an exact copy of your avatar at runtime. To do this, ad
 If you are choosing to set up a different avatar as your puppet, also add the MA Parameters component and insert the avatar's parameters asset into the "Parameters to merge" slot. This will import all of those parameters into the component. To save parameter space which you may need to do to upload, uncheck "Synced" for all of the parameters. No one can see the puppet anyway. \
 ![image](https://github.com/user-attachments/assets/e4f4f386-000e-4332-8037-9498efd4f663)
 ### MMD Facials Note
-If your puppet does NOT have _MMD dedicated_ facial blendshapes, LPS will overwrite your FX layer gesture values with the MMD values, which will reset whatever custom idle face you've made in-game. To disable this behavior and the MMD controls for this puppet, simply rename your Puppet Avatar object to anything else. The more advanced solution is to use Blender to duplicate (create new from mix) blendshapes and rename the blendshapes you intend to use for gestures, as LPS only animates Japanese MMD blendshapes. \
-If this note applies to you, you will need to make this change to the LPS prefab for it to operate correctly: \
-![image](https://github.com/user-attachments/assets/de6cb878-1a45-4f3f-82c1-bbe359ffc8cc)
+If your puppet does NOT have _MMD dedicated_ facial blendshapes, LPS will overwrite your FX layer gesture values with the MMD values, which will reset whatever custom idle face you've made in-game. To disable this behavior and the MMD controls for this puppet, simply rename your Puppet Avatar object to anything else. The more advanced solution is to use Blender to duplicate (create new from mix) blendshapes and rename the blendshapes you intend to use for gestures, as LPS only animates Japanese MMD blendshapes.
 # Statistics
 LPS takes up a lot of an avatar's maximum allowed number of VRC Physbones and Contacts, so it's better to clone, or build your clone on, a simpler avatar. \
 Physbones: 37/256 \
