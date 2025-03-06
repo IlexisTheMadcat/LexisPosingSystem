@@ -11,6 +11,18 @@ See [Statistics](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/
 
 Contents:
 - [Quick Start](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#quick-start)
+  - [Drag prefab into scene](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#1-drag-prefab-into-scene)
+  - [Duplicate avatar](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#2-duplicate-avatar)
+  - [Remove excess objects](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#3-remove-excess-objects)
+  - [Drag duplicate into LPS](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#4-drag-duplicate-into-lps)
+  - [Match bone names](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#5-match-bone-names)
+  - [Calibration](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#6-calibration)
+  - [Reset calibrators](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#7-reset-calibrators)
+  - [Attach MA Merge Armature](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#8-attach-ma-merge-armature)
+  - [Link puppet to LPS](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#9-link-puppet-to-lps)
+  - [Link LPS to avatar](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#10-link-lps-to-avatar)
+  - [Position aim joint pointer](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#11-position-aim-joint-pointer)
+  - [Clean up](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#12-clean-up)
 - [Usage](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#usage)
   - [Menus](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#menus)
     - [Lexi's Posing System](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#lexis-posing-system)
@@ -36,35 +48,47 @@ Contents:
 # Quick Start
 Start by duplicating your scene. You don't want to upload this to your main avatar. Once you do that, open it, and detach the blueprint ID in the Pipeline Manager component. It is located where you'll find the VRC Avatar Descriptor. This will make the SDK forget the avatar for that scene so you'll upload a new avatar. \
 LPS has a fairly simple setup process thanks to the required package [Modular Avatar](https://modular-avatar.nadena.dev/docs/intro). You can follow the instructions on that page to install Modular Avatar via the VRChat Creator Companion app. 
-1) Drag the prefab from the installation's Prefab folder into your avatar.
-   ![image](https://github.com/user-attachments/assets/4d46eb41-2956-406c-b49c-9176c6ab0735)
-2) Duplicate the whole avatar and remove LPS from it. \
-   Rename the copy to "Puppet Avatar" and the face to "Body" if you'd like to use the MMD facials feature. See [MMD Facials Note](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#mmd-facials-note) \
-   Remove all components from the Puppet Avatar object as they won't be needed.
-   ![image](https://github.com/user-attachments/assets/645fa450-ac6b-4565-bb7b-60c26cb063fc)
-3) Remove anything that doesn't contribute to the appearance of the avatar. \
-   This is expanded on further down, but generally, an avatar that doesn't have any special tools should be useable as is.
-4) Move this new puppet to the puppet slot as shown below and set its position to 0,0,0.
-   ![image](https://github.com/user-attachments/assets/55179e4c-48f6-46fc-a659-ddeacff93949)
-5) For the respective puppet slot, match the bone names for the calibration armature and the puppet merge target armature. **Do NOT use the merge function here!** \
-   You may have to expand these armatures and check for bones that didn't get renamed properly. These can include some or all finger bones and sometimes eye bones. \
-   ![image](https://github.com/user-attachments/assets/4957fb73-fcef-4c9b-a323-4ffbde47ed23)
-6) Ensure the puppet is in T-Pose, then calibrate the posing system. If the puppet is _not_ in T-Pose, move the upper arms and shoulders if needed until they are parallel with the x-axis. The posing system assumes the puppet is in T-Pose upon build. \
-   ![image](https://github.com/user-attachments/assets/eed7c274-1a09-4269-a175-78f0b8908895)
-   - Review [Manual Calibration](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#manual-calibration) and [Gadget Scaling](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#gadget-scaling) for some customization.
-7) Revert the armature components. If you miss this, the posing system may not build properly even if the merge isn't locked or is turned off. \
-   ![image](https://github.com/user-attachments/assets/e776ecb1-3b0c-4f10-aabb-e74db1a5d16c)
-8) After confirming that the components above are reverted, attach an MA Merge Armature component to your new puppet's armature. \
-   ![image](https://github.com/user-attachments/assets/e7f1efdd-19b0-465c-a32b-d54137f08a85)
-9) Now link it to LPS. It is important that you set this to NOT LOCKED if you need to calibrate anything again, otherwise the puppet will mess itself up. \
-   Also you should unlock it before you preview calibrations. If it's still locked and you preview, your puppet's joints may misplace themselves. \
-   ![image](https://github.com/user-attachments/assets/5d302225-46d1-47f7-ac00-fd5f0ec83515)
-10) To finalize the setup, link the posing system to your player avatar. \
-    There are 4 mini-steps shown here. \
-    ![image](https://github.com/user-attachments/assets/c394a864-1153-4919-983a-1dbf448402f5)
-11) The Menu Pointer object was added in v1.1.0. Position this exactly where you placed your VRC viewpoint, then activate the constraint. This pointer allows you to look at a joint and edit it on demand using just one page in the Rotation menu. Adjust the length of the contact under this object to suit your needs. \
-    ![image](https://github.com/user-attachments/assets/09b04bc6-1b91-4363-aa43-03c3b35c9603)
-12) Cleanup time! Search "Cylinder 1 (approx)" in the hierarchy search bar and turn all those off to hide the approximation preview handles on the player model as they aren't used. To hide (or unhide) the system, toggle the "Puppet Avatar Container" object. The system will not automatically toggle on things that aren't supposed to be toggled off. If you have Gesture Manager installed via VCC, you can press play to test the posing system. If your avatar has special components like Modular Avatar or VRCFury anywhere in its hierarchy, check important notes in the [contents](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#lexisposingsystem-documentation) to resolve potential issues.
+### 1) Drag prefab into scene
+Drag the prefab from the installation's Prefab folder into your avatar.
+![image](https://github.com/user-attachments/assets/4d46eb41-2956-406c-b49c-9176c6ab0735)
+### 2) Duplicate avatar
+Duplicate the whole avatar and remove LPS from it. \
+Rename the copy to "Puppet Avatar" and the face to "Body" if you'd like to use the MMD facials feature. See [MMD Facials Note](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#mmd-facials-note) \
+Remove all components from the Puppet Avatar object as they won't be needed. \
+![image](https://github.com/user-attachments/assets/645fa450-ac6b-4565-bb7b-60c26cb063fc)
+### 3) Remove excess objects
+Remove anything that doesn't contribute to the appearance of the avatar. \
+This is expanded on further down, but generally, an avatar that doesn't have any special tools should be useable as is.
+### 4) Drag duplicate into LPS
+Move this new puppet to the puppet slot as shown below and set its position to 0,0,0. \
+![image](https://github.com/user-attachments/assets/55179e4c-48f6-46fc-a659-ddeacff93949)
+### 5) Match bone names
+For the respective puppet slot, match the bone names for the calibration armature and the puppet merge target armature. **Do NOT use the merge function here!** \
+You may have to expand these armatures and check for bones that didn't get renamed properly. These can include some or all finger bones and sometimes eye bones. \
+![image](https://github.com/user-attachments/assets/4957fb73-fcef-4c9b-a323-4ffbde47ed23)
+### 6) Calibration
+Ensure the puppet is in T-Pose, then calibrate the posing system. If the puppet is _not_ in T-Pose, move the upper arms and shoulders if needed until they are parallel with the x-axis. The posing system assumes the puppet is in T-Pose upon build. \
+![image](https://github.com/user-attachments/assets/eed7c274-1a09-4269-a175-78f0b8908895)
+- Review [Manual Calibration](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#manual-calibration) and [Gadget Scaling](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#gadget-scaling) for some customization.
+### 7) Reset calibrators
+Revert the armature components. If you miss this, the posing system may not build properly even if the merge isn't locked or is turned off. \
+![image](https://github.com/user-attachments/assets/e776ecb1-3b0c-4f10-aabb-e74db1a5d16c)
+### 8) Attach MA Merge Armature
+After confirming that the components above are reverted, attach an MA Merge Armature component to your new puppet's armature. \
+![image](https://github.com/user-attachments/assets/e7f1efdd-19b0-465c-a32b-d54137f08a85)
+### 9) Link puppet to LPS
+Now link it to LPS. It is important that you set this to NOT LOCKED if you need to calibrate anything again, otherwise the puppet will mess itself up. \
+Also you should unlock it before you preview calibrations. If it's still locked and you preview, your puppet's joints may misplace themselves. \
+![image](https://github.com/user-attachments/assets/5d302225-46d1-47f7-ac00-fd5f0ec83515)
+### 10) Link LPS to avatar
+To finalize the setup, link the posing system to your player avatar. \
+There are 4 mini-steps shown here. \
+![image](https://github.com/user-attachments/assets/c394a864-1153-4919-983a-1dbf448402f5)
+### 11) Position aim joint pointer
+The Menu Pointer object was added in v1.1.0. Position this exactly where you placed your VRC viewpoint, then activate the constraint. This pointer allows you to look at a joint and edit it on demand using just one page in the Rotation menu. Adjust the length of the contact under this object to suit your needs. \
+![image](https://github.com/user-attachments/assets/09b04bc6-1b91-4363-aa43-03c3b35c9603)
+### 12) Clean up
+Cleanup time! Search "Cylinder 1 (approx)" in the hierarchy search bar and turn all those off to hide the approximation preview handles on the player model as they aren't used. To hide (or unhide) the system, toggle the "Puppet Avatar Container" object. The system will not automatically toggle on things that aren't supposed to be toggled off. If you have Gesture Manager installed via VCC, you can press play to test the posing system. If your avatar has special components like Modular Avatar or VRCFury anywhere in its hierarchy, check important notes in the [contents](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#lexisposingsystem-documentation) to resolve potential issues.
 
 # Usage
 When you load into a world, you will experience a large lag spike as everything loads in. This is normal. \
