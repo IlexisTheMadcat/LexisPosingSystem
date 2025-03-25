@@ -1,7 +1,8 @@
 # LexisPosingSystem Documentation
 Lexi's Posing System, also known as LPS, is a tool for VRChat avatars that allows users to carry and pose up to 3 clones of their avatar or other avatars they've created.
 Unlike other takes on posing systems, this system uses _too many to count_ parameters to control a shared armature for the puppets. The parameters store information about the puppet transform data to allow persistence and various quality-of-life features. \
-This posing system can be purchased here: https://ilexisthemadcat.booth.pm/items/6215800
+This posing system can be purchased here: https://ilexisthemadcat.booth.pm/items/6215800 \
+Demo video: [[VRChat] Lexi's Posing System Demo (March 2025)](https://youtu.be/avXMTtn-ZQQ)
 
 Community Server: https://discord.gg/ilexissloft \
 Please stop by if you have any questions about setup or want to suggest something. Select Lexi's Assets in onboarding and scroll down the channels for #💬lexis-posing-system!
