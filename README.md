@@ -46,7 +46,8 @@ Contents: (Protip: [|^|](https://github.com/IlexisTheMadcat/LexisPosingSystem/bl
 - [Statistics](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#statistics)
 
 # Quick Start
-[|^|](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#lexisposingsystem-documentation) Start by duplicating your scene. You don't want to upload this to your main avatar. Once you do that, open it, and detach the blueprint ID in the Pipeline Manager component. It is located where you'll find the VRC Avatar Descriptor. This will make the SDK forget the avatar for that scene so you'll upload a new avatar. \
+[|^|](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#lexisposingsystem-documentation) Video guide: [LPS Installation](https://youtu.be/CJR3EyofTH4) \
+Start by duplicating your scene. You don't want to upload this to your main avatar. Once you do that, open it, and detach the blueprint ID in the Pipeline Manager component. It is located where you'll find the VRC Avatar Descriptor. This will make the SDK forget the avatar for that scene so you'll upload a new avatar. \
 LPS has a fairly simple setup process thanks to the required package [Modular Avatar](https://modular-avatar.nadena.dev/docs/intro). You can follow the instructions on that page to install Modular Avatar via the VRChat Creator Companion app. 
 ### 1) Drag prefab into scene
 [|^|](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#lexisposingsystem-documentation) Drag the prefab from the installation's Prefab folder into your avatar.
