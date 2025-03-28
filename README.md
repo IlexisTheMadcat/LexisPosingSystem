@@ -216,7 +216,9 @@ You can use the FX layer and parameters created by baking in the [FX Layer Cloni
    ![image](https://github.com/user-attachments/assets/96a74c04-708e-4e3a-8a1b-b4a8bc8d80ad)
 4) **Unwanted MA components** \
    These components should be removed from the puppet avatar as they could interfere negatively with the upload process. \
-   ![image](https://github.com/user-attachments/assets/0c062369-c0ed-432b-a1e9-701bb0f4d8eb) \
+   ![image](https://github.com/user-attachments/assets/c5379e19-0be4-45c3-abfc-449f15a30de9) \
+   If your puppet has any of these, check if their path mode is set to Absolute. If so, override the root to the Puppet Avatar object. \
+   ![image](https://github.com/user-attachments/assets/54351a0c-6e12-461f-a936-048d19fe3f5a) \
    All other Modular Avatar components should be fine as they are.
 ## Puppets with VRCFury
 [|^|](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#lexisposingsystem-documentation) VRCFury is not supported. It doesn't allow armatures to be linked to those apart from the player avatar, and it doesn't allow calibration in edit mode, making setup much more complicated and cumbersome. Attempting to include VRCFury components may lead to build issues as Modular Avatar and VRCFury fight over armatures and animations. \
