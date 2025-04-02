@@ -39,7 +39,7 @@ Contents: (Protip: [|^|](https://github.com/IlexisTheMadcat/LexisPosingSystem/bl
     - [Move Gadget](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#move-gadget)
 - [Advanced Setup](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#advanced-setup)
   - [Puppets with Modular Avatar](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#puppets-with-modular-avatar) (Important)
-  - [Puppets with unsupported VRCFury](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#puppets-with-unsupported-vrcfury) (Important)
+  - [Puppets with unsupported VRCFury](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#puppets-with-vrcfury) (Important)
   - [Manual Calibration](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#manual-calibration)
   - [Gadget Scaling](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#gadget-scaling) (Important if the puppet is big or small)
   - [FX Layer Cloning](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#fx-layer-cloning)
