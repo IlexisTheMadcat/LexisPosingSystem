@@ -1,4 +1,4 @@
-Live LPS version: v1.2.0 \
+Live LPS version: v1.1.2 (v1.2.0 soon) \
 LPS-OSC (LPS v1.2+): v1.0.0
 # LexisPosingSystem Documentation
 Lexi's Posing System, also known as LPS, is a tool for VRChat avatars that allows users to carry and pose up to 3 clones of their avatar or other avatars they've created.
