@@ -49,6 +49,7 @@ Contents: (Protip: [|^|](https://github.com/IlexisTheMadcat/LexisPosingSystem/bl
   - [FX Layer Cloning](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#fx-layer-cloning)
     - [MMD Facials Note](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#mmd-facials-note)
 - [Statistics](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#statistics)
+- [OSC Program](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#osc-program)
 
 # Quick Start
 [|^|](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#lexisposingsystem-documentation) Video guide: [LPS Installation](https://youtu.be/CJR3EyofTH4) \
@@ -133,7 +134,7 @@ Please do not load an LPS avatar in a public or group instance. It is recommende
 ### Saving
 [|^|](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#lexisposingsystem-documentation) This feature lets you save poses to your avatar's saved settings. These aren't transferrable between avatars or to/from test builds. \
 Applies to joint rotations. Applies to facials as of v1.1.0. Facials and hands separately as of v1.2.0. \
-LPS-OSC allows saving/loading from json files and operating on test builds. \
+LPS-OSC allows saving/loading from json files and operating on test builds. See [OSC Program](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#osc-program). \
 Video showcase: [Ilexis Nakamori @ Twitter/X](https://x.com/IlexisTheMadcat/status/1830112245851779523)
 #### Folders
 ![image](https://github.com/user-attachments/assets/ea3d439a-fa0a-4546-a650-5678c7a20af5)
@@ -270,7 +271,7 @@ Needless to say, LPS is not optimized. But for what it can do, and its intended 
 Also, LPS is meant to be installed on a copy of your avatar and not on your primary upload, so you'll be able to choose when LPS is present.
 
 # OSC Program
-[|^|](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#lexisposingsystem-documentation) An OSC program will be available for download. It is published on this Github repository for viewing, and is available for download in Releases. It extends the posing system's ability to save and load pose data with JSON files. It lets you transfer your saves anywhere, you can share with friends or communities, and it allows using save information on test builds! You no longer have to upload your LPS builds to save pose data. The program will automatically connect to a running instance of LPS and switch the system from local to OSC mode. 
+[|^|](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#lexisposingsystem-documentation) An OSC program is available for download in Releases. It extends the posing system's ability to save and load pose data with JSON files. It lets you transfer your saves anywhere, you can share with friends or communities, and it allows using save information on test builds! You no longer have to upload your LPS builds to save pose data. The program will automatically connect to a running instance of LPS and switch the system from local to OSC mode. 
 - In local mode, LPS is limited to the 3 pose slots. The avatar has to be uploaded to actually save this data, pose data will not actually save on test builds. 
 - In OSC mode, LPS can communicate with the OSC program to save pose parameters to json files. It also supports saving just the hands and just the faces separately with their own save slots allocated.
   - To load a file into a save slot, navigate to the directory in the config file ("`.../Documents/Lexi's Posing System`" by default)/(`Poses`/`Hands`/`Faces`) and move the json file into a slot folder. The file can be named whatever, the program will read it. It will not read multiple files in the slot folder, only one of them. If a file is not in that folder, LPS can generate one once saving to it. If there *is* one in the folder, LPS will overwrite it without warning! You can check if a file is loaded in that slot by turning off saving/loading and clicking a save slot, beginning a quick peek preview.
