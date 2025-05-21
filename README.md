@@ -31,6 +31,8 @@ Contents: (Protip: [|^|](https://github.com/IlexisTheMadcat/LexisPosingSystem/bl
     - [Lexi's Posing System](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#lexis-posing-system)
     - [Settings](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#settings)
     - [Saving](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#saving)
+      - [Folders](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#folders)
+      - [Save slots](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#save-slots)
     - [Rotation](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#rotation)
     - [Hands & Eyes](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#hands--eyes)
     - [Eyes](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#eyes)
@@ -130,24 +132,30 @@ Please do not load an LPS avatar in a public or group instance. It is recommende
    - Video showcase: [Ilexis Nakamori @ Twitter/X](https://x.com/IlexisTheMadcat/status/1844836318800384248)
 ### Saving
 [|^|](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#lexisposingsystem-documentation) This feature lets you save poses to your avatar's saved settings. These aren't transferrable between avatars or to/from test builds. \
-Applies to joint rotations. Applies to facials as of v1.1.0. \
-Video showcase: [Ilexis Nakamori @ Twitter/X](https://x.com/IlexisTheMadcat/status/1830112245851779523) \
-![image](https://github.com/user-attachments/assets/78630688-ae48-49bf-b839-224588e8fcbe)
+Applies to joint rotations. Applies to facials as of v1.1.0. Facials and hands separately as of v1.2.0. \
+Video showcase: [Ilexis Nakamori @ Twitter/X](https://x.com/IlexisTheMadcat/status/1830112245851779523)
+#### Folders
+![image](https://github.com/user-attachments/assets/ea3d439a-fa0a-4546-a650-5678c7a20af5)
+1) For hand saves, off: left hand, on: right hand.
+2) Pose saves (4-6 OSC only)
+3) Hand saves (OSC only)
+4) Face saves (OSC only)
+#### Save slots
+![image](https://github.com/user-attachments/assets/36aad0c0-1a3e-4e7e-903e-315da4db3423)
 1) Begin saving a pose. Click one of the three slots to save. **WILL NOT ASK FOR CONFIRMATION.**
 2) Begin loading a pose. Click one of the three slots to load. **WILL NOT ASK FOR CONFIRMATION.**
-3) Slot 1.
-4) Slot 2.
-5) Slot 3.
+3) Save slots. When OSC mode is off, only slots 1-3 work and only for Poses.
 - When save or load are not selected, when held, these buttons preview their respective save slot. The working pose will be restored when released.
 - The save slot buttons must be held for at least 2 seconds to save to or load from.
 ### Rotation
 [|^|](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#lexisposingsystem-documentation) Rotate the joints of your puppets. \
-![image](https://github.com/user-attachments/assets/84316260-098c-4008-bb19-3e2e8f5a385f)
-1) Joint children.
-2) Selected joint name, appears in the center via Rich Text in-game. Has no menu function.
-3) Twist the joint, if applicable.
+![image](https://github.com/user-attachments/assets/9ac92a41-0921-46ef-b01d-d044358c0b02)
+1) Undo (OSC only)
+2) Redo (OSC only)
+3) Joint children.
 4) Pivot the joint.
-5) Manual XYZ joint rotation. The Hips rotation menu will rotate the entire puppet.
+5) Twist the joint, if applicable.
+6) Selected joint name, manual XYZ joint rotation. The Hips rotation menu will rotate the entire puppet.
    - Some joints do not have all of XYZ or have both controllers because they don't move in those directions.
 - The first submenu of the Rotation menu controls the joint you are looking directly at, if you have Aim Joint Gadgets enabled.
 ### Hands & Eyes
