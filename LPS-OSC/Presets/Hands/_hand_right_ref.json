@@ -1,0 +1,84 @@
+{
+    "parameters": [
+        {
+            "name": "058_Right_Index_Proximal_X",
+            "value": 0.33
+        },
+        {
+            "name": "059_Right_Index_Proximal_Z",
+            "value": 0.5
+        },
+        {
+            "name": "060_Right_Index_Intermediate_X",
+            "value": 0.33
+        },
+        {
+            "name": "061_Right_Index_Distal_X",
+            "value": 0.33
+        },
+        {
+            "name": "062_Right_Little_Proximal_X",
+            "value": 0.33
+        },
+        {
+            "name": "063_Right_Little_Proximal_Z",
+            "value": 0.5
+        },
+        {
+            "name": "064_Right_Little_Intermediate_X",
+            "value": 0.33
+        },
+        {
+            "name": "065_Right_Little_Distal_X",
+            "value": 0.33
+        },
+        {
+            "name": "066_Right_Middle_Proximal_X",
+            "value": 0.33
+        },
+        {
+            "name": "067_Right_Middle_Proximal_Z",
+            "value": 0.5
+        },
+        {
+            "name": "068_Right_Middle_Intermediate_X",
+            "value": 0.33
+        },
+        {
+            "name": "069_Right_Middle_Distal_X",
+            "value": 0.33
+        },
+        {
+            "name": "070_Right_Ring_Proximal_X",
+            "value": 0.33
+        },
+        {
+            "name": "071_Right_Ring_Proximal_Z",
+            "value": 0.5
+        },
+        {
+            "name": "072_Right_Ring_Intermediate_X",
+            "value": 0.33
+        },
+        {
+            "name": "073_Right_Ring_Distal_X",
+            "value": 0.33
+        },
+        {
+            "name": "074_Right_Thumb_Proximal_X",
+            "value": 0.33
+        },
+        {
+            "name": "075_Right_Thumb_Proximal_Z",
+            "value": 0.33
+        },
+        {
+            "name": "076_Right_Thumb_Intermediate_X",
+            "value": 0.33
+        },
+        {
+            "name": "077_Right_Thumb_Distal_X",
+            "value": 0.33
+        }
+    ]
+}

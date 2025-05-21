@@ -1,0 +1,84 @@
+{
+    "parameters": [
+        {
+            "name": "Index_Proximal_X",
+            "value": 1
+        },
+        {
+            "name": "Index_Proximal_Z",
+            "value": 0.45
+        },
+        {
+            "name": "Index_Intermediate_X",
+            "value": 1
+        },
+        {
+            "name": "Index_Distal_X",
+            "value": 1
+        },
+        {
+            "name": "Little_Proximal_X",
+            "value": 1
+        },
+        {
+            "name": "Little_Proximal_Z",
+            "value": 0.6
+        },
+        {
+            "name": "Little_Intermediate_X",
+            "value": 1
+        },
+        {
+            "name": "Little_Distal_X",
+            "value": 1
+        },
+        {
+            "name": "Middle_Proximal_X",
+            "value": 1
+        },
+        {
+            "name": "Middle_Proximal_Z",
+            "value": 0.4
+        },
+        {
+            "name": "Middle_Intermediate_X",
+            "value": 1
+        },
+        {
+            "name": "Middle_Distal_X",
+            "value": 1
+        },
+        {
+            "name": "Ring_Proximal_X",
+            "value": 1
+        },
+        {
+            "name": "Ring_Proximal_Z",
+            "value": 0.42
+        },
+        {
+            "name": "Ring_Intermediate_X",
+            "value": 1
+        },
+        {
+            "name": "Ring_Distal_X",
+            "value": 1
+        },
+        {
+            "name": "Thumb_Proximal_X",
+            "value": 0.6
+        },
+        {
+            "name": "Thumb_Proximal_Z",
+            "value": 0.75
+        },
+        {
+            "name": "Thumb_Intermediate_X",
+            "value": 0.7
+        },
+        {
+            "name": "Thumb_Distal_X",
+            "value": 1
+        }
+    ]
+}

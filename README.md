@@ -1,5 +1,5 @@
-Live LPS version: v1.1.2 \
-LPS-OSC (LPS v1.2+): soon
+Live LPS version: v1.2.0 \
+LPS-OSC (LPS v1.2+): v1.0.0
 # LexisPosingSystem Documentation
 Lexi's Posing System, also known as LPS, is a tool for VRChat avatars that allows users to carry and pose up to 3 clones of their avatar or other avatars they've created.
 Unlike other takes on posing systems, this system uses _too many to count_ parameters to control a shared armature for the puppets. The parameters store information about the puppet transform data to allow persistence and various quality-of-life features. \
@@ -260,5 +260,12 @@ FPS drop on recommended hardware: ~130 -> ~45
 Needless to say, LPS is not optimized. But for what it can do, and its intended purpose in photography, I'd say it's still worth it. \
 Also, LPS is meant to be installed on a copy of your avatar and not on your primary upload, so you'll be able to choose when LPS is present.
 
+# OSC Program
+[|^|](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#lexisposingsystem-documentation) An OSC program will be available for download. It is published on this Github repository for viewing, and is available for download in Releases. It extends the posing system's ability to save and load pose data with JSON files. It lets you transfer your saves anywhere, you can share with friends or communities, and it allows using save information on test builds! You no longer have to upload your LPS builds to save pose data. The program will automatically connect to a running instance of LPS and switch the system from local to OSC mode. 
+- In local mode, LPS is limited to the 3 pose slots. The avatar has to be uploaded to actually save this data, pose data will not actually save on test builds. 
+- In OSC mode, LPS can communicate with the OSC program to save pose parameters to json files. It also supports saving just the hands and just the faces separately with their own save slots allocated.
+  - To load a file into a save slot, navigate to the directory in the config file ("`.../Documents/Lexi's Posing System`" by default)/(`Poses`/`Hands`/`Faces`) and move the json file into a slot folder. The file can be named whatever, the program will read it. It will not read multiple files in the slot folder, only one of them. If a file is not in that folder, LPS can generate one once saving to it. If there *is* one in the folder, LPS will overwrite it without warning! You can check if a file is loaded in that slot by turning off saving/loading and clicking a save slot, beginning a quick peek preview.
+  - File saves are categorized into 3 folders: Poses, Faces, and Hands, with their indicators being 0, 1, and 2 respectively. The save type will be displayed at the beginning of the json file. LPS-OSC will refuse to load files with mismatched indicators. If you force the indicator to match, it may not load properly!
+  
 # End
 [Return to top](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#lexisposingsystem-documentation)

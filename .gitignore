@@ -1,0 +1,8 @@
+__pycache__
+.venv
+*.git
+build
+dist
+*.spec
+*.exe
+LPS-OSC dist
