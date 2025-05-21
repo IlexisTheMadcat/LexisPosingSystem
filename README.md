@@ -133,6 +133,7 @@ Please do not load an LPS avatar in a public or group instance. It is recommende
 ### Saving
 [|^|](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#lexisposingsystem-documentation) This feature lets you save poses to your avatar's saved settings. These aren't transferrable between avatars or to/from test builds. \
 Applies to joint rotations. Applies to facials as of v1.1.0. Facials and hands separately as of v1.2.0. \
+LPS-OSC allows saving/loading from json files and operating on test builds. \
 Video showcase: [Ilexis Nakamori @ Twitter/X](https://x.com/IlexisTheMadcat/status/1830112245851779523)
 #### Folders
 ![image](https://github.com/user-attachments/assets/ea3d439a-fa0a-4546-a650-5678c7a20af5)
