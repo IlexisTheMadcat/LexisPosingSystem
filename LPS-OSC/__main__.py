@@ -59,7 +59,16 @@ async def initialize_lps_params():
     elif LPSMI.vrc_osc_dict["LPS/Version"] > LPS_VERSIONS[1]:
         print(f"WARNING: This version of LPS ({LPSMI.vrc_osc_dict['LPS/Version']}) is newer than what the OSC program was designed for! Fetch the updated code from the README!")
 
+    # comment out the next three lines to disable history reset on initialization
+    LPSMI.ACTION_HISTORY = []
+    LPSMI.ACTION_HISTORY_POSITION = -1
+    LPSMI.update_lps_history(
+        "Initial commit",
+        list(reference_data_dict.keys()),
+        (None, [LPSMI.vrc_osc_dict[key] for key in reference_data_dict.keys()]))
+
     print("LPS initialized!")
+
 
 async def main_loop():
     while True:
@@ -69,8 +78,6 @@ async def main_loop():
         if not await wait_for_condition(lambda: not LPSMI.vrc_osc_dict["LPS/OSC_Handshake"], timeout=1):
             LPSMI.vrc_osc_dict["LPS/OSC_Initialized"] = 0
             print("LPS connection timed out. Attempting reconnect.")
-            LPSMI.ACTION_HISTORY = []
-            LPSMI.ACTION_HISTORY_POSITION = -1
             await initialize_lps_params()
             continue
 
@@ -215,21 +222,12 @@ async def run_server():
     transport, protocol = await server.create_serve_endpoint()
     print("Listening for OSC messages on port 9001.")
 
-    async with aio_open("Presets/Poses/preset_1.json", "r", encoding='utf-8') as reference_file:  
-        reference_data = await reference_file.read()
-        reference_data = json.loads(reference_data)
-        reference_data_dict = {dict_item["name"]: dict_item["value"] for dict_item in reference_data["parameters"]}
-
     print("Attempting to connect to LPS. \n" \
           "Make sure you have OSC turned on in your avatar settings.")
     
     asyncio.create_task(lps_handshake())
 
     await initialize_lps_params()
-    LPSMI.update_lps_history(
-        "Initial commit",
-        list(reference_data_dict.keys()),
-        (None, [LPSMI.vrc_osc_dict[key] for key in reference_data_dict.keys()]))
 
     await main_loop()
     transport.close()
