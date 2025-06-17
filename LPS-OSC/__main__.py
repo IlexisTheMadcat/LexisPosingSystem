@@ -69,8 +69,8 @@ async def main_loop():
         if not await wait_for_condition(lambda: not LPSMI.vrc_osc_dict["LPS/OSC_Handshake"], timeout=1):
             LPSMI.vrc_osc_dict["LPS/OSC_Initialized"] = 0
             print("LPS connection timed out. Attempting reconnect.")
-            LPSMI.ACTION_HISTORY = -1
-            LPSMI.ACTION_HISTORY_POSITION = 0
+            LPSMI.ACTION_HISTORY = []
+            LPSMI.ACTION_HISTORY_POSITION = -1
             await initialize_lps_params()
             continue
 
