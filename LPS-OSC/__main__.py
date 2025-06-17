@@ -11,7 +11,7 @@
 # ############################################################################################################################
 
 # LPS v1.2.0 OR HIGHER IS REQUIRED TO USE LPS-OSC 1.0.0
-LPS_OSC_VERSION = 1.00     # 1.0.0
+LPS_OSC_VERSION = 1.01     # 1.0.1
 LPS_VERSIONS = (1.19, 1.21)  # 1.2.0 thru 1.2.0 (+- 0.01 cuz rounding issues)
 
 # import concurrent.futures
