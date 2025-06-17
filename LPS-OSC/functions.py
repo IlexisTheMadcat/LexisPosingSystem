@@ -39,7 +39,7 @@ def update_history(action, keys, values: tuple, history=[], position=-1):
 
 
 def undo_table(dict_item, history=[], position=-1):
-    if not history or abs(position) == len(history):
+    if not history or position == -len(history):
         return None
     
     else:
