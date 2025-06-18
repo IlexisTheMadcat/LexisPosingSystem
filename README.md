@@ -1,4 +1,4 @@
-LPS: v1.1.2 \
+LPS: v1.2.0 \
 LPS-OSC: v1.0.1 \
 For LPS versions: v1.2.0
 # LexisPosingSystem Documentation
