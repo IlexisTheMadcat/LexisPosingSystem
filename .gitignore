@@ -6,3 +6,4 @@ dist
 *.spec
 *.exe
 LPS-OSC dist
+create_exe.bat
