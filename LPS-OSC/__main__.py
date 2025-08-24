@@ -60,12 +60,27 @@ async def initialize_lps_params():
         print(f"WARNING: This version of LPS ({LPSMI.vrc_osc_dict['LPS/Version']}) is newer than what the OSC program was designed for! Fetch the updated code from the README!")
 
     # comment out the next three lines to disable history reset on initialization
-    LPSMI.ACTION_HISTORY = []
-    LPSMI.ACTION_HISTORY_POSITION = -1
+    LPSMI.ACTION_HISTORY1 = []
+    LPSMI.ACTION_HISTORY_POSITION1 = -1
     LPSMI.update_lps_history(
         "Initial commit",
         list(reference_data_dict.keys()),
-        (None, [LPSMI.vrc_osc_dict[key] for key in reference_data_dict.keys()]))
+        (None, [LPSMI.vrc_osc_dict[key] for key in reference_data_dict.keys()]),
+        1)
+    LPSMI.ACTION_HISTORY2 = []
+    LPSMI.ACTION_HISTORY_POSITION2 = -1
+    LPSMI.update_lps_history(
+        "Initial commit",
+        list(reference_data_dict.keys()),
+        (None, [LPSMI.vrc_osc_dict[key] for key in reference_data_dict.keys()]),
+        2)
+    LPSMI.ACTION_HISTORY3 = []
+    LPSMI.ACTION_HISTORY_POSITION3 = -1
+    LPSMI.update_lps_history(
+        "Initial commit",
+        list(reference_data_dict.keys()),
+        (None, [LPSMI.vrc_osc_dict[key] for key in reference_data_dict.keys()]),
+        3)
 
     print("LPS initialized!")
 
@@ -154,7 +169,8 @@ async def main_loop():
                 LPSMI.update_lps_history(
                     "Full Body Approximation",
                     list(new_data.keys()),
-                    (list(last_data.values()), list(new_data.values()))
+                    (list(last_data.values()), list(new_data.values())),
+                    LPSMI.vrc_osc_dict["LPS/Selected_Puppet"]
                 )
 
         # MOVE JOINT
@@ -179,7 +195,8 @@ async def main_loop():
                 LPSMI.update_lps_history(
                     f"Rotate {joint_index_grouped_result['group'].replace('_', ' ')}", 
                     joint_index_grouped_result['joints'],
-                    (last_values, new_values)
+                    (last_values, new_values),
+                    LPSMI.vrc_osc_dict["LPS/Selected_Puppet"]
                 )
 
         # COPY TO RIGHT EYE
@@ -195,18 +212,19 @@ async def main_loop():
                 LPSMI.update_lps_history(
                     "Copy left eye to right eye", 
                     joints, 
-                    (last_values, new_values))
+                    (last_values, new_values),
+                    LPSMI.vrc_osc_dict["LPS/Selected_Puppet"])
             
             await wait_for_condition(lambda: LPSMI.vrc_osc_dict["LPS/Copy_Eye_Button"] == 0)
 
         # UNDO
         if LPSMI.vrc_osc_dict["LPS/Undo"]:
-            LPSMI.lps_undo()
+            LPSMI.lps_undo(LPSMI.vrc_osc_dict["LPS/Selected_Puppet"])
             await wait_for_condition(lambda: LPSMI.vrc_osc_dict["LPS/Undo"] == 0)
 
         # REDO
         if LPSMI.vrc_osc_dict["LPS/Redo"]:
-            LPSMI.lps_redo()
+            LPSMI.lps_redo(LPSMI.vrc_osc_dict["LPS/Selected_Puppet"])
             await wait_for_condition(lambda: LPSMI.vrc_osc_dict["LPS/Redo"] == 0)
 
 async def lps_handshake():
