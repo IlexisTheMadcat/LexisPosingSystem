@@ -24,8 +24,12 @@ from osc_dict import OSCParameterDict
 class LPSMasterInstance:
     """ Ties everything together. """
     def __init__(self, **kwargs):
-        self.ACTION_HISTORY = []
-        self.ACTION_HISTORY_POSITION = -1
+        self.ACTION_HISTORY1 = []
+        self.ACTION_HISTORY_POSITION1 = -1
+        self.ACTION_HISTORY2 = []
+        self.ACTION_HISTORY_POSITION2 = -1
+        self.ACTION_HISTORY3 = []
+        self.ACTION_HISTORY_POSITION3 = -1
 
         self.ACTION_HISTORY_VERBOSE = True
         self.AVATAR_PARAM_VERBOSE = False
@@ -37,30 +41,80 @@ class LPSMasterInstance:
         self.vrc_osc_dict = OSCParameterDict(self.vrc_client, verbose=lambda: self.AVATAR_PARAM_VERBOSE, preload=kwargs.pop("osc_preload", {}))
         self.gui_dict = dict()
 
-    def update_lps_history(self, action, keys, values: tuple):
-        self.ACTION_HISTORY, self.ACTION_HISTORY_POSITION = update_history(
-            action, keys, values, 
-            history=self.ACTION_HISTORY, position=self.ACTION_HISTORY_POSITION)
+    def update_lps_history(self, action, keys, values: tuple, puppet_number: int=0):
+        if puppet_number == 0:
+            if self.ACTION_HISTORY_VERBOSE: 
+                print("Update: Puppet number is 0, returning.")
+            return
+        if puppet_number == 1:
+            self.ACTION_HISTORY1, self.ACTION_HISTORY_POSITION1 = update_history(
+                action, keys, values, 
+                history=self.ACTION_HISTORY1, position=self.ACTION_HISTORY_POSITION1)
+        if puppet_number == 2:
+            self.ACTION_HISTORY2, self.ACTION_HISTORY_POSITION2 = update_history(
+                action, keys, values, 
+                history=self.ACTION_HISTORY2, position=self.ACTION_HISTORY_POSITION2)
+        if puppet_number == 3:
+            self.ACTION_HISTORY3, self.ACTION_HISTORY_POSITION3 = update_history(
+                action, keys, values, 
+                history=self.ACTION_HISTORY3, position=self.ACTION_HISTORY_POSITION3)
         
         if self.ACTION_HISTORY_VERBOSE:
-            print(action)
+            print(f"Puppet {puppet_number} |", action)
 
-    def lps_undo(self):
-        result = undo_table(self.vrc_osc_dict, self.ACTION_HISTORY, self.ACTION_HISTORY_POSITION)
-        if result:
-            self.ACTION_HISTORY, self.ACTION_HISTORY_POSITION = result
-        else:
-            if self.ACTION_HISTORY_VERBOSE:
-                print("Nothing to undo")
-    
+    def lps_undo(self, puppet_number: int=0):
+        if puppet_number == 0:
+            if self.ACTION_HISTORY_VERBOSE: 
+                print("Undo: Puppet number is 0, returning.")
+            return
+        if puppet_number == 1:
+            result = undo_table(self.vrc_osc_dict, self.ACTION_HISTORY1, self.ACTION_HISTORY_POSITION1)
+            if result:
+                self.ACTION_HISTORY1, self.ACTION_HISTORY_POSITION1 = result
+            else:
+                if self.ACTION_HISTORY_VERBOSE:
+                    print(f"Nothing to undo on puppet {puppet_number}.")
+        if puppet_number == 2:
+            result = undo_table(self.vrc_osc_dict, self.ACTION_HISTORY2, self.ACTION_HISTORY_POSITION2)
+            if result:
+                self.ACTION_HISTORY2, self.ACTION_HISTORY_POSITION2 = result
+            else:
+                if self.ACTION_HISTORY_VERBOSE:
+                    print(f"Nothing to undo on puppet {puppet_number}.")
+        if puppet_number == 3:
+            result = undo_table(self.vrc_osc_dict, self.ACTION_HISTORY3, self.ACTION_HISTORY_POSITION3)
+            if result:
+                self.ACTION_HISTORY3, self.ACTION_HISTORY_POSITION3 = result
+            else:
+                if self.ACTION_HISTORY_VERBOSE:
+                    print(f"Nothing to undo on puppet {puppet_number}.")
 
-    def lps_redo(self):
-        result = redo_table(self.vrc_osc_dict, self.ACTION_HISTORY, self.ACTION_HISTORY_POSITION)
-        if result:
-            self.ACTION_HISTORY, self.ACTION_HISTORY_POSITION = result
-        else:
-            if self.ACTION_HISTORY_VERBOSE:
-                print("Nothing to redo")
+    def lps_redo(self, puppet_number: int=0):
+        if puppet_number == 0:
+            if self.ACTION_HISTORY_VERBOSE: 
+                print("Redo: Puppet number is 0, returning.")
+            return
+        if puppet_number == 1:
+            result = redo_table(self.vrc_osc_dict, self.ACTION_HISTORY1, self.ACTION_HISTORY_POSITION1)
+            if result:
+                self.ACTION_HISTORY1, self.ACTION_HISTORY_POSITION1 = result
+            else:
+                if self.ACTION_HISTORY_VERBOSE:
+                    print(f"Nothing to redo on puppet {puppet_number}.")
+        if puppet_number == 2:
+            result = redo_table(self.vrc_osc_dict, self.ACTION_HISTORY2, self.ACTION_HISTORY_POSITION2)
+            if result:
+                self.ACTION_HISTORY2, self.ACTION_HISTORY_POSITION2 = result
+            else:
+                if self.ACTION_HISTORY_VERBOSE:
+                    print(f"Nothing to redo on puppet {puppet_number}.")
+        if puppet_number == 3:
+            result = redo_table(self.vrc_osc_dict, self.ACTION_HISTORY3, self.ACTION_HISTORY_POSITION3)
+            if result:
+                self.ACTION_HISTORY3, self.ACTION_HISTORY_POSITION3 = result
+            else:
+                if self.ACTION_HISTORY_VERBOSE:
+                    print(f"Nothing to redo on puppet {puppet_number}.")
 
 
     async def lps_save(self, save_name:int, save_type=0, hand_side=None):
@@ -191,15 +245,18 @@ class LPSMasterInstance:
                     if save_type == 0:
                         self.update_lps_history(
                             f"Load saved pose {save_name}" if not is_preset else f"Load preset pose {save_name}", 
-                            list(after_values.keys()), (list(before_values.values()), list(after_values.values())))
+                            list(after_values.keys()), (list(before_values.values()), list(after_values.values())),
+                            self.vrc_osc_dict["LPS/Selected_Puppet"])
                     elif save_type == 1: 
                         self.update_lps_history(
                             f"Load saved face {save_name}" if not is_preset else f"Load preset face {save_name}", 
-                            list(after_values.keys()), (list(before_values.values()), list(after_values.values())))
+                            list(after_values.keys()), (list(before_values.values()), list(after_values.values())),
+                            self.vrc_osc_dict["LPS/Selected_Puppet"])
                     elif save_type == 2:
                         self.update_lps_history(
                             f"Load preset hand {save_name} to {'right' if hand_side else 'left'} hand" if is_preset else f"Load saved hand {save_name} to {'right' if hand_side else 'left'} hand", 
-                            list(after_values.keys()), (list(before_values.values()), list(after_values.values())))
+                            list(after_values.keys()), (list(before_values.values()), list(after_values.values())),
+                            self.vrc_osc_dict["LPS/Selected_Puppet"])
 
             return True
         
