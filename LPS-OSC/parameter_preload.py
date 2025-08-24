@@ -17,6 +17,10 @@ PARAMETER_PRELOAD = {
             "value": 0
         },
         {
+            "name": "LPS/Selected_Puppet",
+            "value": 1
+        },
+        {
             "name": "LPS/Preset_Pose",
             "value": 0
         },
