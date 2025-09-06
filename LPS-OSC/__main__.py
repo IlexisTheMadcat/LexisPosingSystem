@@ -11,8 +11,8 @@
 # ############################################################################################################################
 
 # LPS v1.2.0 OR HIGHER IS REQUIRED TO USE LPS-OSC 1.0.0
-LPS_OSC_VERSION = 1.01     # 1.0.1
-LPS_VERSIONS = (1.19, 1.21)  # 1.2.0 thru 1.2.0 (+- 0.01 cuz rounding issues)
+LPS_OSC_VERSION = 1.02     # 1.0.2
+LPS_VERSIONS = (1.199, 1.211)  # 1.2.0 thru 1.2.1 (+- 0.001 cuz rounding issues)
 
 # import concurrent.futures
 import asyncio
@@ -89,8 +89,10 @@ async def main_loop():
     while True:
         await asyncio.sleep(0.05)  # Small delay to keep loop efficient
 
+        # Send handshake signal
         LPSMI.vrc_osc_dict["LPS/OSC_Handshake"] = 1
-        if not await wait_for_condition(lambda: not LPSMI.vrc_osc_dict["LPS/OSC_Handshake"], timeout=1):
+        if not await wait_for_condition(lambda: not LPSMI.vrc_osc_dict["LPS/OSC_Handshake"], timeout=2) or \
+            not LPSMI.vrc_osc_dict["LPS/OSC_Initialized"]:  # LPS switched to local mode, assert dominance and reconnect
             LPSMI.vrc_osc_dict["LPS/OSC_Initialized"] = 0
             print("LPS connection timed out. Attempting reconnect.")
             await initialize_lps_params()
@@ -228,8 +230,8 @@ async def main_loop():
             await wait_for_condition(lambda: LPSMI.vrc_osc_dict["LPS/Redo"] == 0)
 
 async def lps_handshake():
-    while True:  # handshake
-        if LPSMI.vrc_osc_dict["LPS/LPS_Handshake"]:
+    while True:
+        if LPSMI.vrc_osc_dict["LPS/LPS_Handshake"]: # Receive handshake signal
             LPSMI.vrc_osc_dict["LPS/LPS_Handshake"] = 0
         await asyncio.sleep(0.2)
 
