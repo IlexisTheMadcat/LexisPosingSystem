@@ -7,6 +7,8 @@ Unlike other takes on posing systems, this system uses _too many to count_ param
 This posing system can be purchased here: https://ilexisthemadcat.booth.pm/items/6215800 \
 Demo video: [[VRChat] Lexi's Posing System Demo (March 2025)](https://youtu.be/avXMTtn-ZQQ)
 
+This posing system is meant for building to TEST! You may easily run out of physbone and/or contact slots, or avatar download/uncompressed free space which will restrict you from uploading to VRChat servers. The next version of LPS (>v1.2.0) will remove avatar-side saving, so only the OSC program can save poses and it works with test builds. There will be absolutely NO NEED TO UPLOAD! Just move the LPS object off the avatar to upload updates to the avatar itself.
+
 Community Server: https://discord.gg/ilexissloft \
 Please stop by if you have any questions about setup or want to suggest something. Select Lexi's Assets in onboarding and scroll down the channels for #storefront!
 
