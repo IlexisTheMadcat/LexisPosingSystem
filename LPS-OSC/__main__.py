@@ -55,9 +55,9 @@ async def initialize_lps_params():
     LPSMI.vrc_osc_dict["LPS/OSC_Initialized"] = 1
 
     if LPSMI.vrc_osc_dict["LPS/Version"] < LPS_VERSIONS[0]:  # not realistic but here for next time
-        print(f"WARNING: This version of LPS ({LPSMI.vrc_osc_dict['LPS/Version']}) is older than what the OSC program was designed for! Download the new version from Booth.pm!")
+        print(f"WARNING: This version of LPS ({round(int(LPSMI.vrc_osc_dict['LPS/Version']), 3)}) is older than what the OSC program was designed for! Download the new version from Booth.pm!")
     elif LPSMI.vrc_osc_dict["LPS/Version"] > LPS_VERSIONS[1]:
-        print(f"WARNING: This version of LPS ({LPSMI.vrc_osc_dict['LPS/Version']}) is newer than what the OSC program was designed for! Fetch the updated code from the README!")
+        print(f"WARNING: This version of LPS ({round(int(LPSMI.vrc_osc_dict['LPS/Version']), 3)}) is newer than what the OSC program was designed for! Fetch the updated code from the README!")
 
     # comment out the next three lines to disable history reset on initialization
     LPSMI.ACTION_HISTORY1 = []
