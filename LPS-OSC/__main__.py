@@ -10,8 +10,16 @@
 # To make changes, submit pull requests to the original repository to be approved.
 # ############################################################################################################################
 
+# TO ACTIAVTE VENV: 
+# >>> cd .\LPS-OSC 
+# RUN "__main__.py" VIA VSCODE
+# >>> cd ..
+# TO CREATE EXE:
+# >>> pyinstaller --onefile LPS-OSC/__main__.py -n LPS-OSC.exe
+
 # LPS v1.2.0 OR HIGHER IS REQUIRED TO USE LPS-OSC 1.0.0
-LPS_OSC_VERSION = 1.02     # 1.0.2
+LPS_OSC_VERSION = 1.03
+LPS_OSC_VERSION_STRING = "v1.0.3"
 LPS_VERSIONS = (1.199, 1.211)  # 1.2.0 thru 1.2.1 (+- 0.001 cuz rounding issues)
 
 # import concurrent.futures
@@ -240,6 +248,19 @@ async def run_server():
     disp.map("/avatar/parameters/*", parameter_handler)
     server = osc_server.AsyncIOOSCUDPServer(("127.0.0.1", 9001), disp, asyncio.get_event_loop())
     transport, protocol = await server.create_serve_endpoint()
+
+    print(f"""
+    __    ____  _____       ____  _____ ______
+   / /   / __ \/ ___/      / __ \/ ___// ____/
+  / /   / /_/ /\__ \______/ / / /\__ \/ /     
+ / /___/ ____/___/ /_____/ /_/ /___/ / /___   
+/_____/_/    /____/      \____//____/\____/   
+                                              
+    Lexi's Posing System - OSC {LPS_OSC_VERSION_STRING}
+    File Management and Action History 
+    Copyright (C) 2025 IlexisTheMadcat
+
+""")
     print("Listening for OSC messages on port 9001.")
 
     print("Attempting to connect to LPS. \n" \
