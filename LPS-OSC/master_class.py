@@ -16,10 +16,13 @@ import json
 
 from pythonosc import udp_client
 from aiofiles import open as aio_open
+from colorama import init as ColorizeTerminal, Fore, Back, Style
 
 import constants as c
 from functions import update_history, undo_table, redo_table, folder_init
 from osc_dict import OSCParameterDict
+
+ColorizeTerminal()
 
 class LPSMasterInstance:
     """ Ties everything together. """
@@ -44,7 +47,7 @@ class LPSMasterInstance:
     def update_lps_history(self, action, keys, values: tuple, puppet_number: int=0):
         if puppet_number == 0:
             if self.ACTION_HISTORY_VERBOSE: 
-                print("Update: Puppet number is 0, returning.")
+                print(f"{Fore.LIGHTRED_EX}Update: Puppet number is 0, returning.{Style.RESET_ALL}")
             return
         if puppet_number == 1:
             self.ACTION_HISTORY1, self.ACTION_HISTORY_POSITION1 = update_history(
@@ -65,56 +68,62 @@ class LPSMasterInstance:
     def lps_undo(self, puppet_number: int=0):
         if puppet_number == 0:
             if self.ACTION_HISTORY_VERBOSE: 
-                print("Undo: Puppet number is 0, returning.")
+                print(f"{Fore.LIGHTRED_EX}Undo: Puppet number is 0, returning.{Style.RESET_ALL}")
             return
         if puppet_number == 1:
             result = undo_table(self.vrc_osc_dict, self.ACTION_HISTORY1, self.ACTION_HISTORY_POSITION1)
             if result:
                 self.ACTION_HISTORY1, self.ACTION_HISTORY_POSITION1 = result
+                return True
             else:
                 if self.ACTION_HISTORY_VERBOSE:
-                    print(f"Nothing to undo on puppet {puppet_number}.")
+                    print(f"{Fore.LIGHTRED_EX}Nothing to undo on puppet {puppet_number}.{Style.RESET_ALL}")
         if puppet_number == 2:
             result = undo_table(self.vrc_osc_dict, self.ACTION_HISTORY2, self.ACTION_HISTORY_POSITION2)
             if result:
                 self.ACTION_HISTORY2, self.ACTION_HISTORY_POSITION2 = result
+                return True
             else:
                 if self.ACTION_HISTORY_VERBOSE:
-                    print(f"Nothing to undo on puppet {puppet_number}.")
+                    print(f"{Fore.LIGHTRED_EX}Nothing to undo on puppet {puppet_number}.{Style.RESET_ALL}")
         if puppet_number == 3:
             result = undo_table(self.vrc_osc_dict, self.ACTION_HISTORY3, self.ACTION_HISTORY_POSITION3)
             if result:
                 self.ACTION_HISTORY3, self.ACTION_HISTORY_POSITION3 = result
+                return True
             else:
                 if self.ACTION_HISTORY_VERBOSE:
-                    print(f"Nothing to undo on puppet {puppet_number}.")
+                    print(f"{Fore.LIGHTRED_EX}Nothing to undo on puppet {puppet_number}.{Style.RESET_ALL}")
 
     def lps_redo(self, puppet_number: int=0):
         if puppet_number == 0:
             if self.ACTION_HISTORY_VERBOSE: 
-                print("Redo: Puppet number is 0, returning.")
+                print(f"{Fore.LIGHTRED_EX}Redo: Puppet number is 0, returning.{Style.RESET_ALL}")
             return
         if puppet_number == 1:
             result = redo_table(self.vrc_osc_dict, self.ACTION_HISTORY1, self.ACTION_HISTORY_POSITION1)
             if result:
                 self.ACTION_HISTORY1, self.ACTION_HISTORY_POSITION1 = result
+                return True
             else:
                 if self.ACTION_HISTORY_VERBOSE:
-                    print(f"Nothing to redo on puppet {puppet_number}.")
+                    print(f"{Fore.LIGHTRED_EX}Nothing to redo on puppet {puppet_number}.{Style.RESET_ALL}")
         if puppet_number == 2:
             result = redo_table(self.vrc_osc_dict, self.ACTION_HISTORY2, self.ACTION_HISTORY_POSITION2)
             if result:
                 self.ACTION_HISTORY2, self.ACTION_HISTORY_POSITION2 = result
+                return True
             else:
                 if self.ACTION_HISTORY_VERBOSE:
-                    print(f"Nothing to redo on puppet {puppet_number}.")
+                    print(f"{Fore.LIGHTRED_EX}Nothing to redo on puppet {puppet_number}.{Style.RESET_ALL}")
         if puppet_number == 3:
             result = redo_table(self.vrc_osc_dict, self.ACTION_HISTORY3, self.ACTION_HISTORY_POSITION3)
             if result:
                 self.ACTION_HISTORY3, self.ACTION_HISTORY_POSITION3 = result
+                return True
             else:
                 if self.ACTION_HISTORY_VERBOSE:
-                    print(f"Nothing to redo on puppet {puppet_number}.")
+                    print(f"{Fore.LIGHTRED_EX}Nothing to redo on puppet {puppet_number}.{Style.RESET_ALL}")
 
 
     async def lps_save(self, save_name:int, save_type=0, hand_side=None):

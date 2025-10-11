@@ -87,8 +87,7 @@ PARAMETER_PRELOAD = {
         {
             "name": "LPS/Hand_Side",
             "value": 0
-        }
-
+        },
     ],
     "joint_init": [
         {

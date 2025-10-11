@@ -13,9 +13,30 @@
 import asyncio
 import os
 import json
+import winsound
 
 from aiofiles import open as aio_open
+from colorama import init as ColorizeTerminal, Fore, Back, Style
+
 import constants as c
+
+
+ColorizeTerminal()
+
+async def play_sound(sound_name):
+    if isinstance(sound_name, str) and sound_name in c.LPS_SOUNDS:
+        if c.LPS_SOUNDS[sound_name]:
+            if c.LPS_SOUNDS[sound_name] == "MUTE":
+                return
+            
+            try:
+                winsound.PlaySound(c.LPS_SOUNDS[sound_name], winsound.SND_FILENAME | winsound.SND_ASYNC)
+            except (RuntimeError, FileNotFoundError):
+                winsound.MessageBeep(winsound.MB_OK)
+        else:
+            winsound.MessageBeep(winsound.MB_OK)
+    else:
+        winsound.MessageBeep(sound_name)
 
 def update_history(action, keys, values: tuple, history=[], position=-1):
     """Call after a destructive action to make it undoable. \n
@@ -104,6 +125,12 @@ def folder_init():
         if not os.path.exists(f"{c.LPS_DOCUMENTS}/13-18 Faces/Slot {i}"):
             os.mkdir(f"{c.LPS_DOCUMENTS}/13-18 Faces/Slot {i}")
 
+    if not os.path.exists(f"{c.LPS_DOCUMENTS}/Autosaves"):
+        os.mkdir(f"{c.LPS_DOCUMENTS}/Autosaves")
+    for i in ["Puppet 1","Puppet 2","Puppet 3"]:
+        if not os.path.exists(f"{c.LPS_DOCUMENTS}/Autosaves/{i}"):
+            os.mkdir(f"{c.LPS_DOCUMENTS}/Autosaves/{i}")
+
 async def fetch_saves(save_type=0) -> list:
     """Fetches the list of saved files from the specified directory."""
     folder_init()
@@ -124,9 +151,8 @@ async def wait_for_condition(lambda_expression, timeout=9999, debug=None) -> boo
         lambda_expression - function-like object to check for True. \n
         timeout - time in seconds to return. \n
         debug - print `debug` per poll \n
-        Returns whether or not timeout occured.
+        Returns False if timeout occured.
         """
-        timed_out = False
         time_waited = 0
         while True:
             if debug: 
@@ -143,7 +169,6 @@ async def wait_for_condition(lambda_expression, timeout=9999, debug=None) -> boo
             await asyncio.sleep(0.1)
             time_waited += 0.1
             if time_waited >= timeout:
-                timed_out = True
-                break
+                return False
         
-        return not timed_out
+        return True

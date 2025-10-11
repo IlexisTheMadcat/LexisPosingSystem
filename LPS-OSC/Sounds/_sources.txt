@@ -1,0 +1,10 @@
+"Command_End.wav"
+"Initialized.wav"
+"Load_Pose.wav"
+"No_Action_History.wav"
+"Redo.wav"
+"Save_Pose.wav"
+"Startup.wav"
+"Timeout.wav"
+"Undo.wav"
+https://creatorassets.com/a/modern-user-interface-sound-effects

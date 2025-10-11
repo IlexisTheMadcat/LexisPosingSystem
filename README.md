@@ -1,6 +1,6 @@
-LPS: v1.2.0 \
-LPS-OSC: v1.0.2 \
-For LPS versions: v1.2.0
+LPS: v1.2.1 \
+LPS-OSC: v1.0.3 \
+For LPS versions: v1.2.0, v1.2.1
 # LexisPosingSystem Documentation
 Lexi's Posing System, also known as LPS, is a tool for VRChat avatars that allows users to carry and pose up to 3 clones of their avatar or other avatars they've created.
 Unlike other takes on posing systems, this system uses _too many to count_ parameters to control a shared armature for the puppets. The parameters store information about the puppet transform data to allow persistence and various quality-of-life features. \
@@ -149,9 +149,10 @@ Video showcase: [Ilexis Nakamori @ Twitter/X](https://x.com/IlexisTheMadcat/stat
 ![image](https://github.com/user-attachments/assets/36aad0c0-1a3e-4e7e-903e-315da4db3423)
 1) Begin saving a pose. Click one of the three slots to save. **WILL NOT ASK FOR CONFIRMATION.**
 2) Begin loading a pose. Click one of the three slots to load. **WILL NOT ASK FOR CONFIRMATION.**
-3) Save slots. When OSC mode is off, only slots 1-3 work and only for Poses.
+3) Save slots. Press and hold these to load or save. You'll see it happen when the save/load icon turns off.
 - When save or load are not selected, when held, these buttons preview their respective save slot. The working pose will be restored when released.
 - The save slot buttons must be held for at least 2 seconds to save to or load from.
+- ℹ️ As of v1.2.1, saving will only work with OSC in favor of JSON file management.
 ### Rotation
 [|^|](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#lexisposingsystem-documentation) Rotate the joints of your puppets. \
 ![image](https://github.com/user-attachments/assets/9ac92a41-0921-46ef-b01d-d044358c0b02)

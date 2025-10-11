@@ -15,8 +15,11 @@ import os
 
 if os.path.exists("config.cfg"):
     with open("config.cfg", "r", encoding='utf-8') as f:
-        reference_data = json.loads(f.read())
-        LPS_DOCUMENTS = os.path.expandvars(reference_data["save_file_directory"])
+        _data = json.loads(f.read())
+
+        LPS_DOCUMENTS = os.path.expandvars(_data["save_file_directory"])
+        LPS_SOUNDS = {key: os.path.expandvars(value) for key, value in _data["sounds"].items()}
+
 else:
     LPS_DOCUMENTS = r"%userprofile%/Documents/Lexi's Posing System"
 
