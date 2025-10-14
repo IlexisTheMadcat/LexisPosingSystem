@@ -10,11 +10,10 @@
 # To make changes, submit pull requests to the original repository to be approved.
 # ############################################################################################################################
 
-# TO ACTIAVTE VENV: 
-# >>> cd ./LPS-OSC 
-# RUN "__main__.py" VIA VSCODE
-# >>> cd ..
+# TO ACTIAVTE VENV, DRAG ".venv/Scripts/Activate.ps1" INTO POWERSHELL
+# __main__.py must be run from the parent directory (LPS-OSC) to work properly
 # TO CREATE EXE:
+# Be in ./
 # >>> pyinstaller --onefile LPS-OSC/__main__.py -n LPS-OSC.exe
 
 # LPS v1.2.0 OR HIGHER IS REQUIRED TO USE LPS-OSC 1.0.0
@@ -42,7 +41,9 @@ vrc_client = udp_client.SimpleUDPClient("127.0.0.1", 9000)
 
 LPSMI = LPSMasterInstance(
     vrc_client = vrc_client,
-    osc_preload = {dict_item["name"]: dict_item["value"] for dict_item in PARAMETER_PRELOAD["joint_init"]}
+    osc_preload = {dict_item["name"]: dict_item["value"] for dict_item in PARAMETER_PRELOAD["joint_init"]},
+    _globals = {"TIMEOUT_FLAG": False, "REDO_RESTORE": {}}
+    
 )
 LPSMI.vrc_osc_dict.update({dict_item["name"]: dict_item["value"] for dict_item in PARAMETER_PRELOAD["control"]})
 
@@ -50,19 +51,25 @@ LPSMI.vrc_osc_dict.update({dict_item["name"]: dict_item["value"] for dict_item i
 def parameter_handler(address, *args):
     LPSMI.vrc_osc_dict.receive_update(address, args[0])
 
-async def initialize_lps_params(last_known_pose: dict = None):
-    async with aio_open("Presets/Poses/preset_1.json", "r", encoding='utf-8') as reference_file:  
-        reference_data = await reference_file.read()
+with open("Presets/Poses/preset_1.json", "r", encoding='utf-8') as reference_file:  
+        reference_data = reference_file.read()
         reference_data = json.loads(reference_data)
         reference_data_dict = {dict_item["name"]: dict_item["value"] for dict_item in reference_data["parameters"]}
 
-    timing_out = False
-    while not timing_out:
+async def initialize_lps_params():
+    while True:
         LPSMI.vrc_osc_dict["LPS/OSC_Handshake"] = 1
-        timing_out = await wait_for_condition(lambda: not LPSMI.vrc_osc_dict["LPS/OSC_Handshake"], timeout=1)
+        if not await wait_for_condition(lambda: not LPSMI.vrc_osc_dict["LPS/OSC_Handshake"], timeout=1, poll_rate=0.05):
+            continue
+        else:
+            break
 
-    LPSMI.vrc_osc_dict["LPS/OSC_Query_Initialize"] = 1  # request parameters and wait for version response
-    await wait_for_condition(lambda: all(LPSMI.vrc_osc_dict[key] != -1 for key in reference_data_dict.keys()) and 0 < LPSMI.vrc_osc_dict["LPS/Version"] < 100)
+    while True:
+        LPSMI.vrc_osc_dict["LPS/OSC_Query_Initialize"] = 1  # Re/request parameters and wait for version response
+        if not await wait_for_condition(lambda: all(LPSMI.vrc_osc_dict[key] != -1 for key in reference_data_dict.keys()) and 0 < LPSMI.vrc_osc_dict["LPS/Version"] < 100, timeout=2):
+            continue
+        else:
+            break
 
     LPSMI.vrc_osc_dict["LPS/OSC_Initialized"] = 1
 
@@ -95,6 +102,8 @@ async def initialize_lps_params(last_known_pose: dict = None):
 
     await play_sound("Initialized")
 
+    LPSMI._globals["TIMEOUT_FLAG"] = False
+
     print(f"{Fore.LIGHTGREEN_EX}LPS initialized!{Style.RESET_ALL}")
 
 
@@ -102,14 +111,11 @@ async def main_loop():
     while True:
         await asyncio.sleep(0.05)  # Small delay to keep loop efficient
 
-        # Send handshake signal
-        LPSMI.vrc_osc_dict["LPS/OSC_Handshake"] = 1
-        if not await wait_for_condition(lambda: not LPSMI.vrc_osc_dict["LPS/OSC_Handshake"], timeout=5) or \
-            not LPSMI.vrc_osc_dict["LPS/OSC_Initialized"]:  # LPS switched to local mode, assert dominance and reconnect
-            
+        if LPSMI._globals["TIMEOUT_FLAG"]:
+
             LPSMI.vrc_osc_dict["LPS/OSC_Initialized"] = 0
             await play_sound("Timeout")
-            print(f"{Fore.RED}LPS connection timed out. Attempting reconnect.{Style.RESET_ALL}")
+            print(f"{Fore.RED}LPS connection timed out. Attempting reconnect.\nReason: {LPSMI._globals['TIMEOUT_FLAG']}.{Style.RESET_ALL}")
             await initialize_lps_params()
             continue
 
@@ -143,6 +149,8 @@ async def main_loop():
                     if await LPSMI.lps_load(LPSMI.vrc_osc_dict["LPS/Slot_Number"]):  # Load the saved pose
                         LPSMI.vrc_osc_dict["LPS/Loading"] = False
                         await play_sound("Load_Pose")
+                    else:
+                        await play_sound("No_Action_History")
                         
                     LPSMI.vrc_osc_dict["LPS/Loading_Held"] = False
                     await wait_for_condition(lambda: LPSMI.vrc_osc_dict["LPS/Slot_Number"] == 0)  # Wait for the save slot to be released before continuing
@@ -271,6 +279,53 @@ async def main_loop():
                 await play_sound("No_Action_History")
             await wait_for_condition(lambda: LPSMI.vrc_osc_dict["LPS/Redo"] == 0)
 
+async def osc_handshake():
+    while True:  # main loop
+        if -1 in LPSMI.vrc_osc_dict.values():
+            while True:  # query init retry loop
+                LPSMI.vrc_osc_dict["LPS/OSC_Query_Initialize"] = 1  # Re/request parameters and wait for version response
+                if not await wait_for_condition(lambda: all(LPSMI.vrc_osc_dict[key] != -1 for key in reference_data_dict.keys()) and 0 < LPSMI.vrc_osc_dict["LPS/Version"] < 100, timeout=2):
+                    continue
+                else:
+                    break
+        
+        await wait_for_condition(lambda: not LPSMI._globals["TIMEOUT_FLAG"])
+
+        if not LPSMI.vrc_osc_dict["LPS/OSC_Initialized"]:
+            LPSMI._globals["TIMEOUT_FLAG"] = "LPS disabled OSC or did not initlialize OSC mode"
+            continue
+
+        missed_attempts = 0
+        buffer = await LPSMI.lps_get_current()
+        for i in range(6):
+            if i == 10:
+                LPSMI._globals["TIMEOUT_FLAG"] = "LPS did not respond to handshake within 10 seconds"
+                break
+
+            LPSMI.vrc_osc_dict["LPS/OSC_Handshake"] = 1 # Re/send handshake signal
+            if not await wait_for_condition(lambda: not LPSMI.vrc_osc_dict["LPS/OSC_Handshake"], timeout=1):
+                if missed_attempts == 0:
+                    print(f"{Fore.BLACK}Warning: Missed handshake attempt.{Style.RESET_ALL}")
+                missed_attempts += 1
+                continue
+            else:
+                if missed_attempts > 0:
+                    buffer_new = await LPSMI.lps_get_current()
+                    print(f"{Fore.BLACK}Reconnected. ({missed_attempts}s){Style.RESET_ALL}")
+                    if buffer != buffer_new:
+                        print(f"{Fore.YELLOW}Warning: An OSC parameter mismatch was detected during timeout. Something might be out of sync!\n"
+                              f"The last known pose was saved. Press UNDO to revert to last known pose.{Style.RESET_ALL}")
+                        LPSMI.update_lps_history(
+                            "Desync Placeholder",
+                            list(buffer_new.keys()),
+                            (list(buffer.values()), list(buffer_new.values())),
+                            LPSMI.vrc_osc_dict["LPS/Selected_Puppet"]
+                        )
+                        await play_sound("Warning")
+                        LPSMI._globals["REDO_RESTORE"] = buffer
+                break
+            
+
 async def lps_handshake():
     while True:
         if LPSMI.vrc_osc_dict["LPS/LPS_Handshake"]: # Receive handshake signal
@@ -300,6 +355,7 @@ async def run_server():
           f"{Fore.YELLOW}Make sure you have OSC turned on in your avatar settings.{Style.RESET_ALL}")
     
     asyncio.create_task(lps_handshake())
+    asyncio.create_task(osc_handshake())
 
     await play_sound("Startup")
 
