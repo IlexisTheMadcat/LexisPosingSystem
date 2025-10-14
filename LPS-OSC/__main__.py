@@ -339,15 +339,15 @@ async def run_server():
     transport, protocol = await server.create_serve_endpoint()
 
     print(f"""
-{Fore.LIGHTCYAN_EX}    __    ____  _____{Fore.BLUE}       ____  _____ ______
-{Fore.LIGHTCYAN_EX}   / /   / __ \/ ___/{Fore.BLUE}      / __ \/ ___// ____/
-{Fore.LIGHTCYAN_EX}  / /   / /_/ /\__ \{Fore.BLUE}______/ / / /\__ \/ /     
-{Fore.LIGHTCYAN_EX} / /___/ ____/___/ /{Fore.BLUE}_____/ /_/ /___/ / /___   
-{Fore.LIGHTCYAN_EX}/_____/_/    /____/ {Fore.BLUE}     \____//____/\____/   
-{Fore.CYAN}
-     LPS Assistant OSC Program {LPS_OSC_VERSION_STRING}
-    File Management and Action History
-    Copyright (C) 2025 IlexisTheMadcat{Style.RESET_ALL}
+    {Fore.LIGHTCYAN_EX}    __    ____  _____{Fore.BLUE}       ____  _____ ______
+    {Fore.LIGHTCYAN_EX}   / /   / __ \/ ___/{Fore.BLUE}      / __ \/ ___// ____/
+    {Fore.LIGHTCYAN_EX}  / /   / /_/ /\__ \{Fore.BLUE}______/ / / /\__ \/ /     
+    {Fore.LIGHTCYAN_EX} / /___/ ____/___/ /{Fore.BLUE}_____/ /_/ /___/ / /___   
+    {Fore.LIGHTCYAN_EX}/_____/_/    /____/ {Fore.BLUE}     \____//____/\____/   
+    {Fore.CYAN}
+              LPS Assistant OSC {LPS_OSC_VERSION_STRING}
+         File Management and Action History
+         Copyright (C) 2025 IlexisTheMadcat{Style.RESET_ALL}
 """)
     print("Listening for OSC messages on port 9001.")
 
