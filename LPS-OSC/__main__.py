@@ -298,7 +298,7 @@ async def osc_handshake():
         missed_attempts = 0
         buffer = await LPSMI.lps_get_current()
         for i in range(6):
-            if i == 10:
+            if i == 5:
                 LPSMI._globals["TIMEOUT_FLAG"] = "LPS did not respond to handshake within 10 seconds"
                 break
 
@@ -313,14 +313,14 @@ async def osc_handshake():
                     buffer_new = await LPSMI.lps_get_current()
                     print(f"{Fore.BLACK}Reconnected. ({missed_attempts}s){Style.RESET_ALL}")
                     if buffer != buffer_new:
-                        print(f"{Fore.YELLOW}Warning: An OSC parameter mismatch was detected during timeout. Something might be out of sync!\n"
-                              f"The last known pose was saved. Press UNDO to revert to last known pose.{Style.RESET_ALL}")
                         LPSMI.update_lps_history(
                             "Desync Placeholder",
                             list(buffer_new.keys()),
                             (list(buffer.values()), list(buffer_new.values())),
                             LPSMI.vrc_osc_dict["LPS/Selected_Puppet"]
                         )
+                        print(f"{Fore.YELLOW}Warning: An OSC parameter mismatch was detected during timeout. Something might be out of sync!\n"
+                              f"The last known pose was saved. Press UNDO to revert to last known pose.{Style.RESET_ALL}")
                         await play_sound("Warning")
                         LPSMI._globals["REDO_RESTORE"] = buffer
                 break
