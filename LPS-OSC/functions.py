@@ -145,29 +145,35 @@ async def fetch_saves(save_type=0) -> list:
     return save_files
 
 
-async def wait_for_condition(lambda_expression, timeout=9999, debug=None) -> bool:
+async def wait_for_condition(_callable, timeout=0, debug=None, poll_rate=0.1) -> bool:
         """
         Wait for a function to return True. \n
-        lambda_expression - function-like object to check for True. \n
+        _callable - function-like object to check for True. \n
         timeout - time in seconds to return. \n
         debug - print `debug` per poll \n
         Returns False if timeout occured.
         """
+        if poll_rate < 0.05:
+            raise ValueError("Poll rate must be no less than 0.05 seconds to avoid locking up the event loop.")
+
+        if timeout <= 0:
+            timeout = 9999
+
         time_waited = 0
         while True:
             if debug: 
                 print(debug)
 
-            if callable(lambda_expression):
-                if asyncio.iscoroutinefunction(lambda_expression):
-                    if await lambda_expression(): break
+            if callable(_callable):
+                if asyncio.iscoroutinefunction(_callable):
+                    if await _callable(): break
                 else:
-                    if lambda_expression(): break
+                    if _callable(): break
             else: 
-                if lambda_expression: break
+                if _callable: break
 
-            await asyncio.sleep(0.1)
-            time_waited += 0.1
+            await asyncio.sleep(poll_rate)
+            time_waited += poll_rate
             if time_waited >= timeout:
                 return False
         
