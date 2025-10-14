@@ -44,6 +44,8 @@ class LPSMasterInstance:
         self.vrc_osc_dict = OSCParameterDict(self.vrc_client, verbose=lambda: self.AVATAR_PARAM_VERBOSE, preload=kwargs.pop("osc_preload", {}))
         self.gui_dict = dict()
 
+        self._globals = kwargs.pop("_globals", {})
+
     def update_lps_history(self, action, keys, values: tuple, puppet_number: int=0):
         if puppet_number == 0:
             if self.ACTION_HISTORY_VERBOSE: 
