@@ -12,19 +12,16 @@
 
 import asyncio
 import os
-import json
 import winsound
 from contextlib import suppress
 
 from aiofiles import open as aio_open
 from colorama import init as ColorizeTerminal, Fore, Back, Style
-from pygame.mixer import Sound, init as InitMixer
+from pygame.mixer import Sound
 
 import constants as c
 
-
 ColorizeTerminal()
-InitMixer()
 
 async def play_sound(sound_name):
     if isinstance(sound_name, str) and sound_name in c.LPS_SOUNDS:
