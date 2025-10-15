@@ -16,25 +16,25 @@
 # Be in ./
 # >>> pyinstaller --onefile LPS-OSC/__main__.py -n LPS-OSC.exe
 
-# LPS v1.2.0 OR HIGHER IS REQUIRED TO USE LPS-OSC 1.0.0
-LPS_OSC_VERSION = 1.030
-LPS_OSC_VERSION_STRING = "v1.0.3"
-LPS_VERSIONS = (1.210, 1.210)  # 1.2.1 thru 1.2.1
-
-# import concurrent.futures
 import asyncio
 import json
 import winsound
+from packaging.version import parse as ver
 
 from pythonosc import udp_client, osc_server, dispatcher
 from colorama import init as ColorizeTerminal, Fore, Back, Style
+from pygame.mixer import init as InitMixer
 
 from master_class import LPSMasterInstance
 import constants as c
 from functions import *
 from parameter_preload import PARAMETER_PRELOAD
 
+LPS_OSC_VERSION = ver("1.0.3")
+LPS_VERSIONS = (ver("1.2.1"), ver("1.2.1")) # min, max tested LPS versions
+
 ColorizeTerminal()
+InitMixer()
 
 # Set up the client (sending to VRChat)
 vrc_client = udp_client.SimpleUDPClient("127.0.0.1", 9000)
@@ -42,7 +42,8 @@ vrc_client = udp_client.SimpleUDPClient("127.0.0.1", 9000)
 LPSMI = LPSMasterInstance(
     vrc_client = vrc_client,
     osc_preload = {dict_item["name"]: dict_item["value"] for dict_item in PARAMETER_PRELOAD["joint_init"]},
-    _globals = {"TIMEOUT_FLAG": False, "LPS_OSC_VERSION": LPS_OSC_VERSION}
+    osc_version = LPS_OSC_VERSION,
+    _globals = {"TIMEOUT_FLAG": False}
 )
 LPSMI.vrc_osc_dict.update({dict_item["name"]: dict_item["value"] for dict_item in PARAMETER_PRELOAD["control"]})
 
@@ -59,7 +60,7 @@ async def scan_for_unitialized_values():
     if -1 in LPSMI.vrc_osc_dict.values():
         while True:  # query init retry loop
             LPSMI.vrc_osc_dict["LPS/OSC_Query_Initialize"] = 1  # Re/request parameters and wait for version response
-            if not await wait_for_condition(lambda: (-1 not in LPSMI.vrc_osc_dict.values()) and 0 < LPSMI.vrc_osc_dict["LPS/Version"] < 100, timeout=2):
+            if not await wait_for_condition(lambda: (-1 not in LPSMI.vrc_osc_dict.values()) and LPSMI.lps_version, timeout=2):
                 continue
             else:
                 break
@@ -82,13 +83,13 @@ async def initialize_lps_params():
 
     LPSMI.vrc_osc_dict["LPS/OSC_Initialized"] = 1
 
-    if round(LPSMI.vrc_osc_dict['LPS/Version'], 3) < LPS_VERSIONS[0]:
+    if LPSMI.lps_version < LPS_VERSIONS[0]:
 
-        print(f"WARNING: This version of LPS ({round(LPSMI.vrc_osc_dict['LPS/Version']), 3}) is older than what the OSC program was designed for! Download the new version from Booth.pm!")
+        print(f"WARNING: This version of LPS (v{LPSMI.lps_version}) is older than what the OSC program was designed for! Download the new version from Booth.pm!")
     
-    elif round(LPSMI.vrc_osc_dict['LPS/Version'], 3) > LPS_VERSIONS[1]:
+    elif LPSMI.lps_version > LPS_VERSIONS[1]:
 
-        print(f"WARNING: This version of LPS ({round(LPSMI.vrc_osc_dict['LPS/Version']), 3}) is newer than what the OSC program was designed for! Fetch the updated code from the README!")
+        print(f"WARNING: This version of LPS (v{LPSMI.lps_version}) is newer than what the OSC program was designed for! Fetch the updated code from the README!")
 
     LPSMI.ACTION_HISTORY1 = []
     LPSMI.ACTION_HISTORY_POSITION1 = -1
@@ -116,7 +117,7 @@ async def initialize_lps_params():
 
     LPSMI._globals["TIMEOUT_FLAG"] = False
 
-    print(f"{Fore.LIGHTGREEN_EX}LPS initialized!{Style.RESET_ALL}")
+    print(f"{Fore.LIGHTGREEN_EX}LPS initialized! Found LPS version v{str(LPSMI.lps_version)}{Style.RESET_ALL}")
 
 
 async def main_loop():
@@ -471,7 +472,7 @@ async def run_server():
     {Fore.LIGHTCYAN_EX} / /___/ ____/___/ /{Fore.BLUE}_____/ /_/ /___/ / /___   
     {Fore.LIGHTCYAN_EX}/_____/_/    /____/ {Fore.BLUE}     \____//____/\____/   
     {Fore.CYAN}
-              LPS Assistant OSC {LPS_OSC_VERSION_STRING}
+              LPS Assistant OSC v{LPS_OSC_VERSION}
          File Management and Action History
          Copyright (C) 2025 IlexisTheMadcat{Style.RESET_ALL}
 """)
