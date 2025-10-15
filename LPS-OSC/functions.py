@@ -14,6 +14,7 @@ import asyncio
 import os
 import json
 import winsound
+from contextlib import suppress
 
 from aiofiles import open as aio_open
 from colorama import init as ColorizeTerminal, Fore, Back, Style
@@ -29,10 +30,9 @@ async def play_sound(sound_name):
             if c.LPS_SOUNDS[sound_name] == "MUTE":
                 return
             
-            try:
+            with suppress((RuntimeError, FileNotFoundError)):
                 winsound.PlaySound(c.LPS_SOUNDS[sound_name], winsound.SND_FILENAME | winsound.SND_ASYNC)
-            except (RuntimeError, FileNotFoundError):
-                winsound.MessageBeep(winsound.MB_OK)
+                
         else:
             winsound.MessageBeep(winsound.MB_OK)
     else:
