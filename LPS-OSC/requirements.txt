@@ -2,3 +2,4 @@ asyncio
 python-osc==1.8.3
 aiofiles==24.1.0
 colorama==0.4.6
+pygame==2.6.1
