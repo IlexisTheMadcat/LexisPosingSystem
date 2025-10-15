@@ -81,10 +81,6 @@ PARAMETER_PRELOAD = {
             "value": 0
         },
         {
-            "name": "LPS/Version",
-            "value": 0
-        },
-        {
             "name": "LPS/Hand_Side",
             "value": 0
         },
@@ -95,6 +91,18 @@ PARAMETER_PRELOAD = {
         {
             "name": "LPS/Selecting_Puppet",
             "value": 0
+        },
+        {
+            "name": "LPS/Version MAJOR",
+            "value": -1
+        },
+        {
+            "name": "LPS/Version MINOR",
+            "value": -1
+        },
+        {
+            "name": "LPS/Version PATCH",
+            "value": -1
         },
     ],
     "joint_init": [
