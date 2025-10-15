@@ -31,7 +31,7 @@ if os.path.exists("config.cfg"):
                 "Load_Pose": "Sounds/Load_Pose.wav",
                 "Command_Start": "Sounds/Redo.wav",
                 "Command_End": "Sounds/Command_End.wav",
-                "Warning": "Sounds/Warning.wav",
+                "Warning": "Sounds/Startup.wav",
                 "Autosave": "Sounds/Autosave.wav"
             }
         ).items()}
