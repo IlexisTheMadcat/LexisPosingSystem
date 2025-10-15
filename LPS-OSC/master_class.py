@@ -11,15 +11,17 @@
 # ############################################################################################################################
 
 import os
+import winsound
 from typing import Union
 import json
+from datetime import datetime
 
 from pythonosc import udp_client
 from aiofiles import open as aio_open
 from colorama import init as ColorizeTerminal, Fore, Back, Style
 
 import constants as c
-from functions import update_history, undo_table, redo_table, folder_init
+from functions import update_history, undo_table, redo_table, folder_init, play_sound
 from osc_dict import OSCParameterDict
 
 ColorizeTerminal()
@@ -128,7 +130,7 @@ class LPSMasterInstance:
                     print(f"{Fore.LIGHTRED_EX}Nothing to redo on puppet {puppet_number}.{Style.RESET_ALL}")
 
 
-    async def lps_save(self, save_name:int, save_type=0, hand_side=None):
+    async def lps_save(self, save_name:int, save_type=0, hand_side=None, is_autosave=False, puppet:int=0):
         """ Save pose rig. """
         folder_init()
 
@@ -151,26 +153,55 @@ class LPSMasterInstance:
         else:
             reference_file_path = f"Presets/{['Poses','Faces'][save_type]}/preset_{[1,32][save_type]}.json"
 
-        async with aio_open(f"{c.LPS_DOCUMENTS}/{['1-6 Poses','13-18 Faces','7-12 Hands'][save_type]}/Slot {save_name}/slot_{save_name} (rename me!).json", "a", encoding='utf-8') as save_file:
-            async with aio_open(reference_file_path, "r", encoding='utf-8') as reference_file:  # Get pose keys for reference
-                reference_data = await reference_file.read()
-                reference_data = json.loads(reference_data)
-                reference_data_dict = {dict_item["name"]: dict_item["value"] for dict_item in reference_data["parameters"]}  # Get the reference data items
-                reference_data_dict.pop("001_Hips_X", None)
+        async with aio_open(reference_file_path, "r", encoding='utf-8') as reference_file:  # Get pose keys for reference
+            reference_data = await reference_file.read()
+            reference_data = json.loads(reference_data)
+            reference_data_dict = {dict_item["name"]: dict_item["value"] for dict_item in reference_data["parameters"]}  # Get the reference data items
+            reference_data_dict.pop("001_Hips_X", None)
 
-            save_file_items = {}  # Create a dictionary to hold the items to be saved
-            for key in reference_data_dict.keys():
-                save_file_items[key if save_type != 2 else c.HAND_SIDE_SAVE_TEMPLATE["right" if hand_side else "left"][key]] = self.vrc_osc_dict[key]
-                # HAND_SIDE_TEMPLATE saves the hand side data in a bilateral-friendly format
+        if not is_autosave:
+            async with aio_open(f"{c.LPS_DOCUMENTS}/{['1-6 Poses','13-18 Faces','7-12 Hands'][save_type]}/Slot {save_name}/slot_{save_name} (rename me!).json", "a", encoding='utf-8') as save_file:
+                save_file_items = {}  # Create a dictionary to hold the items to be saved
+                for key in reference_data_dict.keys():
+                    save_file_items[key if save_type != 2 else c.HAND_SIDE_SAVE_TEMPLATE["right" if hand_side else "left"][key]] = self.vrc_osc_dict[key]
+                    # HAND_SIDE_TEMPLATE saves the hand side data in a bilateral-friendly format
 
-            save_file_data = {"save_type": save_type, "parameters": []}  # Initialize the save file data structure
+                save_file_data = {
+                    "save_type": save_type, 
+                    "parameters": [], 
+                    "lps_version": round(self.vrc_osc_dict['LPS/Version'], 3),
+                    "osc_version": self._globals['LPS_OSC_VERSION']
+                }  # Initialize the save file data structure
 
-            for key, value in save_file_items.items():  # Iterate over the items to be saved
-                save_file_data["parameters"].append({"name": key, "value": value})
+                for key, value in save_file_items.items():  # Iterate over the items to be saved
+                    save_file_data["parameters"].append({"name": key, "value": value})
 
-            await save_file.seek(0)
-            await save_file.truncate()  # Clear the file before writing
-            await save_file.write(json.dumps(save_file_data, indent=4))
+                await save_file.seek(0)
+                await save_file.truncate()  # Clear the file before writing
+                await save_file.write(json.dumps(save_file_data, indent=4))
+        else:
+            if not puppet:
+                puppet = self.vrc_osc_dict["LPS/Selected_Puppet"]
+
+            async with aio_open(f"{c.LPS_DOCUMENTS}/Autosaves/Puppet {puppet}/Autosave_{datetime.now().strftime(r'%Y-%m-%d_%H-%M-%S')}.json", "a", encoding='utf-8') as save_file:
+                save_file_items = {}  # Create a dictionary to hold the items to be saved
+                for key in reference_data_dict.keys():
+                    save_file_items[key if save_type != 2 else c.HAND_SIDE_SAVE_TEMPLATE["right" if hand_side else "left"][key]] = self.vrc_osc_dict[key]
+                    # HAND_SIDE_TEMPLATE saves the hand side data in a bilateral-friendly format
+
+                save_file_data = {
+                    "save_type": save_type, 
+                    "parameters": [], 
+                    "lps_version": round(self.vrc_osc_dict['LPS/Version'], 3),
+                    "osc_version": self._globals['LPS_OSC_VERSION']
+                }  # Initialize the save file data structure
+
+                for key, value in save_file_items.items():  # Iterate over the items to be saved
+                    save_file_data["parameters"].append({"name": key, "value": value})
+
+                await save_file.seek(0)
+                await save_file.truncate()  # Clear the file before writing
+                await save_file.write(json.dumps(save_file_data, indent=4))
 
 
     async def lps_load(self, save_name:int, is_preset=False, save_type=0, hand_side=None, preview=False):
@@ -237,10 +268,13 @@ class LPSMasterInstance:
                 save_data = await save_file.read()
                 save_data = json.loads(save_data)
 
+                if save_data.get("save_type", None) is None:
+                    raise ValueError("The file you attempted to load does not contain save type information. Add \"save_type\": 0 (or 1 or 2) to the root of the JSON file and try again.\n0 = Pose, 1 = Face, 2 = Hand gesture.")
+
                 # check if save type matches intentions
                 if not is_preset and save_data["save_type"] != save_type:
                     raise ValueError(f"Attempted to load a {['Pose', 'Face', 'Hand gesture'][save_data['save_type']]} file from a {['Pose', 'Face', 'Hand gesture'][save_type]} slot.")
-                
+
                 before_values = await self.lps_get_current(save_type=save_type, hand_side=hand_side)
                 for parameter in save_data["parameters"]:
                     name, value = parameter["name"], parameter["value"]
@@ -268,12 +302,26 @@ class LPSMasterInstance:
                             f"Load preset hand {save_name} to {'right' if hand_side else 'left'} hand" if is_preset else f"Load saved hand {save_name} to {'right' if hand_side else 'left'} hand", 
                             list(after_values.keys()), (list(before_values.values()), list(after_values.values())),
                             self.vrc_osc_dict["LPS/Selected_Puppet"])
+                
+                notify = False
+
+                if not preview and not is_preset:
+                    if not save_data.get("lps_version", None):
+                        print(f"{Fore.YELLOW}Warning: The loaded file does not contain LPS version information.\nIf the pose is accurate, add to root: \"lps_version\": {round(self.vrc_osc_dict['LPS/Version'], 3)} to the root of the JSON file.{Style.RESET_ALL}")
+                        notify = True
+                    if not save_data.get("osc_version", None):
+                        print(f"{Fore.YELLOW}Warning: The loaded file does not contain OSC version information.\nIf the pose is accurate, add to root: \"osc_version\": {self._globals['LPS_OSC_VERSION']} to the root of the JSON file.{Style.RESET_ALL}")
+                        notify = True
+
+                    if notify:
+                        await play_sound("Warning")
 
             return True
         
         except Exception as e:
-            print(f"Ignoring error attempting to load file:\n{type(e).__name__}: {e}")
+            print(f"{Fore.RED}Ignoring error attempting to load file:\n{type(e).__name__}: {e}{Style.RESET_ALL}")
             self.vrc_osc_dict.update(restore_in_case_of_error)
+            winsound.MessageBeep(winsound.MB_ICONEXCLAMATION)
             return None
             
 
