@@ -88,6 +88,14 @@ PARAMETER_PRELOAD = {
             "name": "LPS/Hand_Side",
             "value": 0
         },
+        {
+            "name": "LPS/Puppet_Ready",
+            "value": 0
+        },
+        {
+            "name": "LPS/Selecting_Puppet",
+            "value": 0
+        },
     ],
     "joint_init": [
         {
