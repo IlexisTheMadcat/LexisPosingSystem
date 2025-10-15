@@ -18,11 +18,13 @@ from contextlib import suppress
 
 from aiofiles import open as aio_open
 from colorama import init as ColorizeTerminal, Fore, Back, Style
+from pygame.mixer import Sound, init as InitMixer
 
 import constants as c
 
 
 ColorizeTerminal()
+InitMixer()
 
 async def play_sound(sound_name):
     if isinstance(sound_name, str) and sound_name in c.LPS_SOUNDS:
@@ -31,8 +33,8 @@ async def play_sound(sound_name):
                 return
             
             with suppress((RuntimeError, FileNotFoundError)):
-                winsound.PlaySound(c.LPS_SOUNDS[sound_name], winsound.SND_FILENAME | winsound.SND_ASYNC)
-                
+                Sound(c.LPS_SOUNDS[sound_name]).play()
+
         else:
             winsound.MessageBeep(winsound.MB_OK)
     else:
