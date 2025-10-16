@@ -3,7 +3,7 @@
     "puppet_1": [
         {
             "name": "LPS/Toggle_Puppet",
-            "value": 0.5
+            "value": 0
         },
         {
             "name": "201_Hips_X_Move",
@@ -569,7 +569,7 @@
     "puppet_2": [
         {
             "name": "LPS/Toggle_Puppet",
-            "value": 0.5
+            "value": 0
         },
         {
             "name": "201_Hips_X_Move",
@@ -1135,7 +1135,7 @@
     "puppet_3": [
         {
             "name": "LPS/Toggle_Puppet",
-            "value": 0.5
+            "value": 0
         },
         {
             "name": "201_Hips_X_Move",
