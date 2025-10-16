@@ -123,6 +123,12 @@ def folder_init():
     for i in range(13,19):
         if not os.path.exists(f"{c.LPS_DOCUMENTS}/13-18 Faces/Slot {i}"):
             os.mkdir(f"{c.LPS_DOCUMENTS}/13-18 Faces/Slot {i}")
+    
+    if not os.path.exists(f"{c.LPS_DOCUMENTS}/19-24 Scenes"):
+        os.mkdir(f"{c.LPS_DOCUMENTS}/19-24 Scenes")
+    for i in range(19,25):
+        if not os.path.exists(f"{c.LPS_DOCUMENTS}/19-24 Scenes/Slot {i}"):
+            os.mkdir(f"{c.LPS_DOCUMENTS}/19-24 Scenes/Slot {i}")
 
     if not os.path.exists(f"{c.LPS_DOCUMENTS}/Autosaves"):
         os.mkdir(f"{c.LPS_DOCUMENTS}/Autosaves")
