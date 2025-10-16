@@ -69,6 +69,8 @@ class OSCParameterDict(MutableMapping):
         
         key = self.encode_name(key)
         self._store[key] = value
+        if isinstance(value, bool):
+            value = int(value)
         self.send_update(key, value)
 
     def items(self):
