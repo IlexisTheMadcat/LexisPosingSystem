@@ -57,9 +57,13 @@ class LPSMasterInstance:
 
     async def scan_for_unitialized_values(self):
         if -1 in self.vrc_osc_dict.values():
+            tries = 0
             while True:  # query init retry loop
+                if tries > 3:
+                    raise TimeoutError("Could not initialize parameters within 9 seconds. Exiting to avoid excessive hang.\nMaybe the VRChat client is running too slow?")
                 self.vrc_osc_dict["LPS/OSC_Query_Initialize"] = 1  # Re/request parameters and wait for version response
-                if not await wait_for_condition(lambda: (-1 not in self.vrc_osc_dict.values()) and self.lps_version, timeout=5):
+                if not await wait_for_condition(lambda: (-1 not in self.vrc_osc_dict.values()) and self.lps_version, timeout=3):
+                    tries += 1
                     continue
                 else:
                     break
