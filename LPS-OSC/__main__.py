@@ -51,19 +51,10 @@ LPSMI.vrc_osc_dict.update({dict_item["name"]: dict_item["value"] for dict_item i
 def parameter_handler(address, *args):
     LPSMI.vrc_osc_dict.receive_update(address, args[0])
 
-with open("Presets/Poses/preset_1.json", "r", encoding='utf-8') as reference_file:  
+with open("Presets/Poses/preset_1.lpspose", "r", encoding='utf-8') as reference_file:  
     reference_data = reference_file.read()
     reference_data = json.loads(reference_data)
     reference_data_dict = {dict_item["name"]: dict_item["value"] for dict_item in reference_data["parameters"]}
-
-async def scan_for_unitialized_values():
-    if -1 in LPSMI.vrc_osc_dict.values():
-        while True:  # query init retry loop
-            LPSMI.vrc_osc_dict["LPS/OSC_Query_Initialize"] = 1  # Re/request parameters and wait for version response
-            if not await wait_for_condition(lambda: (-1 not in LPSMI.vrc_osc_dict.values()) and LPSMI.lps_version, timeout=2):
-                continue
-            else:
-                break
 
 async def initialize_lps_params():
 
@@ -79,7 +70,7 @@ async def initialize_lps_params():
 
             break
 
-    await scan_for_unitialized_values()
+    await LPSMI.scan_for_unitialized_values()
 
     LPSMI.vrc_osc_dict["LPS/OSC_Initialized"] = 1
 
@@ -338,7 +329,7 @@ async def auto_save_loop():
     
     while True:
 
-        await scan_for_unitialized_values()
+        await LPSMI.scan_for_unitialized_values()
 
         await wait_for_condition(lambda: LPSMI.vrc_osc_dict["LPS/OSC_Initialized"])
 
@@ -400,7 +391,7 @@ async def osc_handshake():
 
     while True:  # main loop
 
-        await scan_for_unitialized_values()
+        await LPSMI.scan_for_unitialized_values()
         
         await wait_for_condition(lambda: not LPSMI._globals["TIMEOUT_FLAG"])
 
@@ -436,7 +427,7 @@ async def osc_handshake():
                     buffer_new = await LPSMI.lps_get_current()
                     print(f"{Fore.BLACK}Reconnected. ({missed_attempts}s){Style.RESET_ALL}")
 
-                    if buffer != buffer_new:
+                    if buffer != buffer_new and missed_attempts > 3:
 
                         LPSMI.update_lps_history(
                             "Desync Placeholder",
