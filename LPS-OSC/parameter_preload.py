@@ -93,17 +93,17 @@ PARAMETER_PRELOAD = {
             "value": 0
         },
         {
-            "name": "LPS/Version MAJOR",
+            "name": "LPS/Version_MAJOR",
             "value": -1
         },
         {
-            "name": "LPS/Version MINOR",
+            "name": "LPS/Version_MINOR",
             "value": -1
         },
         {
-            "name": "LPS/Version PATCH",
+            "name": "LPS/Version_PATCH",
             "value": -1
-        },
+        }
     ],
     "joint_init": [
         {
@@ -648,6 +648,22 @@ PARAMETER_PRELOAD = {
         },
         {
             "name": "343_Facial_Brows_下_-_Down",
+            "value": -1
+        },
+        {
+            "name": "201_Hips_X_Move",
+            "value": -1
+        },
+        {
+            "name": "202_Hips_Y_Move",
+            "value": -1
+        },
+        {
+            "name": "203_Hips_Z_Move",
+            "value": -1
+        },
+        {
+            "name": "204_Hips_Scale",
             "value": -1
         }
     ]
