@@ -16,6 +16,7 @@
 # Be in ./
 # >>> pyinstaller --onefile LPS-OSC/__main__.py -n LPS-OSC.exe
 
+import os
 import asyncio
 import json
 import winsound
@@ -484,4 +485,5 @@ async def run_server():
     transport.close()
 
 if __name__ == "__main__":
+    os.system("cls")
     asyncio.run(run_server())
