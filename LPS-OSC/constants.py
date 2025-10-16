@@ -44,7 +44,7 @@ if os.path.exists("config.cfg"):
 else:
     LPS_DOCUMENTS = r"%userprofile%/Documents/Lexi's Posing System"
 
-with open("Presets/Poses/preset_1.json", "r", encoding='utf-8') as f:
+with open("Presets/Poses/preset_1.lpspose", "r", encoding='utf-8') as f:
     reference_data = json.loads(f.read())
     JOINT_INDEX = sorted([param["name"] for param in reference_data["parameters"]])
     JOINT_INDEX.insert(0, "placeholder")  # Aligns joints to the Active Joint parameter
