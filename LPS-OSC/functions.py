@@ -12,6 +12,7 @@
 
 import asyncio
 import os
+import json
 import winsound
 from contextlib import suppress
 
@@ -24,8 +25,8 @@ import constants as c
 ColorizeTerminal()
 
 async def play_sound(sound_name):
-    if isinstance(sound_name, str) and sound_name in c.LPS_SOUNDS:
-        if c.LPS_SOUNDS[sound_name]:
+    if isinstance(sound_name, str):
+        if sound_name in c.LPS_SOUNDS and c.LPS_SOUNDS[sound_name]:
             if c.LPS_SOUNDS[sound_name] == "MUTE":
                 return
             
@@ -34,7 +35,8 @@ async def play_sound(sound_name):
 
         else:
             winsound.MessageBeep(winsound.MB_OK)
-    else:
+
+    elif isinstance(sound_name, int):
         winsound.MessageBeep(sound_name)
 
 def update_history(action, keys, values: tuple, history=[], position=-1):
@@ -135,6 +137,54 @@ def folder_init():
     for i in ["Puppet 1","Puppet 2","Puppet 3"]:
         if not os.path.exists(f"{c.LPS_DOCUMENTS}/Autosaves/{i}"):
             os.mkdir(f"{c.LPS_DOCUMENTS}/Autosaves/{i}")
+
+def validate_config():
+    with open("config.cfg", "r+", encoding='utf-8') as f:
+        _data = json.loads(f.read())
+
+        if "save_file_directory" not in _data.keys():
+            _data["save_file_directory"] = r"%userprofile%/Documents/Lexi's Posing System"
+
+        if "sounds" not in _data.keys():
+            _data["sounds"] = {}
+
+        sound_dirs = {
+            "Startup": "Sounds/Startup.wav",
+            "Initialized": "Sounds/Initialized.wav",
+            "Timeout": "Sounds/Timeout.wav",
+            "Undo": "Sounds/Undo.wav",
+            "Redo": "Sounds/Redo.wav",
+            "No_Action_History": "Sounds/No_Action_History.wav",
+            "Preview_Pose": "Sounds/Redo.wav",
+            "Save_Pose": "Sounds/Save_Pose.wav",
+            "Load_Pose": "Sounds/Load_Pose.wav",
+            "Command_Start": "Sounds/Redo.wav",
+            "Command_End": "Sounds/Command_End.wav",
+            "Warning": "Sounds/Startup.wav",
+            "Autosave": "Sounds/Autosave.wav"
+        }
+
+        for key, value in sound_dirs.items():
+            if key not in _data["sounds"]:
+                _data["sounds"][key] = value
+            
+        if "autosave" not in _data.keys():
+            _data["autosave"] = {}
+
+        autosave_settings = {
+            "enabled": 1,
+            "interval_seconds": 120,
+            "max_autosaves": 10
+        }
+
+        for key, value in autosave_settings.items():
+            if key not in _data["autosave"]:
+                    _data["autosave"][key] = value
+
+        f.truncate(0)
+        f.seek(0)
+        f.write(json.dumps(_data, indent=4))
+
 
 async def fetch_saves(save_type=0) -> list:
     """Fetches the list of saved files from the specified directory."""
