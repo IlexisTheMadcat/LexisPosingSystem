@@ -27,8 +27,11 @@ from colorama import init as ColorizeTerminal, Fore, Back, Style
 from pygame.mixer import init as InitMixer
 
 from master_class import LPSMasterInstance
-import constants as c
 from functions import *
+
+validate_config()
+
+import constants as c
 from parameter_preload import PARAMETER_PRELOAD
 
 LPS_OSC_VERSION = ver("1.0.3")
@@ -375,7 +378,7 @@ async def auto_save_loop():
 
                 # delete oldest file if over max autosaves
                 autosave_files_dir = c.LPS_DOCUMENTS + f"/Autosaves/Puppet {current_puppet}"
-                autosave_files = [f for f in os.listdir(autosave_files_dir) if os.path.isfile(os.path.join(autosave_files_dir, f)) and f.startswith("LPS-OSC_Autosave_") and f.endswith(".json")]
+                autosave_files = [f for f in os.listdir(autosave_files_dir) if os.path.isfile(os.path.join(autosave_files_dir, f)) and f.startswith("Autosave_") and f.endswith(".lpspose")]
                 
                 if len(autosave_files) > c.LPS_AUTOSAVE["max_autosaves"]:
 
@@ -416,7 +419,7 @@ async def osc_handshake():
 
                 if missed_attempts == 0:
 
-                    print(f"{Fore.BLACK}Warning: Missed handshake attempt.{Style.RESET_ALL}")
+                    print(f"Warning: Missed handshake attempt.")
 
                 missed_attempts += 1
                 continue
@@ -426,7 +429,7 @@ async def osc_handshake():
                 if missed_attempts > 0:
 
                     buffer_new = await LPSMI.lps_get_current()
-                    print(f"{Fore.BLACK}Reconnected. ({missed_attempts}s){Style.RESET_ALL}")
+                    print(f"Reconnected. ({missed_attempts}s)")
 
                     if buffer != buffer_new and missed_attempts > 3:
 
@@ -451,7 +454,6 @@ async def lps_handshake():
         await asyncio.sleep(0.2)
 
 async def run_server():
-
     disp = dispatcher.Dispatcher()
     disp.map("/avatar/parameters/*", parameter_handler)
     server = osc_server.AsyncIOOSCUDPServer(("127.0.0.1", 9001), disp, asyncio.get_event_loop())
