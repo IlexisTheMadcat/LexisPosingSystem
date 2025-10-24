@@ -13,36 +13,33 @@
 import json
 import os
 
-if os.path.exists("config.cfg"):
-    with open("config.cfg", "r", encoding='utf-8') as f:
-        _data = json.loads(f.read())
+with open("config.cfg", "r", encoding='utf-8') as f:
+    _data = json.loads(f.read())
 
-        LPS_DOCUMENTS = os.path.expandvars(_data.get("save_file_directory", r"%userprofile%/Documents/Lexi's Posing System"))
-        LPS_SOUNDS = {
-            key: os.path.expandvars(value) for key, value in _data.get("sounds", {
-                "Startup": "Sounds/Startup.wav",
-                "Initialized": "Sounds/Initialized.wav",
-                "Timeout": "Sounds/Timeout.wav",
-                "Undo": "Sounds/Undo.wav",
-                "Redo": "Sounds/Redo.wav",
-                "No_Action_History": "Sounds/No_Action_History.wav",
-                "Preview_Pose": "Sounds/Redo.wav",
-                "Save_Pose": "Sounds/Save_Pose.wav",
-                "Load_Pose": "Sounds/Load_Pose.wav",
-                "Command_Start": "Sounds/Redo.wav",
-                "Command_End": "Sounds/Command_End.wav",
-                "Warning": "Sounds/Startup.wav",
-                "Autosave": "Sounds/Autosave.wav"
-            }
-        ).items()}
-        LPS_AUTOSAVE = _data.get("autosave", {
-            "enabled": 1,
-            "interval_seconds": 60,
-            "max_autosaves": 5
-        })
+    LPS_DOCUMENTS = os.path.expandvars(_data.get("save_file_directory", r"%userprofile%/Documents/Lexi's Posing System"))
+    LPS_SOUNDS = {
+        key: os.path.expandvars(value) for key, value in _data.get("sounds", {
+            "Startup": "Sounds/Startup.wav",
+            "Initialized": "Sounds/Initialized.wav",
+            "Timeout": "Sounds/Timeout.wav",
+            "Undo": "Sounds/Undo.wav",
+            "Redo": "Sounds/Redo.wav",
+            "No_Action_History": "Sounds/No_Action_History.wav",
+            "Preview_Pose": "Sounds/Redo.wav",
+            "Save_Pose": "Sounds/Save_Pose.wav",
+            "Load_Pose": "Sounds/Load_Pose.wav",
+            "Command_Start": "Sounds/Redo.wav",
+            "Command_End": "Sounds/Command_End.wav",
+            "Warning": "Sounds/Startup.wav",
+            "Autosave": "Sounds/Autosave.wav"
+        }
+    ).items()}
+    LPS_AUTOSAVE = _data.get("autosave", {
+        "enabled": 1,
+        "interval_seconds": 60,
+        "max_autosaves": 5
+    })
 
-else:
-    LPS_DOCUMENTS = r"%userprofile%/Documents/Lexi's Posing System"
 
 with open("Presets/Poses/preset_1.lpspose", "r", encoding='utf-8') as f:
     reference_data = json.loads(f.read())
