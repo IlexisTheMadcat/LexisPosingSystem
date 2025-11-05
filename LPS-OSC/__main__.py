@@ -333,9 +333,9 @@ async def auto_save_loop():
     
     while True:
 
-        await LPSMI.scan_for_unitialized_values()
-
         await wait_for_condition(lambda: LPSMI.vrc_osc_dict["LPS/OSC_Initialized"])
+
+        await LPSMI.scan_for_unitialized_values()
 
         current_pose = await LPSMI.lps_get_current()
         current_puppet = LPSMI.vrc_osc_dict["LPS/Selected_Puppet"]
