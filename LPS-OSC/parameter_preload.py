@@ -86,10 +86,18 @@ PARAMETER_PRELOAD = {
         },
         {
             "name": "LPS/Puppet_Ready",
-            "value": 0
+            "value": -1
         },
         {
             "name": "LPS/Selecting_Puppet",
+            "value": 0
+        },
+        {
+            "name": "LPS/OSC_Signal_receive",
+            "value": 0
+        },
+        {
+            "name": "LPS/OSC_Signal_send",
             "value": 0
         },
         {
