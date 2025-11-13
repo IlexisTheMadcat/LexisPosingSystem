@@ -48,6 +48,7 @@ class LPSMasterInstance:
 
         self._globals = kwargs.pop("_globals", {"TIMEOUT_FLAG": False})
 
+
     @property
     def lps_version(self) -> Version:
         if any(self.vrc_osc_dict[key] == -1 for key in ['LPS/Version_MAJOR', 'LPS/Version_MINOR', 'LPS/Version_PATCH']):
@@ -55,37 +56,37 @@ class LPSMasterInstance:
         
         return ver(f"{self.vrc_osc_dict['LPS/Version_MAJOR']}.{self.vrc_osc_dict['LPS/Version_MINOR']}.{self.vrc_osc_dict['LPS/Version_PATCH']}")
 
-    async def scan_for_unitialized_values(self):
+
+    async def scan_for_unitialized_values(self, waiting_to_initialize=False):
         if -1 in self.vrc_osc_dict.values():
             tries = 0
+            warning = True
             while True:  # query init retry loop
                 self.vrc_osc_dict["LPS/OSC_Query_Initialize"] = 1  # Re/request parameters and wait for version response
                 if not await wait_for_condition(lambda: (-1 not in self.vrc_osc_dict.values()) and self.lps_version, timeout=3):
                     tries += 1
+                    if tries > 3 and warning and not waiting_to_initialize:
+                        print(f"{Fore.YELLOW}Stil waiting for parameters to load! Something's taking longer than expected...{Style.RESET_ALL}")
+                        warning = False
                     continue
 
-                if tries > 3:
-                    print(f"{Fore.RED}Took longer than expected to request parameters. Maybe the VRChat client is running too slow?\nIf you just loaded an LPS avatar, you can ignore this warning.{Style.RESET_ALL}")
+                if tries > 3 and not waiting_to_initialize:
+                    print(f"{Fore.RED}Took longer than expected to request parameters. Maybe the VRChat client is running too slow?{Style.RESET_ALL}")
                 
                 break
 
-    
-    async def uninitialize_values(self):
-        async with aio_open("Presets/Poses/preset_1.lpspose", "r", encoding='utf-8') as reference_file:  
-            reference_data = await reference_file.read()
-            reference_data = json.loads(reference_data)
-            reference_data_dict = {dict_item["name"]: dict_item["value"] for dict_item in reference_data["parameters"]}
 
-        # also these
-        reference_data_dict.update({
-            "201_Hips_X_Move": -1,
-            "202_Hips_Y_Move": -1,
-            "203_Hips_Z_Move": -1,
-            "204_Hips_Scale": -1,
-        })
+    async def send_and_wait_for_signal(self, timeout=2):
+        self.vrc_osc_dict["LPS/OSC_Signal_receive"] = 1
+        if not await wait_for_condition(lambda: self.vrc_osc_dict["LPS/OSC_Signal_send"] == 1, timeout=timeout):
+            # Reset client-end "receive" signal to try again later
+            self.vrc_osc_dict["LPS/OSC_Signal_receive"] = 0
+            return False
+        else:
+            # LPS turns off the "receive" signal when receiving to acknowledge, we turn off "send" to reset LPS-end
+            self.vrc_osc_dict["LPS/OSC_Signal_send"] = 0
+            return True
 
-        for key in reference_data_dict.keys():
-            self.vrc_osc_dict[key] = -1
 
     def update_lps_history(self, action, keys, values: tuple, puppet_number: int=0):
         if puppet_number == 0:
@@ -107,6 +108,7 @@ class LPSMasterInstance:
         
         if self.ACTION_HISTORY_VERBOSE:
             print(f"Puppet {puppet_number} |", action)
+
 
     def lps_undo(self, puppet_number: int=0):
         if puppet_number == 0:
@@ -137,6 +139,7 @@ class LPSMasterInstance:
             else:
                 if self.ACTION_HISTORY_VERBOSE:
                     print(f"{Fore.LIGHTRED_EX}Nothing to undo on puppet {puppet_number}.{Style.RESET_ALL}")
+
 
     def lps_redo(self, puppet_number: int=0):
         if puppet_number == 0:
@@ -207,11 +210,25 @@ class LPSMasterInstance:
 
             if not is_autosave:
                 save_file = await aio_open(f"{c.LPS_DOCUMENTS}/{['1-6 Poses','13-18 Faces','7-12 Hands'][save_type]}/Slot {save_name}/slot_{save_name} (rename me!).lps{['pose','face','hand'][save_type]}", "a", encoding='utf-8')
-            else:
+            elif c.LPS_AUTOSAVE["enabled"] == True:
                 if not puppet:
                     puppet = self.vrc_osc_dict["LPS/Selected_Puppet"]
                 
                 save_file = await aio_open(f"{c.LPS_DOCUMENTS}/Autosaves/Puppet {puppet}/Autosave_{datetime.now().strftime(r'%Y-%m-%d_%H-%M-%S')}.lpspose", "a", encoding='utf-8')
+
+                # delete oldest file if over max autosaves
+                autosave_files_dir = c.LPS_DOCUMENTS + f"/Autosaves/Puppet {puppet}"
+                autosave_files = [f for f in os.listdir(autosave_files_dir) if os.path.isfile(os.path.join(autosave_files_dir, f)) and f.startswith("Autosave_") and f.endswith(".lpspose")]
+                
+                if len(autosave_files) > c.LPS_AUTOSAVE["max_autosaves"]:
+
+                    autosave_files.sort()  # Sort files by name (which includes timestamp)
+
+                    # remove all files over the max limit
+                    while len(autosave_files) > c.LPS_AUTOSAVE["max_autosaves"]:
+
+                        os.remove(os.path.join(autosave_files_dir, autosave_files[0]))  # Remove the oldest file
+                        autosave_files.pop(0)
 
             save_file_items = {}  # Create a dictionary to hold the items to be saved
             for key in reference_data_dict.keys():
@@ -268,17 +285,16 @@ class LPSMasterInstance:
                     save_file_data["puppet_"+str(puppet_number)].append({"name": key, "value": value})
 
             for puppet_x in [1,2,3]:
-                await play_sound("Command_Start")
+                play_sound("Command_Start")
                 self.vrc_osc_dict["LPS/Selected_Puppet"] = 0
                 await wait_for_condition(lambda: not self.vrc_osc_dict["LPS/Puppet_Ready"] or force_close_puppet_select())
-                await self.uninitialize_values()
-                await asyncio.sleep(0.2)
+                # await self.lps_load(is_preset=True, save_type=0, save_name=1)  # LPS does this already
                 self.vrc_osc_dict["LPS/Selected_Puppet"] = puppet_x
                 await wait_for_condition(lambda: not self.vrc_osc_dict["LPS/Puppet_Ready"] or force_close_puppet_select())
                 await wait_for_condition(lambda: self.vrc_osc_dict["LPS/Puppet_Ready"] or force_close_puppet_select())
                 await self.scan_for_unitialized_values()
-                await asyncio.sleep(1)
                 save_changes_to_file(puppet_x)
+                await self.send_and_wait_for_signal()
 
             # write file
             await save_file.seek(0)
@@ -338,6 +354,7 @@ class LPSMasterInstance:
 
                 else:
                     file_name = f"{c.LPS_DOCUMENTS}/{['1-6 Poses','13-18 Faces','7-12 Hands','19-24 Scenes'][save_type]}/Slot {save_name}/{file_list[0]}"
+                    file_name = file_name.replace("\\","/")
 
             elif is_preset:
                 file_name = f"Presets/{['Poses','Faces','Hands', 'Scenes'][save_type]}/preset_{save_name}.{['lpspose','lpsface','lpshand','lpsscene'][save_type]}"
@@ -369,6 +386,8 @@ class LPSMasterInstance:
                 if not is_preset and save_file_data["save_type"] != save_type:
                     raise ValueError(f"Attempted to load a \"{['Pose', 'Face', 'Hand gesture', 'Scene'][save_file_data['save_type']]}\" file from a \"{['Pose', 'Face', 'Hand gesture', 'Scene'][save_type]}\" slot.")
 
+                strip_docs_dir = str(c.LPS_DOCUMENTS).replace('\\','/')
+
                 if save_type in [0,1,2]:
                     async with aio_open(reference_file_path, "r", encoding='utf-8') as reference_file:  # Get pose keys for reference
                         reference_data = await reference_file.read()
@@ -388,22 +407,25 @@ class LPSMasterInstance:
                     after_values = await self.lps_get_current(save_type=save_type, hand_side=hand_side)
 
                     if after_values != before_values and not preview:
+
                         if save_type == 0:
                             self.update_lps_history(
-                                f"Load saved pose {save_name} (\"{file_list[0]}\")" if not is_preset else f"Load preset pose {save_name}", 
+                                f"Load saved pose {save_name} (\"{file_name.replace(strip_docs_dir, '/').split('/')[-1]}\")" if not is_preset else f"Load preset pose {save_name}", 
                                 list(after_values.keys()), (list(before_values.values()), list(after_values.values())),
                                 self.vrc_osc_dict["LPS/Selected_Puppet"])
                         elif save_type == 1: 
                             self.update_lps_history(
-                                f"Load saved face {save_name} (\"{file_list[0]}\")" if not is_preset else f"Load preset face {save_name}", 
+                                f"Load saved face {save_name} (\"{file_name.replace(strip_docs_dir, '/').split('/')[-1]}\")" if not is_preset else f"Load preset face {save_name}", 
                                 list(after_values.keys()), (list(before_values.values()), list(after_values.values())),
                                 self.vrc_osc_dict["LPS/Selected_Puppet"])
                         elif save_type == 2:
                             self.update_lps_history(
-                                f"Load preset hand {save_name} (\"{file_list[0]}\") to {'right' if hand_side else 'left'} hand" if is_preset else f"Load saved hand {save_name} to {'right' if hand_side else 'left'} hand", 
+                                f"Load saved hand {save_name} (\"{file_name.replace(strip_docs_dir, '/').split('/')[-1]}\") to {'right' if hand_side else 'left'} hand" if not is_preset else f"Load preset hand {save_name} to {'right' if hand_side else 'left'} hand", 
                                 list(after_values.keys()), (list(before_values.values()), list(after_values.values())),
                                 self.vrc_osc_dict["LPS/Selected_Puppet"])
                             
+                    await self.send_and_wait_for_signal()
+
                 elif save_type == 3 and not preview:  # scene
                     async with aio_open(reference_file_path, "r", encoding='utf-8') as reference_file:  # Get pose keys for reference
                         reference_data = await reference_file.read()
@@ -420,7 +442,7 @@ class LPSMasterInstance:
 
                         if after_values != before_values and not preview:
                             self.update_lps_history(
-                                f"[SCENE] Load saved pose from scene {save_name} (\"{file_list[0]}\")", 
+                                f"[SCENE] Load saved pose from scene {save_name} (\"{file_name.replace(strip_docs_dir, '/').split('/')[-1]}\")", 
                                 list(after_values.keys()), (list(before_values.values()), list(after_values.values())),
                                 puppet_number)
 
@@ -438,14 +460,17 @@ class LPSMasterInstance:
                         await wait_for_condition(lambda: not self.vrc_osc_dict["LPS/Puppet_Ready"] or force_close_puppet_select())
                         await self.lps_save(0, is_autosave=True, puppet=puppet_x)
                         print(f"{Fore.LIGHTCYAN_EX}Autosaved pose for puppet {puppet_x}. (Scene){Style.RESET_ALL}")
-                        await play_sound("Autosave")
-                        await self.uninitialize_values()
+                        play_sound("Autosave")
+                        # await self.lps_load(is_preset=True, save_type=0, save_name=1)  # LPS does this already
                         self.vrc_osc_dict["LPS/Selected_Puppet"] = puppet_x
-                        await wait_for_condition(lambda: not self.vrc_osc_dict["LPS/Puppet_Ready"] or force_close_puppet_select())
-                        await wait_for_condition(lambda: self.vrc_osc_dict["LPS/Puppet_Ready"] or force_close_puppet_select())
+                        if not await wait_for_condition(lambda: self.vrc_osc_dict["LPS/Puppet_Ready"] or force_close_puppet_select(), timeout=5):
+                            self.vrc_osc_dict["LPS/Puppet_Ready"] = 1
+                            # This is a failsafe in case the puppet ready signal doesn't come through.
+                            # LPS should not take this long. If it does and is still not ready, 
+                            #   there must be an underlying issue and continuing may cause other issues.
                         await self.scan_for_unitialized_values()
                         await apply_changes_with_action_history(puppet_x)
-                        await asyncio.sleep(1)
+                        await self.send_and_wait_for_signal()
 
                     # restore puppet selection
                     self.vrc_osc_dict["LPS/Selected_Puppet"] = buffer_puppet_number
@@ -454,14 +479,14 @@ class LPSMasterInstance:
 
                 if not is_preset and not preview:
                     if not save_file_data.get("lps_version", None):
-                        print(f"{Fore.YELLOW}Warning: The loaded file does not contain LPS version information.\nIf the pose is accurate, add: \"lps_version\": {self.lps_version} to the root of the JSON file.{Style.RESET_ALL}")
+                        print(f"{Fore.YELLOW}Warning: The loaded file does not contain LPS version information.\nIf the pose is accurate, add: \"lps_version\": \"{self.lps_version}\" to the root of the JSON file.{Style.RESET_ALL}")
                         notify = True
                     else:
                         if ver(str(save_file_data["lps_version"])) != self.lps_version:
                             print(f"{Fore.YELLOW}Warning: The loaded file was saved with LPS version {save_file_data['lps_version']}, but you are running LPS version {self.lps_version}. The pose may not be accurate.{Style.RESET_ALL}")
                             notify = True
                     if not save_file_data.get("osc_version", None):
-                        print(f"{Fore.YELLOW}Warning: The loaded file does not contain OSC version information.\nIf the pose is accurate, add: \"osc_version\": {self.osc_version} to the root of the JSON file.{Style.RESET_ALL}")
+                        print(f"{Fore.YELLOW}Warning: The loaded file does not contain OSC version information.\nIf the pose is accurate, add: \"osc_version\": \"{self.osc_version}\" to the root of the JSON file.{Style.RESET_ALL}")
                         notify = True
                     else:
                         if ver(str(save_file_data["osc_version"])) != self.osc_version:
@@ -469,7 +494,7 @@ class LPSMasterInstance:
                             notify = True
 
                     if notify:
-                        await play_sound("Warning")
+                        play_sound("Warning")
 
             return True
         
