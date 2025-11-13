@@ -19,7 +19,8 @@
 import os
 import asyncio
 import json
-import winsound
+import time
+from datetime import datetime
 from packaging.version import parse as ver
 
 from pythonosc import udp_client, osc_server, dispatcher
@@ -60,6 +61,7 @@ with open("Presets/Poses/preset_1.lpspose", "r", encoding='utf-8') as reference_
     reference_data = json.loads(reference_data)
     reference_data_dict = {dict_item["name"]: dict_item["value"] for dict_item in reference_data["parameters"]}
 
+
 async def initialize_lps_params():
 
     while True:
@@ -74,7 +76,7 @@ async def initialize_lps_params():
 
             break
 
-    await LPSMI.scan_for_unitialized_values()
+    await LPSMI.scan_for_unitialized_values(waiting_to_initialize=True)
 
     LPSMI.vrc_osc_dict["LPS/OSC_Initialized"] = 1
 
@@ -108,7 +110,7 @@ async def initialize_lps_params():
         (None, [LPSMI.vrc_osc_dict[key] for key in reference_data_dict.keys()]),
         3)
 
-    await play_sound("Initialized")
+    play_sound("Initialized")
 
     LPSMI._globals["TIMEOUT_FLAG"] = False
 
@@ -124,7 +126,7 @@ async def main_loop():
         if LPSMI._globals["TIMEOUT_FLAG"]:
 
             LPSMI.vrc_osc_dict["LPS/OSC_Initialized"] = 0
-            await play_sound("Timeout")
+            play_sound("Timeout")
             print(f"{Fore.RED}LPS connection timed out. Attempting reconnect.\nReason: {LPSMI._globals['TIMEOUT_FLAG']}{Style.RESET_ALL}")
             await initialize_lps_params()
             continue
@@ -134,7 +136,7 @@ async def main_loop():
 
             if LPSMI.vrc_osc_dict["LPS/Saving"]:
 
-                await play_sound("Command_Start")
+                play_sound("Command_Start")
 
                 await wait_for_condition(lambda: LPSMI.vrc_osc_dict["LPS/Saving_Held"] == 1 or LPSMI.vrc_osc_dict["LPS/Slot_Number"] == 0, timeout=1.25)
 
@@ -145,14 +147,14 @@ async def main_loop():
                 else:
 
                     await LPSMI.lps_save(LPSMI.vrc_osc_dict["LPS/Slot_Number"])  # Save the current pose
-                    await play_sound("Save_Pose")
+                    play_sound("Save_Pose")
                     LPSMI.vrc_osc_dict["LPS/Saving"] = False
                     LPSMI.vrc_osc_dict["LPS/Saving_Held"] = False
                     await wait_for_condition(lambda: LPSMI.vrc_osc_dict["LPS/Slot_Number"] == 0)  # Wait for the save slot to be released before continuing
 
             elif LPSMI.vrc_osc_dict["LPS/Loading"]:
 
-                await play_sound("Command_Start")
+                play_sound("Command_Start")
 
                 await wait_for_condition(lambda: LPSMI.vrc_osc_dict["LPS/Loading_Held"] == 1 or LPSMI.vrc_osc_dict["LPS/Slot_Number"] == 0, timeout=1.25)
 
@@ -165,11 +167,11 @@ async def main_loop():
                     if await LPSMI.lps_load(LPSMI.vrc_osc_dict["LPS/Slot_Number"]):  # Load the saved pose
 
                         LPSMI.vrc_osc_dict["LPS/Loading"] = False
-                        await play_sound("Load_Pose")
+                        play_sound("Load_Pose")
 
                     else:
 
-                        await play_sound("No_Action_History")
+                        play_sound("No_Action_History")
                         
                     LPSMI.vrc_osc_dict["LPS/Loading_Held"] = False
                     await wait_for_condition(lambda: LPSMI.vrc_osc_dict["LPS/Slot_Number"] == 0)  # Wait for the save slot to be released before continuing
@@ -179,7 +181,7 @@ async def main_loop():
                 buffer_data = await LPSMI.lps_get_current()
 
                 await LPSMI.lps_load(LPSMI.vrc_osc_dict["LPS/Slot_Number"], preview=True)
-                await play_sound("Preview_Pose")
+                play_sound("Preview_Pose")
 
                 await wait_for_condition(lambda: LPSMI.vrc_osc_dict["LPS/Slot_Number"] == 0)
                 
@@ -188,7 +190,7 @@ async def main_loop():
         # PRESETS
         if LPSMI.vrc_osc_dict["LPS/Preset_Pose"] > 0:
 
-            await play_sound("Command_Start")
+            play_sound("Command_Start")
 
             await wait_for_condition(lambda: LPSMI.vrc_osc_dict["LPS/Preset_Held"] == 1 or LPSMI.vrc_osc_dict["LPS/Preset_Pose"] == 0, timeout=1.25)
 
@@ -201,29 +203,29 @@ async def main_loop():
                 if LPSMI.vrc_osc_dict["LPS/Preset_Pose"] == 1:  # poses (just tpose)
 
                     await LPSMI.lps_load(LPSMI.vrc_osc_dict["LPS/Preset_Pose"], is_preset=True)
-                    await play_sound("Load_Pose")
+                    play_sound("Load_Pose")
 
                 elif LPSMI.vrc_osc_dict["LPS/Preset_Pose"] > 1 and LPSMI.vrc_osc_dict["LPS/Preset_Pose"] < 17:  # left hand
 
                     await LPSMI.lps_load(LPSMI.vrc_osc_dict["LPS/Preset_Pose"], save_type=2, hand_side=0, is_preset=True)
-                    await play_sound("Load_Pose")
+                    play_sound("Load_Pose")
 
                 elif LPSMI.vrc_osc_dict["LPS/Preset_Pose"] > 16 and LPSMI.vrc_osc_dict["LPS/Preset_Pose"] < 32:  # right hand
 
                     await LPSMI.lps_load(LPSMI.vrc_osc_dict["LPS/Preset_Pose"]-15, save_type=2, hand_side=1, is_preset=True)
-                    await play_sound("Load_Pose")
+                    play_sound("Load_Pose")
 
                 elif LPSMI.vrc_osc_dict["LPS/Preset_Pose"] > 31 and LPSMI.vrc_osc_dict["LPS/Preset_Pose"] < 45:  # faces
 
                     await LPSMI.lps_load(LPSMI.vrc_osc_dict["LPS/Preset_Pose"], save_type=1, is_preset=True)
-                    await play_sound("Load_Pose")
+                    play_sound("Load_Pose")
 
                 await wait_for_condition(lambda: LPSMI.vrc_osc_dict["LPS/Preset_Pose"] == 0)  # Wait for the save slot to be released before continuing
 
         # APPROXIMATION
         if LPSMI.vrc_osc_dict["LPS/Approximation_Weight_Radial"]:
 
-            await play_sound("Command_Start")
+            play_sound("Command_Start")
 
             last_data = await LPSMI.lps_get_current()
             await wait_for_condition(lambda: LPSMI.vrc_osc_dict["LPS/Approximation_Weight_Radial"] == 0)
@@ -238,13 +240,13 @@ async def main_loop():
                     LPSMI.vrc_osc_dict["LPS/Selected_Puppet"]
                 )
 
-                await play_sound("Command_End")
+                play_sound("Command_End")
 
         # MOVE JOINT
         if (LPSMI.vrc_osc_dict["LPS/Active_Joint"] > 0 and LPSMI.vrc_osc_dict["LPS/Active_Joint"] < 194) or LPSMI.vrc_osc_dict["LPS/Active_Joint"] > 200:
             # 100 is joysticks (compensated), 194-196 is move gadget (ignored), 200 is facials
             
-            await play_sound("Command_Start")
+            play_sound("Command_Start")
 
             # using joysticks
             if LPSMI.vrc_osc_dict["LPS/Active_Joint"] > 100:
@@ -274,7 +276,7 @@ async def main_loop():
                     LPSMI.vrc_osc_dict["LPS/Selected_Puppet"]
                 )
 
-                await play_sound("Command_End")
+                play_sound("Command_End")
 
         # COPY TO RIGHT EYE
         if LPSMI.vrc_osc_dict["LPS/Copy_Eye_Button"]:
@@ -294,7 +296,7 @@ async def main_loop():
                     (last_values, new_values),
                     LPSMI.vrc_osc_dict["LPS/Selected_Puppet"])
                 
-                await play_sound("Command_Start")
+                play_sound("Command_Start")
             
             await wait_for_condition(lambda: LPSMI.vrc_osc_dict["LPS/Copy_Eye_Button"] == 0)
 
@@ -303,11 +305,11 @@ async def main_loop():
 
             if LPSMI.lps_undo(LPSMI.vrc_osc_dict["LPS/Selected_Puppet"]):
 
-                await play_sound("Undo")
+                play_sound("Undo")
 
             else:
 
-                await play_sound("No_Action_History")
+                play_sound("No_Action_History")
 
             await wait_for_condition(lambda: LPSMI.vrc_osc_dict["LPS/Undo"] == 0)
 
@@ -316,11 +318,11 @@ async def main_loop():
 
             if LPSMI.lps_redo(LPSMI.vrc_osc_dict["LPS/Selected_Puppet"]):
 
-                await play_sound("Redo")
+                play_sound("Redo")
 
             else:
 
-                await play_sound("No_Action_History")
+                play_sound("No_Action_History")
 
             await wait_for_condition(lambda: LPSMI.vrc_osc_dict["LPS/Redo"] == 0)
 
@@ -339,6 +341,8 @@ async def auto_save_loop():
 
         current_pose = await LPSMI.lps_get_current()
         current_puppet = LPSMI.vrc_osc_dict["LPS/Selected_Puppet"]
+        if current_puppet == 0:
+            continue  # no puppet selected, skip autosave
 
         if await wait_for_condition(lambda: LPSMI.vrc_osc_dict["LPS/Selecting_Puppet"], timeout=c.LPS_AUTOSAVE["interval_seconds"]):
 
@@ -349,7 +353,7 @@ async def auto_save_loop():
 
                 await LPSMI.lps_save(0, is_autosave=True, puppet=current_puppet)
                 print(f"{Fore.LIGHTCYAN_EX}Autosaved pose for puppet {current_puppet}. (Switched puppet){Style.RESET_ALL}")
-                await play_sound("Autosave")
+                play_sound("Autosave")
 
                 # delete oldest file if over max autosaves
                 autosave_files_dir = c.LPS_DOCUMENTS + f"/Autosaves/Puppet {current_puppet}"
@@ -364,6 +368,9 @@ async def auto_save_loop():
 
                         os.remove(os.path.join(autosave_files_dir, autosave_files[0]))  # Remove the oldest file
                         autosave_files.pop(0)
+
+                await wait_for_condition(lambda: not LPSMI.vrc_osc_dict["LPS/Puppet_Ready"])
+                await wait_for_condition(lambda: LPSMI.vrc_osc_dict["LPS/Puppet_Ready"])
         
         else:
 
@@ -374,26 +381,14 @@ async def auto_save_loop():
 
                 await LPSMI.lps_save(0, is_autosave=True, puppet=new_current_puppet)
                 print(f"{Fore.LIGHTCYAN_EX}Autosaved pose for puppet {new_current_puppet}.{Style.RESET_ALL}")
-                await play_sound("Autosave")
-
-                # delete oldest file if over max autosaves
-                autosave_files_dir = c.LPS_DOCUMENTS + f"/Autosaves/Puppet {current_puppet}"
-                autosave_files = [f for f in os.listdir(autosave_files_dir) if os.path.isfile(os.path.join(autosave_files_dir, f)) and f.startswith("Autosave_") and f.endswith(".lpspose")]
-                
-                if len(autosave_files) > c.LPS_AUTOSAVE["max_autosaves"]:
-
-                    autosave_files.sort()  # Sort files by name (which includes timestamp)
-
-                    # remove all files over the max limit
-                    while len(autosave_files) > c.LPS_AUTOSAVE["max_autosaves"]:
-
-                        os.remove(os.path.join(autosave_files_dir, autosave_files[0]))  # Remove the oldest file
-                        autosave_files.pop(0)
+                play_sound("Autosave")
     
 
 async def osc_handshake():
 
     while True:  # main loop
+
+        datetime_start = datetime.now()
 
         await LPSMI.scan_for_unitialized_values()
         
@@ -410,6 +405,7 @@ async def osc_handshake():
         for i in range(11):
 
             if i == 10:
+                print("Warning: Missed 10/10 handshake attempts.")
                 LPSMI._globals["TIMEOUT_FLAG"] = "LPS did not respond to handshake within 10 seconds."
                 break
 
@@ -417,21 +413,24 @@ async def osc_handshake():
 
             if not await wait_for_condition(lambda: not LPSMI.vrc_osc_dict["LPS/OSC_Handshake"], timeout=1):
 
-                if missed_attempts == 0:
-
-                    print(f"Warning: Missed handshake attempt.")
-
                 missed_attempts += 1
+
+                if missed_attempts >= 3:
+
+                    print(f"Warning: Missed {missed_attempts}/10 handshake attempt{'s' if missed_attempts > 1 else ''}.", end="\r")
+
                 continue
 
             else:
 
-                if missed_attempts > 0:
-
-                    buffer_new = await LPSMI.lps_get_current()
+                if missed_attempts > 3:
+                    
+                    print()
                     print(f"Reconnected. ({missed_attempts}s)")
 
-                    if buffer != buffer_new and missed_attempts > 3:
+                    buffer_new = await LPSMI.lps_get_current()
+
+                    if buffer != buffer_new:
 
                         LPSMI.update_lps_history(
                             "Desync Placeholder",
@@ -440,11 +439,19 @@ async def osc_handshake():
                             LPSMI.vrc_osc_dict["LPS/Selected_Puppet"]
                         )
                         print(f"{Fore.YELLOW}Warning: An OSC parameter mismatch was detected during timeout. Something might be out of sync!\n"
-                              f"The last known pose was saved. Press UNDO to revert to last known pose.{Style.RESET_ALL}")
-                        await play_sound("Warning")
+                                f"The last known pose was saved. Press UNDO to revert to last known pose.{Style.RESET_ALL}")
+                        play_sound("Warning")
 
                 break
 
+        datetime_end = datetime.now()
+
+        elapsed_s = (datetime_end - datetime_start).total_seconds()
+        elapsed_ms = int(elapsed_s * 1000)
+        if elapsed_ms >= 5000:
+            elapsed_ms = 5000
+
+        print("  Handshake ping: " + (">" if elapsed_ms > 5000 else "") + (f"{Fore.LIGHTGREEN_EX}" if elapsed_ms < 250 else f"{Fore.LIGHTYELLOW_EX}" if elapsed_ms < 500 else f"{Fore.LIGHTRED_EX}") + f"{elapsed_ms} ms{Style.RESET_ALL}" + " "*5, end="\r")
 
 async def lps_handshake():
 
@@ -477,15 +484,23 @@ async def run_server():
     
     asyncio.create_task(lps_handshake())
     asyncio.create_task(osc_handshake())
-    asyncio.create_task(auto_save_loop())
 
-    await play_sound("Startup")
+    play_sound("Startup")
 
     await initialize_lps_params()
+
+    asyncio.create_task(auto_save_loop())
 
     await main_loop()
     transport.close()
 
 if __name__ == "__main__":
     os.system("cls")
-    asyncio.run(run_server())
+    try:
+        asyncio.run(run_server())
+    except KeyboardInterrupt:
+        play_sound("Timeout")
+        print(f"Ctrl+C; {Fore.CYAN}Thanks for using LPS OSC Assistant! Goodbye!{Style.RESET_ALL}")
+        time.sleep(2)
+        exit()
+        
