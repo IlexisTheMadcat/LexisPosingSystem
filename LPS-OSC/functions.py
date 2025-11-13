@@ -24,7 +24,7 @@ import constants as c
 
 ColorizeTerminal()
 
-async def play_sound(sound_name):
+def play_sound(sound_name):
     if isinstance(sound_name, str):
         if sound_name in c.LPS_SOUNDS and c.LPS_SOUNDS[sound_name]:
             if c.LPS_SOUNDS[sound_name] == "MUTE":
