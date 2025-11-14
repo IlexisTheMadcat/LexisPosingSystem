@@ -24,6 +24,7 @@ from colorama import init as ColorizeTerminal, Fore, Back, Style
 import constants as c
 from functions import update_history, undo_table, redo_table, folder_init, play_sound, wait_for_condition
 from osc_dict import OSCParameterDict
+from parameter_preload import PARAMETER_PRELOAD
 
 ColorizeTerminal()
 
@@ -58,7 +59,13 @@ class LPSMasterInstance:
 
 
     async def scan_for_unitialized_values(self, waiting_to_initialize=False):
-        if -1 in self.vrc_osc_dict.values():
+        parameters_to_check = [item['name'] for item in PARAMETER_PRELOAD['control'] + PARAMETER_PRELOAD['joint_init']]
+        if -1 in [self.vrc_osc_dict[key] for key in parameters_to_check if key in self.vrc_osc_dict]:
+            if not waiting_to_initialize:
+                for key,value in self.vrc_osc_dict.items():
+                    if value == -1:
+                        print(f"{Fore.YELLOW}Found uninitialized parameter: {key}{Style.RESET_ALL}")
+
             tries = 0
             warning = True
             while True:  # query init retry loop
@@ -66,7 +73,7 @@ class LPSMasterInstance:
                 if not await wait_for_condition(lambda: (-1 not in self.vrc_osc_dict.values()) and self.lps_version, timeout=3):
                     tries += 1
                     if tries > 3 and warning and not waiting_to_initialize:
-                        print(f"{Fore.YELLOW}Stil waiting for parameters to load! Something's taking longer than expected...{Style.RESET_ALL}")
+                        print(f"\n{Fore.YELLOW}Stil waiting for parameters to load! Something's taking longer than expected...{Style.RESET_ALL}")
                         warning = False
                     continue
 
