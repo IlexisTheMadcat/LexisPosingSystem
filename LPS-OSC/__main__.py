@@ -48,7 +48,7 @@ LPSMI = LPSMasterInstance(
     vrc_client = vrc_client,
     osc_preload = {dict_item["name"]: dict_item["value"] for dict_item in PARAMETER_PRELOAD["joint_init"]},
     osc_version = LPS_OSC_VERSION,
-    _globals = {"TIMEOUT_FLAG": False}
+    _globals = {"TIMEOUT_FLAG": False, "previewing": False}
 )
 LPSMI.vrc_osc_dict.update({dict_item["name"]: dict_item["value"] for dict_item in PARAMETER_PRELOAD["control"]})
 
@@ -178,6 +178,8 @@ async def main_loop():
 
             else:  # Previewing
 
+                LPSMI._globals["previewing"] = True
+
                 buffer_data = await LPSMI.lps_get_current()
 
                 await LPSMI.lps_load(LPSMI.vrc_osc_dict["LPS/Slot_Number"], preview=True)
@@ -186,6 +188,8 @@ async def main_loop():
                 await wait_for_condition(lambda: LPSMI.vrc_osc_dict["LPS/Slot_Number"] == 0)
                 
                 LPSMI.vrc_osc_dict.update(buffer_data)  # Restore the original pose
+
+                LPSMI._globals["previewing"] = False
 
         # PRESETS
         if LPSMI.vrc_osc_dict["LPS/Preset_Pose"] > 0:
@@ -441,6 +445,8 @@ async def auto_save_loop():
                 await wait_for_condition(lambda: LPSMI.vrc_osc_dict["LPS/Puppet_Ready"])
         
         else:
+
+            await wait_for_condition(lambda: not LPSMI._globals["previewing"])
 
             new_current_pose = await LPSMI.lps_get_current()
             new_current_puppet = LPSMI.vrc_osc_dict["LPS/Selected_Puppet"]
