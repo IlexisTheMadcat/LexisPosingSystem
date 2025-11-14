@@ -57,7 +57,19 @@ PARAMETER_PRELOAD = {
             "value": 0
         },
         {
-            "name": "LPS/Copy_Eye_Button",
+            "name": "LPS/Copy_To_Left_Eye",
+            "value": 0
+        },
+        {
+            "name": "LPS/Copy_To_Right_Eye",
+            "value": 0
+        },
+        {
+            "name": "LPS/Copy_To_Left_Hand",
+            "value": 0
+        },
+        {
+            "name": "LPS/Copy_To_Right_Hand",
             "value": 0
         },
         {
