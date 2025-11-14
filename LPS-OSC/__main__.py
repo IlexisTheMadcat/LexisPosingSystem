@@ -278,8 +278,30 @@ async def main_loop():
 
                 play_sound("Command_End")
 
+        # COPY TO LEFT EYE
+        if LPSMI.vrc_osc_dict["LPS/Copy_To_Left_Eye"]:
+
+            joints = [c.JOINT_INDEX[x] for x in range(16,18)]
+
+            last_values = [LPSMI.vrc_osc_dict[x] for x in joints]
+            LPSMI.vrc_osc_dict[c.JOINT_INDEX[16]], LPSMI.vrc_osc_dict[c.JOINT_INDEX[17]] = (
+                LPSMI.vrc_osc_dict[c.JOINT_INDEX[19]], LPSMI.vrc_osc_dict[c.JOINT_INDEX[20]])
+            new_values = [LPSMI.vrc_osc_dict[x] for x in joints]
+
+            if new_values != last_values:
+
+                LPSMI.update_lps_history(
+                    "Copy right eye to left eye", 
+                    joints, 
+                    (last_values, new_values),
+                    LPSMI.vrc_osc_dict["LPS/Selected_Puppet"])
+                
+                play_sound("Command_Start")
+            
+            await wait_for_condition(lambda: LPSMI.vrc_osc_dict["LPS/Copy_To_Left_Eye"] == 0)
+
         # COPY TO RIGHT EYE
-        if LPSMI.vrc_osc_dict["LPS/Copy_Eye_Button"]:
+        if LPSMI.vrc_osc_dict["LPS/Copy_To_Right_Eye"]:
 
             joints = [c.JOINT_INDEX[x] for x in range(19,21)]
 
@@ -298,7 +320,53 @@ async def main_loop():
                 
                 play_sound("Command_Start")
             
-            await wait_for_condition(lambda: LPSMI.vrc_osc_dict["LPS/Copy_Eye_Button"] == 0)
+            await wait_for_condition(lambda: LPSMI.vrc_osc_dict["LPS/Copy_To_Right_Eye"] == 0)
+
+        # COPY TO LEFT HAND
+        if LPSMI.vrc_osc_dict["LPS/Copy_To_Left_Hand"]:
+
+            left_joints = c.JOINT_INDEX_GROUPED(30)["joints"]
+            right_joints = c.JOINT_INDEX_GROUPED(58)["joints"]
+
+            last_values = [LPSMI.vrc_osc_dict[x] for x in left_joints]
+            for index in range(len(left_joints)):
+                LPSMI.vrc_osc_dict[left_joints[index]] = LPSMI.vrc_osc_dict[right_joints[index]]
+            new_values = [LPSMI.vrc_osc_dict[x] for x in left_joints]
+
+            if new_values != last_values:
+
+                LPSMI.update_lps_history(
+                    "Copy right hand to left hand", 
+                    left_joints, 
+                    (last_values, new_values),
+                    LPSMI.vrc_osc_dict["LPS/Selected_Puppet"])
+                
+                play_sound("Command_Start")
+            
+            await wait_for_condition(lambda: LPSMI.vrc_osc_dict["LPS/Copy_To_Left_Hand"] == 0)
+
+        # COPY TO RIGHT HAND
+        if LPSMI.vrc_osc_dict["LPS/Copy_To_Right_Hand"]:
+
+            left_joints = c.JOINT_INDEX_GROUPED(30)["joints"]
+            right_joints = c.JOINT_INDEX_GROUPED(58)["joints"]
+
+            last_values = [LPSMI.vrc_osc_dict[x] for x in right_joints]
+            for index in range(len(right_joints)):
+                LPSMI.vrc_osc_dict[right_joints[index]] = LPSMI.vrc_osc_dict[left_joints[index]]
+            new_values = [LPSMI.vrc_osc_dict[x] for x in right_joints]
+
+            if new_values != last_values:
+
+                LPSMI.update_lps_history(
+                    "Copy left hand to right hand", 
+                    right_joints, 
+                    (last_values, new_values),
+                    LPSMI.vrc_osc_dict["LPS/Selected_Puppet"])
+                
+                play_sound("Command_Start")
+            
+            await wait_for_condition(lambda: LPSMI.vrc_osc_dict["LPS/Copy_To_Right_Hand"] == 0)
 
         # UNDO
         if LPSMI.vrc_osc_dict["LPS/Undo"]:
@@ -390,7 +458,7 @@ async def osc_handshake():
 
         datetime_start = datetime.now()
 
-        await LPSMI.scan_for_unitialized_values()
+        await LPSMI.scan_for_unitialized_values(waiting_to_initialize=True)
         
         await wait_for_condition(lambda: not LPSMI._globals["TIMEOUT_FLAG"])
 
@@ -423,7 +491,7 @@ async def osc_handshake():
 
             else:
 
-                if missed_attempts > 3:
+                if missed_attempts >= 3:
                     
                     print()
                     print(f"Reconnected. ({missed_attempts}s)")
