@@ -80,7 +80,7 @@ def JOINT_INDEX_GROUPED(joint_number) -> list:  # get joint group for undo histo
     if joint_number in [56,54,57]:  # Right Hand XYZ
         return {"group": "Right Hand XYZ", "joints": [JOINT_INDEX[x] for x in [56,54,57]]}
     if joint_number in range(58,78):  # Right Fingers XZXX*5
-        return {"group": "Right Fingers XZXX*5", "joints": [JOINT_INDEX[x] for x in range(51,54)]}
+        return {"group": "Right Fingers XZXX*5", "joints": [JOINT_INDEX[x] for x in range(58,78)]}
     if joint_number in range(78,81):  # Left Upper Leg XYZ
         return {"group": "Left Upper Leg XYZ", "joints": [JOINT_INDEX[x] for x in range(78,81)]}
     if joint_number in range(81,83):  # Left Lower Leg XY
