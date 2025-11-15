@@ -64,7 +64,7 @@ class LPSMasterInstance:
             if not waiting_to_initialize:
                 for key,value in self.vrc_osc_dict.items():
                     if value == -1:
-                        print(f"{Fore.YELLOW}Found uninitialized parameter: {key}{Style.RESET_ALL}")
+                        print(f"{Fore.YELLOW}Found uninitialized LPS parameter: {key}{Style.RESET_ALL}")
 
             tries = 0
             warning = True
@@ -516,8 +516,7 @@ class LPSMasterInstance:
         if len(self.vrc_osc_dict) == 0:
             print("Warning: vrc_osc_dict is empty. LPS may not be fully initialized or it wasn't provided.")
 
-        if -1 in self.vrc_osc_dict.values():
-            print("-1 found in vrc_osc_dict. The OSC program may not have fully caught up for some reason.")
+        await self.scan_for_unitialized_values()
         
         if save_type == 0:
             reference_file_path = f"Presets/Poses/preset_1.lpspose"
