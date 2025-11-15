@@ -1,6 +1,6 @@
 LPS: v1.2.1 \
 LPS-OSC: v1.0.3 \
-For LPS versions: v1.2.0, v1.2.1
+For LPS versions: v1.2.1
 # LexisPosingSystem Documentation
 Lexi's Posing System, also known as LPS, is a tool for VRChat avatars that allows users to carry and pose up to 3 clones of their avatar or other avatars they've created.
 Unlike other takes on posing systems, this system uses _too many to count_ parameters to control a shared armature for the puppets. The parameters store information about the puppet transform data to allow persistence and various quality-of-life features. \
@@ -36,8 +36,9 @@ Contents: (Protip: [|^|](https://github.com/IlexisTheMadcat/LexisPosingSystem/bl
     - [Saving](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#saving)
       - [Folders](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#folders)
       - [Save slots](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#save-slots)
+    - [Manipulation](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#manipulation)
     - [Rotation](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#rotation)
-    - [Hands & Eyes](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#hands--eyes)
+    - [Hands](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#hands)
     - [Eyes](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#eyes)
   - [Gadgets](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#gadgets)
     - [Rotation Gadgets](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#rotation-gadgets)
@@ -98,84 +99,95 @@ There are 4 mini-steps shown here. \
 [|^|](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#lexisposingsystem-documentation) The Menu Pointer object was added in v1.1.0. Position this exactly where you placed your VRC viewpoint, then activate the constraint. This pointer allows you to look at a joint and edit it on demand using just one page in the Rotation menu. Adjust the length of the contact under this object to suit your needs. \
 ![image](https://github.com/user-attachments/assets/09b04bc6-1b91-4363-aa43-03c3b35c9603)
 ### 12) Clean up
-[|^|](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#lexisposingsystem-documentation) Cleanup time! Search "Cylinder 1 (approx)" in the hierarchy search bar and turn all those off to hide the approximation preview handles on the player model as they aren't used. To hide (or unhide) the system, toggle the "Puppet Avatar Container" object. The system will not automatically toggle on things that aren't supposed to be toggled off. If you have Gesture Manager installed via VCC, you can press play to test the posing system. If your avatar has special components like Modular Avatar or VRCFury anywhere in its hierarchy, check important notes in the [contents](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#lexisposingsystem-documentation) to resolve potential issues. Build and Test in the VRChat SDK to use the posing system!
+[|^|](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#lexisposingsystem-documentation) Cleanup time! Search "Cylinder 1 (approx)" in the hierarchy search bar and turn all those off to hide the approximation preview handles on the player model as they aren't used. To hide (or unhide) the system, toggle the "Puppet Avatar Container" object. The system will not automatically toggle on things that aren't supposed to be toggled off. If you have Gesture Manager installed via VCC, you can press play to test the posing system. If your avatar has special components like Modular Avatar or VRCFury anywhere in its hierarchy, check important notes in the [contents](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#lexisposingsystem-documentation) to resolve potential issues. __Build and Test__ in the VRChat SDK to use the posing system!
 
 # Usage
 [|^|](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#lexisposingsystem-documentation) When you load into a world, you will experience a large lag spike as everything loads in. This is normal. \
-Please do not load an LPS avatar in a public or group instance. It is recommended to load in a private instance. No one can see your LPS progress unless you use VRChat's VRC+ print out camera or share your screen/stream camera.
+Please do not load an LPS avatar in a public or group instance (test builds are local so this shouldn't matter). It is recommended to load in a private instance. No one can see your LPS progress unless you use VRChat's VRC+ print out camera or share your screen/stream camera.
 ## Menus
-[|^|](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#lexisposingsystem-documentation) In v1.1.0, some new icons were introduced after documentation was edited. Some menu icons shown here may not match exactly with the final product.
+[|^|](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#lexisposingsystem-documentation) Menu items are described in counter-clockwise order from the top. \
+In v1.1.0, some new icons were introduced after documentation was edited. Some menu icons shown here may not match exactly with the final product.
 ### Lexi's Posing System
 [|^|](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#lexisposingsystem-documentation) Main menu of LPS. \
-![image](https://github.com/user-attachments/assets/48665cc2-5331-465c-9c8f-fef6486b5307)
-1) Enable the system. When turned off, all puppets are hidden. It doesn't offer a great performance boost though.
-2) Drop the currently selected puppet. It will retain this position until undropped.
-3) Rotate joints on the puppet.
-4) Move the puppet in its own XYZ local space. Useful for getting to hard-to-reach or mid-air spots.
-5) Scale the puppet.
-6) Operate the MMD facials of the puppet.
-7) Operate the fingers and eyes of the puppet.
-8) Settings.
+![image](https://github.com/user-attachments/assets/759a5e97-1f04-44fd-a7c8-38a5aa5bb639)
+- Enable the puppet
+- Drop the puppet
+- [Manipulate the puppet](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#manipulation)
+- Select and scale the puppet
+- MMD Face controls
+- [Eye gaze controls](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#eyes)
+- [Finger joints](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#hands)
+- [Settings](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#settings)
 ### Settings
 [|^|](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#lexisposingsystem-documentation) Control various parts of LPS. \
-![image](https://github.com/user-attachments/assets/4580f738-5c4e-48b7-8b5b-4807ffa43092)
-1) Reset the puppet to T-Pose. Applies to rotation, scale, and translation, but not facials. Reset the face in the MMD Facials menu.
-   - This button must be held for at least 2 seconds.
-2) Show and enable a rig of ball joints that you can look at to control them via the Rotation menu. Initializes enabled when on desktop.
-   - See [Aim Joint Gadgets](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#aim-joint-gadgets)
-3) Show a rig of blue bones that you can grab to move the bones. Initializes enabled when in VR.
-   - See [Physbone Gadgets](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#physbone-gadgets)
-   - Image showcase: [Ilexis Nakamori @ Twitter/X](https://x.com/IlexisTheMadcat/status/1826079313751330868)
-4) Show a rig of gadgets that show which directions a joint will move and their bounds.
-   - See [Rotation Gadgets](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#rotation-gadgets)
-   - ⚠️ Warning: This option induces a mild drop in graphics performance. It is not meant to be on all the time.
-6) Save the puppet's pose for future use.
-7) Gradually increase this radial to make the puppet follow the player avatar's pose.
-   - Video showcase: [Ilexis Nakamori @ Twitter/X](https://x.com/IlexisTheMadcat/status/1830530510415646992)
-8) Select a puppet and toggle it on or off individually. Repeat Quick Start with puppets 2 and 3 to utilize this.
-   - Video showcase: [Ilexis Nakamori @ Twitter/X](https://x.com/IlexisTheMadcat/status/1844836318800384248)
+![image](https://github.com/user-attachments/assets/bc890386-dff1-4f95-ad39-1cff5f83d267)
+- Hold for 2 seconds to reset the pose.
+- Press and hold to carry all puppets, release to drop all. This is to make multi-puppet scene setup more convenient.
+- Gradually increase this radial to make the puppet follow the player avatar's pose. [(Video)](https://x.com/IlexisTheMadcat/status/1830530510415646992)
+- [Saving](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#saving) (OSC-exclusive)
+- Show a rig of [rotation gadgets](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#rotation-gadgets) that show which directions a joint will move and their bounds.
+- Show a rig of [blue bones](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#physbone-gadgets) that you can grab to move the bones. Initializes enabled when in VR.
+- Show and enable a rig of [ball joints](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#aim-joint-gadgets) that you can look at to control them via the [Manipulation](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#manipulation) menu. Initializes enabled when on desktop.
 ### Saving
-[|^|](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#lexisposingsystem-documentation) This feature lets you save poses to your avatar's saved settings. These aren't transferrable between avatars or to/from test builds. \
-Applies to joint rotations. Applies to facials as of v1.1.0. Facials and hands separately as of v1.2.0. \
-LPS-OSC allows saving/loading from json files and operating on test builds. See [OSC Program](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#osc-program). \
-Video showcase: [Ilexis Nakamori @ Twitter/X](https://x.com/IlexisTheMadcat/status/1830112245851779523)
+[|^|](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#lexisposingsystem-documentation) Using the [OSC Program](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#osc-program), this lets you import and export poses into JSON format. Each folder follows the same [save slots](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#save-slots) format, with each one having a different set of slot numbers.
 #### Folders
-![image](https://github.com/user-attachments/assets/ea3d439a-fa0a-4546-a650-5678c7a20af5)
-1) For hand saves, off: left hand, on: right hand.
-2) Pose saves (4-6 OSC only)
-3) Hand saves (OSC only)
-4) Face saves (OSC only)
+![image](https://github.com/user-attachments/assets/f210486a-de7f-47b8-8227-3682709792ba)
+- For hand saves, off: left hand, on: right hand
+- Pose saves (includes ALL joint rotations and MMD controls)
+- Hand saves (includes all finger joints.)
+- Face saves (includes MMD controls)
+- Scene saves include pose and [local translation](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#move-gadget) data for all 3 puppets.
 #### Save slots
-![image](https://github.com/user-attachments/assets/36aad0c0-1a3e-4e7e-903e-315da4db3423)
-1) Begin saving a pose. Click one of the three slots to save. **WILL NOT ASK FOR CONFIRMATION.**
-2) Begin loading a pose. Click one of the three slots to load. **WILL NOT ASK FOR CONFIRMATION.**
-3) Save slots. Press and hold these to load or save. You'll see it happen when the save/load icon turns off.
-- When save or load are not selected, when held, these buttons preview their respective save slot. The working pose will be restored when released.
-- The save slot buttons must be held for at least 2 seconds to save to or load from.
-- ℹ️ As of v1.2.1, saving will only work with OSC in favor of JSON file management.
+![image](https://github.com/user-attachments/assets/497520a3-72f5-49a6-9c76-8d3ccb47e7e1)
+- Begin saving a pose. Click one of the three slots to save.
+- Begin loading a pose. Click one of the three slots to load.
+- 6x: Save slots. Press and hold for 2 seconds to load or save. You'll see it happen when the save/load icon turns off.
+   - When save or load are not selected, when held, these buttons preview their respective save slot. The working pose will be restored when released.
+   - Scenes currently cannot be previewed, but you can press undo on each affected puppet to restore its previous pose.
+### Manipulation
+[|^|](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#lexisposingsystem-documentation) Manipulate the puppet, including [local translation](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#move-gadget), [aim joint control](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#aim-joint-gadgets) and [bone rotation](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#rotation). Most of the submenus are similar to this one and follow a standard layout. \
+![image](https://github.com/user-attachments/assets/e44c241c-6fb0-4f40-83ae-9d52131d544b)
+- Undo (OSC-exclusive)
+- Submenu/bone name
+- Pivot the joint
+- Twist the joint, if applicable
+- [Move the puppet](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#move-gadget)
+- [Rotation](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#rotation)
+- Enable to freeze the aim joint tracker
+- Redo (OSC-exclusive)
 ### Rotation
 [|^|](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#lexisposingsystem-documentation) Rotate the joints of your puppets. \
-![image](https://github.com/user-attachments/assets/9ac92a41-0921-46ef-b01d-d044358c0b02)
-1) Undo (OSC only)
-2) Redo (OSC only)
-3) Joint children.
-4) Pivot the joint.
-5) Twist the joint, if applicable.
-6) Selected joint name, manual XYZ joint rotation. The Hips rotation menu will rotate the entire puppet.
-   - Some joints do not have all of XYZ or have both controllers because they don't move in those directions.
-- The first submenu of the Rotation menu controls the joint you are looking directly at, if you have Aim Joint Gadgets enabled.
-### Hands & Eyes
-[|^|](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#lexisposingsystem-documentation) Control the fingers and eye look directions. \
-![image](https://github.com/user-attachments/assets/70652e51-02c9-4fdc-a31e-1a65d50dbac7)
-1) Left/Right hands. Includes submenus for each finger. Each finger has a joint control for the three joints and a sideways movement called "spread".
-2) Left/Right hand presets. Utilize this and save a lot of time in posing by choosing a preset best for the occasion. You can pose after presetting.
-3) Eyes.
+![image](https://github.com/user-attachments/assets/9a6c58b2-f31f-4423-94fc-7eed63ad473e)
+- Undo (OSC-exclusive)
+- Selected joint name, manual XYZ joint rotation. The Hips rotation menu will rotate the entire puppet.
+- Pivot the joint
+- Twist the joint, if applicable
+- Right joint child
+- Middle joint child
+- Left joint child
+- Redo (OSC-exclusive)
+### Hands
+[|^|](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#lexisposingsystem-documentation) Control the fingers of each hand. \
+![image](https://github.com/user-attachments/assets/fcb118ab-3643-4269-b147-71a80720dbed)
+- Undo (OSC-exclusive)
+- Copy Right to Left
+- Right hand presets
+- Right hand fingers
+- Left hand fingers
+- Left hand fingers
+- Copy Left to Right
+- Redo (OSC-exclusive)
 ### Eyes
 [|^|](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#lexisposingsystem-documentation) Eye submenu. \
-![image](https://github.com/user-attachments/assets/dae6f163-648f-46dd-ba29-e3231594a84c)
-1) Right eye XY rotation.
-2) Left eye XY rotation. 
-- Z is not included because eyes don't normally twist.
+![image](https://github.com/user-attachments/assets/55c3db93-3266-4b8c-b946-0408192b685e)
+- Undo (OSC-exclusive)
+- Copy Right to Left
+- Right eye X rotation
+- Right eye Y rotation
+- Left eye Y rotation
+- Left eye X rotation
+- Copy Left to Right
+- Redo (OSC-exclusive)
 ## Gadgets
 [|^|](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#lexisposingsystem-documentation) LPS includes various gadgets to enable various posing methods and views.
 ### Rotation Gadgets
@@ -276,10 +288,10 @@ Also, LPS is meant to be installed on a copy of your avatar and not on your prim
 
 # OSC Program
 [|^|](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#lexisposingsystem-documentation) An OSC program is available for download in Releases. It extends the posing system's ability to save and load pose data with JSON files. It lets you transfer your saves anywhere, you can share with friends or communities, and it allows using save information on test builds! You no longer have to upload your LPS builds to save pose data. The program will automatically connect to a running instance of LPS and switch the system from local to OSC mode. 
-- In local mode, LPS is limited to the 3 pose slots. The avatar has to be uploaded to actually save this data, pose data will not actually save on test builds. 
-- In OSC mode, LPS can communicate with the OSC program to save pose parameters to json files. It also supports saving just the hands and just the faces separately with their own save slots allocated.
+- LPS can communicate with the OSC program to save pose parameters to json files. It also supports saving just the hands and just the faces separately with their own save slots allocated.
   - To load a file into a save slot, navigate to the directory in the config file ("`.../Documents/Lexi's Posing System`" by default) and move the json file into a slot folder. If that directory doesn't exist, try previewing an empty save slot and it will be created. The file can be named whatever, the program will read it. It will not read multiple files in the slot folder, only one of them. If a file is not in that folder, LPS can generate one once saving to it. If there *is* one in the folder, LPS will overwrite it without warning! You can check if a file is loaded in that slot by turning off saving/loading and clicking a save slot, beginning a quick peek preview.
-  - File saves are categorized into 3 folders: Poses, Faces, and Hands, with their indicators being 0, 1, and 2 respectively. The save type will be displayed at the beginning of the json file. LPS-OSC will refuse to load files with mismatched indicators. If you force the indicator to match, it may not load properly!
+  - File saves are categorized into 4 folders: Poses, Faces, Hands, and Scenes, with their indicators being 0 (`.lpspose`), 1 (`.lpsface`), 2 (`.lpshand`), and 3 (`.lpsscene`) respectively. The save type will be displayed at the beginning of the json file. LPS-OSC will refuse to load files with mismatched indicators. If you force the indicator to match, it may not load properly!
+<img width="1040" height="360" alt="image" src="https://github.com/user-attachments/assets/6de9e9a8-0a1e-470b-b5d8-affdd4cf035f" />
   
 # End
 [Return to top](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#lexisposingsystem-documentation)
