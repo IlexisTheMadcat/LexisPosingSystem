@@ -1,7 +1,7 @@
 ---
 name: Bug report
-about: 'version: Bug Title'
-title: ''
+about: Report a bug
+title: 'version: Bug Title'
 labels: bug
 assignees: IlexisTheMadcat
 
