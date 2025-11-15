@@ -1,9 +1,9 @@
 ---
 name: Feature request
-about: Suggest an idea for this project
+about: 'version: Suggestion Title'
 title: ''
-labels: ''
-assignees: ''
+labels: enhancement
+assignees: IlexisTheMadcat
 
 ---
 
