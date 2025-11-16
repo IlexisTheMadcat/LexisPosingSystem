@@ -56,7 +56,7 @@ Contents: (Protip: [|^|](https://github.com/IlexisTheMadcat/LexisPosingSystem/bl
 - [OSC Program](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#osc-program)
 
 # Quick Start
-[|^|](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#lexisposingsystem-documentation) Video guide: [LPS Installation](https://youtu.be/CJR3EyofTH4) \
+[|^|](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#lexisposingsystem-documentation) Video guide: [LPS Installation](https://youtu.be/CJR3EyofTH4)
 
 **LPS comes with a variant prefab that has VRChat's robot pre-loaded. If you just want to test the asset for now, skip to step 10!**
 
