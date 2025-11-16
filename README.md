@@ -7,7 +7,7 @@ Unlike other takes on posing systems, this system uses _too many to count_ param
 This posing system can be purchased here: https://ilexisthemadcat.booth.pm/items/6215800 \
 Demo video: [[VRChat] Lexi's Posing System Demo (March 2025)](https://youtu.be/avXMTtn-ZQQ)
 
-This posing system is meant for building to TEST! There will be absolutely NO NEED TO UPLOAD! Just move the LPS object off the avatar to upload updates to the avatar itself. Please note that VRChat still imposes hard component limits to test builds too. Your avatar will have to have under 92 physbone components to clone and build to test. Advanced setups can yield more room for physbones.
+This posing system is meant for building to TEST! There will be absolutely NO NEED TO UPLOAD! Other people can't see what you're doing even on an uploaded build. Just move the LPS object off the avatar to upload updates to the avatar itself. Please note that VRChat still imposes hard component limits to test builds too. Your avatar will have to have under 92 physbone components to clone and build to test. Advanced setups can yield more room for physbones. 
 
 Community Server: https://discord.gg/ilexissloft \
 Please stop by if you have any questions about setup or want to suggest something. Select Lexi's Assets in onboarding and scroll down the channels for #storefront!
@@ -60,7 +60,7 @@ Contents: (Protip: [|^|](https://github.com/IlexisTheMadcat/LexisPosingSystem/bl
 
 **LPS comes with a variant prefab that has VRChat's robot pre-loaded. If you just want to test the asset for now, skip to step 10!**
 
-Start by duplicating your scene. You don't want to upload this to your main avatar. Once you do that, open it, and detach the blueprint ID in the Pipeline Manager component. It is located where you'll find the VRC Avatar Descriptor. This will make the SDK forget the avatar for that scene so you'll upload a new avatar. \
+Start by duplicating your scene. You don't want to potentially mess up your main avatar. \
 LPS has a fairly simple setup process thanks to the required package [Modular Avatar](https://modular-avatar.nadena.dev/docs/intro). You can follow the instructions on that page to install Modular Avatar via the VRChat Creator Companion app. 
 ### 1) Drag prefab into scene
 [|^|](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#lexisposingsystem-documentation) Drag the prefab from the installation's Prefab folder into your avatar.
