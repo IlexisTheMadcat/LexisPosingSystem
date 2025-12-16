@@ -113,14 +113,14 @@ In v1.1.0, some new icons were introduced after documentation was edited. Some m
 ### Lexi's Posing System
 [|^|](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#lexisposingsystem-documentation) Main menu of LPS. \
 ![image](https://github.com/user-attachments/assets/759a5e97-1f04-44fd-a7c8-38a5aa5bb639)
-- Enable the puppet
-- Drop the puppet
-- [Manipulate the puppet](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#manipulation)
-- Select and scale the puppet
-- MMD Face controls
-- [Eye gaze controls](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#eyes)
-- [Finger joints](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#hands)
 - [Settings](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#settings)
+- [Finger joints](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#hands)
+- [Eye gaze controls](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#eyes)
+- MMD Face controls
+- Select and scale the puppet
+- [Manipulate the puppet](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#manipulation)
+- Drop the puppet
+- Enable the puppet
 ### Settings
 [|^|](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#lexisposingsystem-documentation) Control various parts of LPS. \
 ![image](https://github.com/user-attachments/assets/bc890386-dff1-4f95-ad39-1cff5f83d267)
