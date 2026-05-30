@@ -281,7 +281,7 @@ VRC Constraints: 305 total
 
 Recommended Hardware:
 - CPU: AMD Ryzen 7 5800X/X3D / Intel Core i7-11700K
-- GPU: NVidia GTX 3060 / AMD 6600-XT
+- GPU: NVidia RTX 3060 / AMD 6600XT
 
 World: [Minesweeper](https://vrchat.com/home/world/wrld_48f47d66-8686-4fe9-92d5-ab4a00068b68/info) \
 FPS drop on recommended hardware: ~130 -> ~45
