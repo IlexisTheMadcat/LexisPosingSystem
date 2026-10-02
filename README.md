@@ -12,7 +12,7 @@ This posing system is meant for building to TEST! There will be absolutely NO NE
 Community Server: https://discord.gg/ilexissloft \
 Please stop by if you have any questions about setup or want to suggest something. Select Lexi's Assets in onboarding and scroll down the channels for #storefront!
 
-LPS version updates are announced on [Twitter/X](https://x.com/IlexisTheMadcat) and [BlueSky](https://bsky.app/profile/ilexisthemadcat.bsky.social). \
+LPS version updates are announced on [Twitter/X](https://x.com/IlexisTheMadcat). \
 See [Statistics](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#statistics) at the bottom of this page for performance drop notices.
 
 Contents: (Protip: [|^|](https://github.com/IlexisTheMadcat/LexisPosingSystem/blob/main/README.md#lexisposingsystem-documentation) takes you back here!)
